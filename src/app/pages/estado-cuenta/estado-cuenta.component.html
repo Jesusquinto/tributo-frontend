@@ -1,0 +1,394 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+style="min-height: 600px; background-size: cover; background-position: center top;"
+style="background: url('/assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;"
+>
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-6"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Hola! {{userNombre}}</h1>
+        <p class="text-white mt-0 mb-5">Este es el apartado del estado de tu cuenta. Aquí podras, Llevar un conteo y
+          administrar con detalle todos los tramites de tu cuenta</p>
+        <a role="button" class="btn btn-info">De acuerdo!</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+
+
+
+
+  <mat-sidenav-container style="max-height: 550px !important; border-radius: 10px; z-index: 0;">
+
+
+    <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over' ">
+
+
+
+
+      <nav class="navbar navbar-horizontal navbar-expand-lg navbar-white bg-white">
+        <div class="container">
+          <a class="navbar-brand" href="#">Tus tramites</a>
+
+
+
+
+
+          <a class="nav-link nav-link-icon" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" style="position: relative;
+          left: 20% !important;">
+            <i style="font-size: 20px;" class="ni ni-ui-04"></i>
+            <span class="nav-link-inner--text d-lg-none"></span>
+          </a>
+
+
+          <a class="navbar-toggler nav-link nav-link-icon" href="#" role="button" style=" margin-right: -70px">
+            <i style="font-size: 20px;" class="ni ni-fat-remove"></i>
+            <span class="nav-link-inner--text d-lg-none"></span>
+          </a>
+
+
+
+
+
+          <li class="nav-item dropdown">
+
+
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1"
+              style="width: 260px; text-align: center">
+              <div class="row p-3">
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                      
+                    <input [(ngModel)]="searchText" type="text" id="input-nombreacto" class="form-control form-control-alternative"
+                      placeholder="Nombre acto">
+                  </div>
+                </div>
+                <div class="col-lg-12 ">
+                  <div class="form-group">
+                    <input type="text" id="input-nombreacto" class="form-control form-control-alternative"
+                      placeholder="Nombre acto">
+                  </div>
+                </div>
+              </div>
+              <!-- <div *ngIf="i">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">Actos encontrados {{i}}</a>
+              </div> -->
+
+              <!-- <div *ngIf="!i">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">No se encontraron datos</a>
+              </div> -->
+            </div>
+          </li>
+        </div>
+      </nav>
+
+
+
+
+      <mat-nav-list class="p-0 mailbox-sidenav-list" style="width: 320px !important;">
+
+
+
+
+
+       
+        <div *ngFor="let acto of actos | ActoSearch: searchText; let i = index " (click)="viewDetail(acto)">
+          <perfect-scrollbar style="max-height: 500px;">
+
+            <div class="tributo card card-stats mb-lg-0" [ngClass]="{'selected': acto.selected}">
+              <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+                <div class="row">
+                  <div class="col">
+                    <h6 class="card-title text-uppercase text-muted mb-0">{{acto.descripcion}}</h6>
+                    <span class="h3 font-weight-bold mb-0">{{acto.fkActoEntidad.fkBcActo.nombreActo}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                      <i class="ni"
+                        [ngClass]="{'ni-single-copy-04': acto.selected , 'ni-folder-17': !acto.selected}"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mb-0 text-muted text-sm">
+
+
+                  
+
+                  <span class="mr-2" [ngClass]="{'text-info' : acto.estado == 'BO', 'text-warning': acto.estado === 'PR','text-secondary': acto.estado == 'EL', 'text-danger' : acto.estado == 'LI', 'text-success': acto.estado == 'PA'}" >
+                    <i class="ni" [ngClass]="{'ni-ruler-pencil' : acto.estado == 'BO', 'ni-single-copy-04': acto.estado === 'PR','ni-archive-2': acto.estado == 'EL', 'ni-paper-diploma' : acto.estado == 'LI', 'ni-money-coins': acto.estado == 'PA'}">
+                    </i> 
+                    {{acto.valor_apagar | currency}} 
+                    <span class="badge badge-info" *ngIf="acto.estado == 'BO'">Borrador</span>
+                    <span class="badge badge-warning" *ngIf="acto.estado == 'PR'">Presentado</span>
+                    <span class="badge badge-danger" *ngIf="acto.estado == 'LI'">Liquidado</span>
+                    <span class="badge badge-success" *ngIf="acto.estado == 'PA'">Pagado</span>
+                    <span class="badge badge-secondary" *ngIf="acto.estado == 'EL'">Eliminado</span>
+                  </span>
+
+
+
+
+
+
+
+                  <span class="text-nowrap">
+                    <p matLine class="text-truncate subject">{{acto.fechaCrea | date: 'dd/MM/yyyy h:mm'  }}</p>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </perfect-scrollbar>
+
+        </div>
+      </mat-nav-list>
+
+    </mat-sidenav>
+
+
+    <nav class="navbar navbar-horizontal navbar-expand-lg navbar-dark bg-default" style="padding: 6px">
+      <div class="container">
+        <button class="navbar-toggler" (click)="sidenav.toggle()"><span class="ni ni-bullet-list-67"></span></button>
+        <div *ngIf="acto">
+
+          <h4 class="navbar-brand">{{acto.fkActoEntidad.fkBcActo.nombreActo}}</h4>
+
+
+        </div>
+      </div>
+    </nav>
+
+    <div>
+
+
+
+
+
+      <div *ngIf="acto">
+        <perfect-scrollbar style="max-height: 500px;">
+
+
+
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-sm-9">
+
+                <!-- User profile -->
+                <div class="panel panel-default" style="margin-top: 5% !important">
+                  <div class="panel-heading">
+                  </div>
+                  <div class="panel-body">
+                    <div class="profile__avatar">
+                      <img src='{{acto.fkActoEntidad.fkBcEntidad.logo || "assets/resources/Entidades/entidad_default.png"}}' width="150px" alt="...">
+                    </div>
+                    <div class="profile__header">
+                      <h3 style="margin-top: 18px">{{acto.fkActoEntidad.fkBcEntidad.nombre}} <span class="text-success mr-2"><i
+                            class="ni ni-pin-3"></i> <span
+                            class="badge badge-success">{{acto.fkActoEntidad.fkBcEntidad.fkGedivipo.nombreDepartamentp}} {{acto.fkActoEntidad.fkBcEntidad.fkGedivipo.nombreMunicipio}}
+                          </span></span></h3>
+                      <perfect-scrollbar style="max-height: 100px;">
+
+                        <p class="text-muted">
+                          {{acto.descripcion}}
+                        </p>
+                      </perfect-scrollbar>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- User info -->
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title"></h4>
+                  </div>
+                  <div class="panel-body" >
+                    <div class="card shadow" style="width: 100% !important">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class="mb-0">Movimientos del tributo </h3>
+                          </div>
+                          <div class="col text-right">
+                            <button class="btn btn-sm btn-primary">Ver todos</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <!-- Projects table -->
+                        <table class="table align-items-center table-flush">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">Movimiento</th>
+                              <th scope="col">estado</th>
+                              <th scope="col">Total</th>
+                              <th scope="col">fecha</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+
+                            <tr *ngIf="acto.fechaCrea">
+                              <th scope="row">Creacion</th>
+                              <td><i class="ni ni-fat-add text-success mr-3"></i> Creado</td>
+                              <td>{{acto.valorApagar | currency}} </td>
+                              <td> {{acto.fechaCrea | date: 'dd/MM/yyyy h:mm'  }}</td>
+                            </tr>
+
+
+
+                            <tr *ngIf="acto.fechaBorrador">
+                              <th scope="row">Edicion</th>
+                              <td><i class="ni ni-ui-04 text-success mr-3"></i> Editado</td>
+                              <td>{{acto.valorApagar | currency}} </td>
+                              <td> {{acto.fechaBorrador | date: 'dd/MM/yyyy h:mm'}}</td>
+                            </tr>
+
+                            <tr *ngIf="acto.fechaPago">
+                              <th scope="row">Pagado</th>
+                              <td><i class="ni ni-money-coins text-success mr-3"></i> Pagado</td>
+                              <td>{{acto.valorApagar | currency}} </td>
+                              <td> {{acto.fechaPago | date: 'dd/MM/yyyy h:mm'}}</td>
+                            </tr>
+
+
+
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Community -->
+            <!--     <div class="panel panel-default mt-5">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">Detalles del tributo</h4>
+                  </div>
+                  <div class="panel-body">
+                    <table class="table profile__table">
+                      <tbody>
+                        <tr>
+                          <th><strong>Contrato perteneciente</strong></th>
+                          <td>{{acto.contrato.nombre}}</td>
+                        </tr>
+                        <tr>
+                          <th><strong>Valor contrato</strong></th>
+                          <td>{{acto.contrato.valor | currency}}</td>
+                        </tr>
+                        <tr>
+                          <th><strong>Valor tributo</strong></th>
+                          <td>{{acto.monto | currency}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div> -->
+
+
+
+
+
+                <!-- Latest posts -->
+
+
+              </div>
+              <div class="col-xs-12 col-sm-3">
+
+                <!-- Contact user -->
+                <p class="mt-5">
+                  <a class="profile__contact-btn btn btn-lg btn-block btn-primary text-white" data-toggle="modal"
+                    data-target="#profile__contact-form">
+                    <i class="ni ni-money-coins"></i>Liquidar Tributo
+                  </a>
+                </p>
+                <p>
+                  <a class="profile__contact-btn btn btn-lg btn-block btn-danger text-white" data-toggle="modal"
+                    data-target="#profile__contact-form">
+                    <i class="ni ni-ruler-pencil"></i> Borrar tributo
+                  </a>
+                </p>
+
+
+                <hr class="profile__contact-hr">
+
+                <!-- Contact info -->
+                <div class="profile__contact-info">
+                  <div class="profile__contact-info-item">
+                    <div class="profile__contact-info-icon">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <div class="profile__contact-info-body">
+                      <h5 class="profile__contact-info-heading">Entidad</h5>
+                      {{acto.fkActoEntidad.fkBcEntidad.telefono}}
+                    </div>
+                  </div>
+                  <div class="profile__contact-info-item">
+                    <div class="profile__contact-info-icon">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <div class="profile__contact-info-body">
+                      <h5 class="profile__contact-info-heading">Encargado</h5>
+                      {{acto.fkActoEntidad.fkBcEntidad.contactoTelefono}} | {{acto.fkActoEntidad.fkBcEntidad.contactoNombre}}
+                    </div>
+                  </div>
+                  <div class="profile__contact-info-item">
+                    <div class="profile__contact-info-icon">
+                      <i class="fa fa-envelope-square"></i>
+                    </div>
+                  <div class="profile__contact-info-body">
+                      <h5 class="profile__contact-info-heading">E-mail entidad</h5>
+                      {{acto.fkActoEntidad.fkBcEntidad.contactoEmail}}
+                    </div> 
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+           
+
+
+            <div *ngIf='viewpdf' class="container">
+              <ngx-extended-pdf-viewer height="75vh" delayFirstView="250" [src]=tributo.contrato.pdf
+                useBrowserLocale="true"> </ngx-extended-pdf-viewer>
+
+            </div>
+
+
+          </div>
+        </perfect-scrollbar>
+      </div>
+      <div *ngIf="!acto" fxLayout="column" fxLayoutAlign="center center" class="container"
+        style="text-align: center;  padding-top: 150px; padding-bottom: 150px">
+        <i class="ni ni-folder-17 text-default" style="font-size: 100px"></i>
+        <p class="mt-2">Seleccione un acto a administrar</p>
+      </div>
+    </div>
+  </mat-sidenav-container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

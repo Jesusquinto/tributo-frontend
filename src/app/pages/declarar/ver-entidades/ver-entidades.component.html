@@ -1,0 +1,49 @@
+
+<div class="row">
+
+
+        <div *ngFor="let entidad of entidades; let i = index" class="col-xl-3 order-xl-2 mb-5 mb-xl-0" style="margin-top: 7%">
+           <div style="background: url('assets/img/brand/back_entidad_default.png');    background-repeat: no-repeat;">
+              <div class="row justify-content-center">
+                <div class="col-lg-3 order-lg-2">
+                  <div class="card-profile-image" (click)="viewActos(entidad)">
+                    <a >
+                      
+                      <img  src='{{"http://192.168.1.78:5000/rest/v1/uploads/img/" + entidad.logo || "/assets/resources/Entidades/entidad_default.png"}}' width="848px" style="border-radius: 10px" >
+                      
+                    </a>
+
+                  </div>
+
+                </div>
+              
+              </div>
+
+            
+              <div class="text-center" style="margin-top: 140px">
+                  <h3>
+                   {{entidad.nombre}}
+                  </h3>
+                 
+                </div>
+              </div>
+          </div>
+    </div>
+
+
+    <div *ngIf="!entidades" fxLayout="column" fxLayoutAlign="center center" class="container"
+    style="text-align: center;  padding-top: 150px; padding-bottom: 150px">
+    <i class="ni ni-building text-default" style="font-size: 100px"></i>
+    <p class="mt-2">Utilice los filtros para encontrar su entidad</p>
+  </div>
+
+  <div *ngIf="isEmptyObject(entidades)" fxLayout="column" fxLayoutAlign="center center" class="container"
+  style="text-align: center;  padding-top: 150px; padding-bottom: 150px">
+  <i class="ni ni-support-16 text-default" style="font-size: 100px"></i>
+  <p class="mt-2">No se encontraron entidades con esos parametros</p>
+</div>
+
+
+
+
+<!--     <img src="assets/img/brand/back_entidad_default.png" width="300px"> -->

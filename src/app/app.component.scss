@@ -1,0 +1,77 @@
+#app-spinner{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: rgb(255, 255, 255);
+    z-index: 999999;
+    visibility: visible;
+    opacity: 1;
+   
+    -webkit-transition: visibility 0.5s, opacity 1s linear;
+    -moz-transition: visibility 0.5s, opacity 1s linear;
+    transition: visibility 0.5s, opacity 1s linear;
+    &.hide{
+        visibility: hidden;
+        opacity: 0; 
+    }
+    h4{
+      font-weight: 600;
+        margin-top: 10px;
+        letter-spacing: 0.02em;
+        color: #dc0330;
+        opacity: 0;
+        text-transform: uppercase;
+        -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
+        -o-animation: loading-text-opacity 2s linear 0s infinite normal;
+        -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
+        animation: loading-text-opacity 2s linear 0s infinite normal;
+    }
+}
+
+
+
+.lds-circle {
+ 
+}
+.lds-circle > div {
+ 
+}
+@keyframes lds-circle {
+ 
+}
+
+
+
+@keyframes loading-text-opacity {
+    0%  {opacity: 0}
+    20% {opacity: 0}
+    50% {opacity: 1}
+    100%{opacity: 0}
+}
+@-moz-keyframes loading-text-opacity {
+    0%  {opacity: 0}
+    20% {opacity: 0}
+    50% {opacity: 1}
+    100%{opacity: 0}
+}
+@-webkit-keyframes loading-text-opacity {
+    0%  {opacity: 0}
+    20% {opacity: 0}
+    50% {opacity: 1}
+    100%{opacity: 0}
+}
+@-o-keyframes loading-text-opacity {
+    0%  {opacity: 0}
+    20% {opacity: 0}
+    50% {opacity: 1}
+    100%{opacity: 0}
+}

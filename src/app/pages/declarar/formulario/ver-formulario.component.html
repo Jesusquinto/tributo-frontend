@@ -1,0 +1,246 @@
+
+<div *ngIf="datos.controls" class="container" style="max-width: 600px">
+<form [formGroup]="datos" #f="ngForm" enctype="multipart/form-data">
+  <div class="card bg-secondary shadow">
+
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h3 class="mb-0">Declarar {{acto.fkBcActo.nombreActo}}  <span
+            class="badge badge-success">{{acto.codigo}}
+          </span></h3>
+        </div>
+
+        <div class="col-4 text-right">
+          <button   class="btn btn-sm btn-primary" (click)="declarar(datos)">
+            Declarar
+          </button>
+         
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row">
+          <div class="col-lg-7">
+      <h6 class="heading-small text-muted mb-4">Datos del acto a declarar</h6>
+
+
+          </div>
+
+          <div class="col-lg-5 ">
+              
+            <div class="form-group mb-0">
+              <label class="form-control-label" for="input-valorapagar" >Valor a pagar</label>
+              <div class="alert alert-warning" role="alert" style="padding: 5px;margin: 0px">
+                  <span class="alert-inner--icon ml-2 mr-2"><i class="ni ni-money-coins"></i></span>
+                  <span class="alert-inner--text">{{valorapagar | currency}} </span>
+              </div>
+              <button style="font-size: 12px;
+              width: 100%;
+              padding: 2px;
+              margin-top: 2px;" type="button" class="btn btn-primary" (click)="calcular()">
+                  <span>Calcular</span>
+                </button>
+
+            </div>
+          </div>
+        </div>
+
+
+      <div class="pl-lg-4">
+
+        
+          <div class="row">
+              <div class="col-lg-12 ">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-identificacion" >Identificación</label>
+                  <input value="{{identificacion}}" disabled type="number" id="input-identificacion"
+                    class="form-control form-control-alternative">
+    
+                </div>
+              </div>
+            </div>
+
+
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group" >
+
+              <label class="form-control-label" for="input-nombrecontrato">Nombre contrato</label>
+              <input formControlName="nombrecontrato" type="text" id="input-nombrecontrato"
+                class="form-control form-control-alternative" placeholder="Nombre del contrato">
+              <show-errors [control]="datos.controls.nombrecontrato"></show-errors>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group" >
+              <label class="form-control-label" for="input-valorcontrato">Valor contrato</label>
+              <input formControlName="valorcontrato" type="number" id="input-valorcontrato"
+                class="form-control form-control-alternative" placeholder="Valor del contrato">
+              <show-errors [control]="datos.controls.valorcontrato"></show-errors>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group" >
+              <label class="form-control-label" for="input-nombrecontrato">Numero del contrato</label>
+              <input formControlName="numerocontrato" type="number" id="input-numerocontrato"
+                class="form-control form-control-alternative" placeholder="numero del contrato">
+              <show-errors [control]="datos.controls.numerocontrato"></show-errors>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group" >
+              <label class="form-control-label" for="input-fechainiciocontrato">Fecha inicio contrato</label>
+              <!-- <input formControlName="fechainiciocontrato" type="number" id="input-fechainiciocontrato"
+                class="form-control form-control-alternative" placeholder="Valor del contrato"> -->
+                <mat-form-field style="width: 100%">
+                  <input formControlName="fechainiciocontrato" matInput [matDatepicker]="picker" placeholder="Seleciona la fecha" >
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              <show-errors [control]="datos.controls.fechainiciocontrato"></show-errors>
+            </div>
+          </div>
+        </div>
+
+       
+
+
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group" >
+              <label class="form-control-label" for="input-contratante">Contratante</label>
+              <mat-form-field style="width: 100%">
+                <mat-select placeholder="Contratante"  (changeSelection)="setContratante($event)" id="input-contratante">
+                  <mat-option>
+                    <ngx-mat-select-search formControlName="contratanteSearch"
+                    [noEntriesFoundLabel]="'No se encontró el contratante'"
+                    [placeholderLabel]="'Nombre del contratante'"
+                    
+                    >   <div ngxMatSelectSearchClear><div class="ni ni-fat-remove"></div></div>
+                  </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let contratante of contratantes | ContratanteSearch : datos.controls.contratanteSearch.value" [value]="contratante.fkContratante.nombreContratante"      (click)="setContratante(contratante)" >
+                    {{contratante.fkContratante.nombreContratante}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          
+
+
+
+
+
+              <!-- <select-dropdown [label]="'Contratante'" [datos]="contratantes" [selection]="contratante"
+              (changeSelection)="setContratante($event)"></select-dropdown> -->
+              <show-errors [control]="datos.controls.contratante"></show-errors>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group" >
+              <select-dropdown [label]="'Periodo'" [datos]="periodos" [selection]="periodo"
+                (changeSelection)="setPeriodo($event)"></select-dropdown>
+              <show-errors [control]="datos.controls.periodo"></show-errors>
+            </div>
+          </div>
+        </div>
+
+
+<div style="width: 95%">
+  <div class="row" style="background: #eeeeee; border-radius: 8px;   box-shadow:inset 0px 0px 8px 1px lightgrey;">
+    <div class="col-4" style="position: relative">
+        <input  type="file" name="file" id="file" class="inputfile inputfile-5" (change)="onFileChange($event)"  accept="application/pdf"/>
+        <label for="file"><figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure> <span></span></label>
+        <label *ngIf="this.datos.controls['file'].value" style="position: absolute;
+        top: 82%;
+        right: 25%;">{{this.datos.controls['file'].value.name}}</label>
+
+      </div>
+
+      <div class="col-8" style="padding-right: 0px">
+        
+          <ngx-extended-pdf-viewer *ngIf="pdfSrc && pdfSrc!=1" showSidebarButton="false"
+          [showOpenFileButton] ="false"
+          [showPrintButton]="false"
+          [showDownloadButton]="false"
+          [showBookmarkButton] ="false"
+          [showSecondaryToolbarButton]="false"
+          [showRotateButton]="false"
+          [showPropertiesButton]="false"
+          [showSelectToolButton]= "false"
+          [showSpreadButton]	="false"
+          [showPagingButtons]	="false"
+          [showPresentationModeButton]="false"
+          [showSidebarButton]="false"
+          useBrowserLocale="true" [src]="pdfSrc" backgroundColor="#eeeeee"	> </ngx-extended-pdf-viewer>
+
+          <div *ngIf="!pdfSrc " fxLayout="column" fxLayoutAlign="center center" class="container"
+          style="text-align: center;  padding-top: 30px;">
+          <i class="ni ni-paper-diploma text-default" style="font-size: 100px"></i>
+          <p class="mt-2">Seleccione el archivo pdf de su contrato</p>
+        </div>
+
+        <div *ngIf="pdfSrc === 1" fxLayout="column" fxLayoutAlign="center center" class="container"
+        style="text-align: center;  padding-top: 30px;">
+        <i class="ni ni-single-copy-04 text-default" style="font-size: 100px"></i>
+        <p class="mt-2">El archivo seleccionado no es soportado</p>
+      </div>
+
+
+      </div>
+
+
+  </div>
+  <show-errors [control]="datos.controls.file"></show-errors>
+
+
+
+</div>
+        
+       
+
+        
+
+
+
+      </div>
+      <h6 class="heading-small text-muted mb-2 ml-4">Tributos del acto</h6>
+
+      <div class="card-footer py-4 mt-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-start mb-0" style="display: block">
+
+              
+                <button *ngFor="let tributo of tributos; let i = index" (click)="verRegistros(tributo)" type="button" class="btn btn-primary" style="margin-bottom: 5px">
+                    <span>{{tributo.fkEntidadTributo.idtributo.nombre}}</span>
+                    <span class="badge badge-white">{{tributo.rangosCount}}</span>
+                  </button>
+               
+
+
+
+
+            </ul>
+          </nav>
+        </div>
+
+
+       
+
+
+    </div>
+  </div>
+
+</form>
+</div>
+
+

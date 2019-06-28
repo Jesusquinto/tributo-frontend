@@ -1,0 +1,27 @@
+<div class="row">
+    <div *ngFor="let acto of actos; let i = index" class="col-xl-4  col-md-6 col-lg-6 mb-3">
+       <div class="acto card card-stats mb-4 mb-xl-0" (click)="declararActo(acto)">
+         <div class="card-body">
+           <div class="row">
+             <div class="col">
+               <h5 class="card-title text-uppercase text-muted mb-0"><img src={{acto.fkBcEntidad.logo}}  width="80"></h5>
+            <h4 class="card-title text-uppercase text-muted">{{acto.fkBcActo.nombreActo | truncate}} </h4>
+            <hr class="my-1" />
+            <h6 class="card-title text-uppercase text-muted">{{acto.fkBcEntidad.nombre}} </h6>
+   
+             </div>
+             <div class="col-auto">
+               <div class="bg-success text-white  shadow" style="    font-size: 30px;
+               width: 100px;
+               height: 50px;
+               border-radius: 7px;
+               font-weight: bolder;
+               text-align: center;">
+                 {{acto.codigo}}
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+    </div>

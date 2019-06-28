@@ -1,0 +1,266 @@
+<div *ngIf="showit == true">
+
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+style="min-height: 600px; background-size: cover; background-position: center top;"
+style="background: url('/assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;"
+>
+
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-6"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center" *ngIf="showMessage">
+    <div class="row">
+      <div class="col-lg-7 col-md-10">
+        <h1 class="display-2 text-white">Hola! {{backdata.name}}</h1>
+        <p class="text-white mt-0 mb-5">Esta es tu pagina de perfil. Aquí podras, ver y editar los datos referentes a tu
+          persona y llevar un conteo de tus tributos</p>
+        <button role="button" (click)="hideMessage()" class="btn btn-info">De acuerdo!</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+      <div class="card card-profile shadow">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+                <img src="{{backdata.imageUrl}}" width="800" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <div class="d-flex justify-content-between">
+            <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">Tributos</a>
+            <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">Contratos</a>
+          </div>
+        </div>
+        <div class="card-body pt-0 pt-md-4">
+          <div class="row">
+            <div class="col">
+              <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                <div>
+                  <span class="heading">22</span>
+                  <span class="description">Tributos presentados</span>
+                </div>
+                <div>
+                  <span class="heading">10</span>
+                  <span class="description">Tributos liquidados</span>
+                </div>
+                <div>
+                  <span class="heading">89</span>
+                  <span class="description">Tributos pagados</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <h3>
+              {{backdata.name}}<span class="font-weight-light"></span>
+            </h3>
+            <div class="h5 font-weight-300">
+              <i class="ni location_pin mr-2"></i>Barranquilla, Colombia
+            </div>
+            <div class="h5 mt-4">
+              <i class="ni business_briefcase-24 mr-2"></i>Telefono - {{backdata.telefono}}
+            </div>
+            <div>
+              <i class="ni education_hat mr-2"></i>Tipo contribuyente - {{backdata.tipocontribuyente}}
+            </div>
+            <hr class="my-4" />
+
+            <a href="javascript:void(0)">Mis entidades</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+
+
+
+      <!-- INFORMACION BASICA!!!!! -->
+      <form *ngIf="showit == true" [formGroup]="datos" >
+        <div class="card bg-secondary shadow">
+
+          <div class="card-header bg-white border-0">
+            <div class="row align-items-center">
+              <div class="col-8">
+                <h3 class="mb-0">Mi perfíl</h3>
+              </div>
+
+
+
+
+
+              <div class="col-4 text-right">
+                <button [disabled]="datoschanged"  class="btn btn-sm btn-primary" (click)="actualizar(datos)">
+                  Actualizar
+                </button>
+               
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+
+            <h6 class="heading-small text-muted mb-4">Información personal basica</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'usuario')}">
+
+                    <label class="form-control-label" for="input-username">Usuario</label>
+                    <input formControlName="usuario" type="text" id="input-username"
+                      class="form-control form-control-alternative" placeholder="Usuario">
+                    <show-errors [control]="datos.controls.usuario"></show-errors>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'email')}">
+                    <label class="form-control-label" for="input-email">Correo</label>
+                    <input formControlName="email" type="email" id="input-email"
+                      class="form-control form-control-alternative" placeholder="tu-correo@ejemplo.com.co" disabled="true">
+                    <show-errors [control]="datos.controls.email"></show-errors>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'name')}">
+                    <label class="form-control-label" for="input-nombrecompleto">Nombre completo</label>
+                    <input formControlName="name" type="text" id="input-nombrecompleto"
+                      class="form-control form-control-alternative" placeholder="Nombre Completo">
+                    <show-errors [control]="datos.controls.name"></show-errors>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'tipoid')}">
+                    <select-dropdown [label]="'Tipo de identificación'" [datos]="idTypes" [selection]="userId"
+                      (changeSelection)="setTipoid($event)"></select-dropdown>
+                    <show-errors [control]="datos.controls.tipoid"></show-errors>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12 ">
+                  <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'identificacion')}">
+                    <label class="form-control-label" for="input-identificacion" >Identificación</label>
+                    <input formControlName="identificacion" type="number" id="input-identificacion"
+                      class="form-control form-control-alternative" placeholder="Ingrese Numero de {{userId.name}}">
+                    <show-errors [control]="datos.controls.identificacion"></show-errors>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                 
+
+                  <div class="col-lg-6">
+
+                  <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'sexo')}">
+                      <select-dropdown [label]="'Sexo'" [datos]="sexoTypes" [selection]="userSexo"
+                        (changeSelection)="setSexo($event)"></select-dropdown>
+                      <show-errors [control]="datos.controls.sexo"></show-errors>
+                    </div>
+                    </div>
+              </div>
+            
+
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'telefono')}">
+                        <label class="form-control-label" for="input-telefono">telefono</label>
+                        <input formControlName="telefono" type="number" id="input-telefono"
+                          class="form-control form-control-alternative" >
+                        <show-errors [control]="datos.controls.telefono"></show-errors>
+    
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'celular')}">
+                        <label class="form-control-label" for="input-celular">celular</label>
+                        <input formControlName="celular" type="number" id="input-celular"
+                          class="form-control form-control-alternative">
+                        <show-errors [control]="datos.controls.celular"></show-errors>
+    
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'razonsocial')}">
+                          <label class="form-control-label" for="input-razonsocial">Razón social</label>
+                          <textarea formControlName="razonsocial" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Razón social ..."></textarea>
+                          
+                          <show-errors [control]="datos.controls.razonsocial"></show-errors>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-lg-6">
+                        
+                       <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'tipocontribuyente')}">
+                            <select-dropdown [label]="'Tipo contribuyente'" [datos]="contribuyenteTypes" [selection]="userContribuyente"
+                              (changeSelection)="setContribuyente($event)"></select-dropdown>
+                            <show-errors [control]="datos.controls.tipocontribuyente"></show-errors>
+                          </div> 
+
+
+
+                      </div>
+
+
+                      <div class="col-lg-6">
+                          <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'tipousuario')}">
+                            <select-dropdown [label]="'Tipo usuario'" [datos]="typeTypes" [selection]="userType"
+                              (changeSelection)="setTipo($event)"></select-dropdown>
+                            <show-errors [control]="datos.controls.tipousuario"></show-errors>
+                          </div>
+                        </div>
+
+                      </div>
+
+
+                      <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'direccion')}">
+                              <label class="form-control-label" for="input-dirrecion">dirección</label>
+                              <input formControlName="direccion" type="text" id="input-direccion"
+                                class="form-control form-control-alternative" >
+                              <show-errors [control]="datos.controls.direccion"></show-errors>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6">
+                              <div class="form-group" [ngClass]="{'has-danger': fieldValidation(datos,'fkMunicipio')}">
+                                  <select-dropdown [label]="'Municipio'" [datos]="municipioTypes" [selection]="userMunicipio"
+                                    (changeSelection)="setMunicipio($event)"></select-dropdown>
+                                  <show-errors [control]="datos.controls.fkMunicipio"></show-errors>
+                                </div>
+                          </div>
+                        </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </form>
+
+   
+ 
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,166 @@
+<div class="card shadow" style="padding: 20px; background: #eaebec; height: 100%;">
+  <div>
+    <h1 *ngIf="estado == 'verentidades'" style="margin-bottom: 0px">Entidades</h1>
+    <h1 *ngIf="estado == 'veractos'" style="margin-bottom: 0px">Tramites</h1>
+
+
+    <span>{{resultados}} Resultados</span>
+  </div>
+
+  <div style="margin-top: 10px" *ngIf="estado == 'veractos'"> 
+      <h5>Ordenar Tramites</h5>
+      <perfect-scrollbar style="max-height: 109px;" >
+
+        <div *ngFor="let filtroTramite of filtrosTramites; let i = index" >
+          <div *ngIf="filtroTramite.value != null" class="custom-badge"><span style="margin-right: 5px" class="alert-inner--icon"><i class="ni"  [ngClass]="{'ni-pin-3' : filtroTramite.type == 'name', 'ni-square-pin': filtroTramite.type === 'code'}"></i></span>{{filtroTramite.value}} <a class="badge badge-secondary" (click)="removeFiltroTramites(i)">x</a></div>
+
+        </div>
+       
+       <!--  <div class="custom-badge"><span style="margin-right: 5px" class="alert-inner--icon"><i class="ni ni-world"></i></span>Atlantico     <a class="badge badge-secondary">x</a></div>
+
+  <div class="custom-badge"><span style="margin-right: 5px" class="alert-inner--icon"><i class="ni ni-world"></i></span>Atlantico     <a class="badge badge-secondary">x</a></div>
+  <div class="custom-badge"><span style="margin-right: 5px" class="alert-inner--icon"><i class="ni ni-ruler-pencil"></i></span>Gobernación del Atlantico     <a class="badge badge-secondary">x</a></div> -->
+      </perfect-scrollbar>
+  </div>
+
+
+
+  <div style="margin-top: 10px" *ngIf="estado == 'verentidades'"> 
+      <h5>Ordenar Entidades</h5>
+      <perfect-scrollbar style="max-height: 109px;" >
+
+        <div *ngFor="let filtro of filtros; let i = index" >
+          <div *ngIf="filtro.value != null" class="custom-badge"><span style="margin-right: 5px" class="alert-inner--icon"><i class="ni"  [ngClass]="{'ni-pin-3' : filtro.type == 'departamento', 'ni-square-pin': filtro.type === 'municipio'}"></i></span>{{filtro.value}} <a class="badge badge-secondary" (click)="removeFiltro(i)">x</a></div>
+
+        </div>
+       
+       <!--  <div class="custom-badge"><span style="margin-right: 5px" class="alert-inner--icon"><i class="ni ni-world"></i></span>Atlantico     <a class="badge badge-secondary">x</a></div>
+
+  <div class="custom-badge"><span style="margin-right: 5px" class="alert-inner--icon"><i class="ni ni-world"></i></span>Atlantico     <a class="badge badge-secondary">x</a></div>
+  <div class="custom-badge"><span style="margin-right: 5px" class="alert-inner--icon"><i class="ni ni-ruler-pencil"></i></span>Gobernación del Atlantico     <a class="badge badge-secondary">x</a></div> -->
+      </perfect-scrollbar>
+  </div>
+
+
+  <div style="margin-top: 10px" *ngIf="estado == 'verentidades'">
+    <h5>Buscar por nombre</h5>
+
+   
+      <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+          <input style="background: rgba(0,0,0,0);
+          border: 2px solid grey; padding-left: 10px" class="form-control" placeholder="Nombre de la entidad" type="text" (focus)="focus = true"
+          (blur)="focus = false">
+        </div>
+      </div>
+
+
+  </div>
+
+
+  <div style="margin-top: 10px" *ngIf="estado == 'veractos'">
+      <h5>Buscar por codigo de tramite</h5>
+  
+     
+        <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input style="background: rgba(0,0,0,0); 
+            border: 2px solid grey; padding-left: 10px"   [(ngModel)]="code"class="form-control" placeholder="Codigo del tramite" type="number" (focus)="focus = true" (keyup.enter)="seleccionarCode()"
+            (blur)="focus = false">
+          </div>
+        </div>
+  
+  
+    </div>
+
+    <div style="margin-top: 10px" *ngIf="estado == 'veractos'">
+      <h5>Buscar por nombre de tramite</h5>
+  
+     
+        <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input style="background: rgba(0,0,0,0);
+            border: 2px solid grey; padding-left: 10px"  [(ngModel)]="nameTramite" class="form-control" placeholder="Nombre del tramite" type="text" (focus)="focus = true" (keyup.enter)="seleccionarName()"
+            (blur)="focus = false">
+          </div>
+        </div>
+  
+  
+    </div>
+
+    <div style="margin-top: 10px; font-size: 13px;" *ngIf="estado == 'verentidades'">
+      <h5>Buscar por Departamento</h5>
+      <mat-form-field style="width: 100%">
+        <mat-select placeholder="Departamento" [(ngModel)]="departamentoSelected" #departamento  (keyup.enter)="seleccionarDepartamento(departamento.value)" >
+          <mat-option>
+            <ngx-mat-select-search [(ngModel)]="departamentoSearch" 
+            [noEntriesFoundLabel]="'No se encontró el departamento'"
+            [placeholderLabel]="'Nombre del departamento'"
+            
+            >   <div ngxMatSelectSearchClear><div class="ni ni-fat-remove"></div></div>
+          </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let departamento of departamentos | DepartamentoSearch:departamentoSearch " [value]="departamento" (click)="seleccionarDepartamento(departamento)" >
+            {{departamento.nombreDepartamentp}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+
+
+    </div>
+  <div style="margin-top: 10px" *ngIf="departamentoSelected && estado == 'verentidades'">
+    <h5>Buscar por Municipio</h5>
+    <mat-form-field style="width: 100%; font-size: 13px;" >
+      <mat-select placeholder="Municipio" #municipio [(ngModel)]="municipioSelected" (keyup.enter)="seleccionarMunicipio(municipio.value)"> 
+        <mat-option>
+          <ngx-mat-select-search [(ngModel)]="municipioSearch" 
+          [noEntriesFoundLabel]="'No se encontró el municipio'"
+          [placeholderLabel]="'Nombre del municipio'"
+          
+          >   <div ngxMatSelectSearchClear><div class="ni ni-fat-remove"></div></div>
+        </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let municipio of municipios | MunicipioSearch:municipioSearch " [value]="municipio" (click)="seleccionarMunicipio(municipio)" >
+          {{municipio.nombreMunicipio}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+ 
+<!-- 
+  <div style="margin-top: 10px"> 
+    <h5>Ordenar Entidades</h5>
+
+    <div style="    display: inline-block;
+    font-size: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    max-width: 160px;" class="alert alert-secondary alert-dismissible fade show" role="alert">
+        <span class="alert-inner--icon"><i class="ni ni-world"></i></span>
+        <span class="alert-inner--text"><strong>Atlantico</strong> </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span style="    position: relative;
+          left: 100%;
+          color: dimgrey;
+          font-size: 15px;" aria-hidden="true">×</span>
+        </button> 
+      </div>
+
+
+  </div> -->
+
+  </div>      

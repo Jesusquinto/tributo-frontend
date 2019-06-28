@@ -1,0 +1,52 @@
+<div class="header  pb-8 pt-5 pt-md-8" style="background: url('/assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;">
+  <span class="mask bg-gradient-blue opacity-6"></span>
+
+  <div class="container-fluid d-flex align-items-center" >
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+
+
+
+          <h1 *ngIf="estado == 'verentidades'" class="display-2 text-white">Seleccione la entidad </h1>
+          <p *ngIf="estado == 'verentidades'" class="text-white mt-0 mb-5">Seleccione la entidad en la que vaya a declarar</p>
+          
+          <h1 *ngIf="estado == 'veractos'" class="display-2 text-white">Seleccione el tramite </h1>
+          <p *ngIf="estado == 'veractos'" class="text-white mt-0 mb-5">Seleccione el tramite a declarar</p>
+
+          <h1 *ngIf="estado == 'verformulario'" class="display-2 text-white">Formulario para {{acto.fkBcActo.nombreActo}} </h1>
+          <p *ngIf="estado == 'verformulario'" class="text-white mt-0 mb-5">{{acto.fkBcActo.descripcion}}</p>
+
+
+        </div>
+      </div>  
+    </div>
+</div>
+
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col-3" *ngIf="estado != 'verformulario' && estado != 'verrangos'">
+      <app-filtros  (showEntidades)="showEntidades($event)" (showTramites)="showTramites($event)" [resultados]= 'filterResult' [estado]="estado" [actos]="actos" [resetTramitesFilter]="resetTramitesFilter.asObservable()" [resetEntidadesFilter]="resetEntidadesFilter.asObservable()" [idEntidad]="idEntidad"></app-filtros>
+
+    </div>
+    <div  [ngClass]="{ 'col-9': estado != 'verformulario', 'col-12': estado == 'verformulario'|| estado == 'verrangos' }">
+      <div class="card shadow" style="padding: 20px; background: #eaebec">
+
+        <app-verEntidades *ngIf="estado == 'verentidades'"  (verActos)="verActos($event)"  [entidades]="entidades" [@enterAnimation]></app-verEntidades>
+        <app-verActos *ngIf="estado == 'veractos'" [actos]="actos" (verFormulario)="verFormulario($event)" [@enterAnimation]></app-verActos>
+        <app-verFormulario *ngIf="estado == 'verformulario'" [acto]="acto" (verRegistro)="verRegistro($event)" [tributos]="tributos"(enviarFormulario)="declarar($event)" [@enterAnimation]></app-verFormulario>
+        <app-verRangos *ngIf="estado == 'verrangos'"  [tributo]="tributo" [@enterAnimation]></app-verRangos>
+
+        <div class="card-footer py-4 mt-4" *ngIf="estado != 'verentidades'">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-start mb-0">
+                <button *ngIf="estado!='verentidades'" (click)="volver()" class="btn btn-primary btn-lg"><a class="ni ni-bold-left"></a> Volver</button>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

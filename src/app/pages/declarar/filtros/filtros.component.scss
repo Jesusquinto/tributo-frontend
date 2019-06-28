@@ -1,0 +1,15 @@
+.custom-badge{
+    display: inline-block;
+    background: white;
+    padding: 7px;
+    border-radius: 10px;
+    font-size: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    color: dimgrey;
+}
+
+
+.custom-badge:hover{
+    cursor: pointer !important;
+}

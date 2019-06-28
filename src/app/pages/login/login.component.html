@@ -1,0 +1,79 @@
+<div class="header bg-gradient-danger py-5 py-lg-8" style="background-image : url(../assets/img/theme/tributo_background.jpg) !important; padding-top: 0 !important ">
+ 
+  <div class="container">
+    <div class="header-body text-center mb-7" style="margin: 0px !important;">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6  mt-4">
+          <img class="text-white" src="assets/img/brand/logo_tributo_white.png" alt="Logo triuto" width="330">
+          <p  style="position: relative;
+          color: #024a59 !important;
+          bottom: 25%;
+          margin: 0px;" class="text-lead text-light">Plataforma única nacional!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7" style="max-width: 38%">
+      <div class="card bg-secondary shadow border-0">
+       
+        <div class="card-body px-lg-5" style="padding-top: 10%">
+          <div class="text-center text-muted mb-4">
+            <small>Iniciar sesion en tributo.co</small>
+          </div>
+          <form role="form">
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                </div>
+                <input class="form-control" placeholder="Correo" type="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input class="form-control" placeholder="Contraseña" type="password">
+              </div>
+            </div>
+            <div class="custom-control custom-control-alternative custom-checkbox">
+              <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+              <label class="custom-control-label" for=" customCheckLogin">
+                <span class="text-muted">Recordar contraseña</span>
+              </label>
+            </div>
+            <div class="text-center">
+              <button type="button"[routerLink]="['/dashboard']" class="btn btn-primary my-4">Ingresar</button>
+            </div>
+
+          </form>
+        </div>
+        
+        <div class="card-header bg-transparent pb-5">
+          <div class="text-muted text-center mt-2 mb-3"><small>Iniciar sesion con Google</small></div>
+          <div class="btn-wrapper text-center">
+           
+            <a id="boton" href="http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:4200/" class="btn btn-neutral btn-icon" style="width: 90%">
+              <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg"></span>
+              <span class="btn-inner--text">Google</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-6">
+          <a  href="javascript:void(0)" class="text-light"><small>Olvidó su contraseña?</small></a>
+        </div>
+        <div class="col-6 text-right">
+          <a routerLinkActive="active" [routerLink]="['/register']"  class="text-light"><small>Crear cuenta tributo.co</small></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
