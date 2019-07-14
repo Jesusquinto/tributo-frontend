@@ -7,6 +7,8 @@ import { TruncatePipe } from './truncate.pipe'
 import { DepartamentoSearchPipe } from './departamento-search.pipe';
 import { MunicipioSearchPipe } from './municipio-search.pipe';
 import { ContratanteSearchPipe } from './contratante-search.pipe.';
+import { TruncateFilePipe } from './truncate-file.pipe';
+
 
 @NgModule({
     imports: [ 
@@ -18,9 +20,11 @@ import { ContratanteSearchPipe } from './contratante-search.pipe.';
       TruncatePipe,
       DepartamentoSearchPipe,
       MunicipioSearchPipe,
-      ContratanteSearchPipe
+      ContratanteSearchPipe,
+      TruncateFilePipe
     ],
     exports: [
+        TruncateFilePipe,
         MenuSearch,
         ActoSearchPipe,
         TruncatePipe,

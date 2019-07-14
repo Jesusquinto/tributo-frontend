@@ -101,9 +101,8 @@ export class VerFormularioComponent implements OnInit {
 
       this.contratoSeleccionado = event.target.files[0];
       console.log('sjdhidj');
-      this.datos.controls['file'].touched;
+      this.datos.controls['file'].markAsTouched();
       this.datos.controls['file'].setValue(event.target.files[0]);
-      3
       console.log(this.datos.controls['file'].value.type);
       if(this.datos.controls['file'].value.type == 'application/pdf'){
         let $img: any = document.querySelector('#file');

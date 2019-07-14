@@ -9,7 +9,7 @@
                   <div class="card-profile-image" (click)="viewActos(entidad)">
                     <a >
                       
-                      <img  src='{{"http://192.168.1.78:5000/rest/v1/uploads/img/" + entidad.logo || "/assets/resources/Entidades/entidad_default.png"}}' width="848px" style="border-radius: 10px" >
+                      <img  src='{{entidad.logo}}' onError="this.src='/assets/resources/Entidades/entidad_default.png';" width="848px" style="border-radius: 10px" >
                       
                     </a>
 

@@ -234,29 +234,30 @@ export class DeclararComponent implements OnInit {
 	    formData.append('archivo', archivo);
 	    formData.append('id', result.idUsuarioActo);
       this.servicio.setUsuarioActo(formData).subscribe(result =>{
-        
-        this.servicio.post('usuariosacto/save', datos).subscribe((result:  any)=>{
-          this.Toast.fire({
-            type: 'success',
-            title: 'Genial!',
-            text: 'Se ha creado el acto '.concat(result.descripcion).concat(' con exito!')
-          })
+        this.Toast.fire({
+          type: 'success',
+          title: 'Genial!',
+          text: 'Se ha creado el acto '.concat(datos.descripcion).concat(' con exito!')
+        })
+         
     
           this.estado = 'verentidades'
-        },error=>{
-          this.Toast.fire({
-            type: 'error',
-            title: 'Error',
-            text: error.error
-          })
-    
-        })
-
-
-      });
+     
 
      
-    }, error => {
+    },error=>{
+      this.Toast.fire({
+        type: 'error',
+        title: 'Error',
+        text: error.error
+      })
+
+    })
+    
+    
+
+    
+  }, error => {
       console.log(error);
       this.settings.loadingSpinner = false;
       this.Toast.fire({
