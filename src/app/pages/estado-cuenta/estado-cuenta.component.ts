@@ -14,6 +14,9 @@ export class EstadoCuentaComponent implements OnInit {
 
   public viewpdf: boolean;
 
+
+
+  public estadoActo;
   public userNombre: any;
   public settings: Settings;
   public sidenavOpen:boolean = true;
@@ -75,7 +78,11 @@ export class EstadoCuentaComponent implements OnInit {
   }
 
   public viewDetail(acto : UsuarioActo){ 
-    /* this.acto = this.servicio.getTributo(acto.id_usuario_acto); TRAER ACTO */
+    this.acto = null;
+    this.estadoActo = "cargando";
+    setTimeout(x => {
+      this.estadoActo = "cargado";
+      /* this.acto = this.servicio.getTributo(acto.id_usuario_acto); TRAER ACTO */
     console.log(acto);
     this.acto = acto;
     this.actos.forEach(m => m.selected = false);
@@ -84,6 +91,13 @@ export class EstadoCuentaComponent implements OnInit {
     if(window.innerWidth <= 992){
       this.sidenav.close(); 
     }
+     
+    }, 300);
+
+
+
+
+    
   }
 
 

@@ -1,7 +1,6 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-style="min-height: 600px; background-size: cover; background-position: center top;"
-style="background: url('/assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;"
->
+  style="min-height: 600px; background-size: cover; background-position: center top;"
+  style="background: url('/assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;">
   <!-- Mask -->
   <span class="mask bg-gradient-danger opacity-6"></span>
   <!-- Header container -->
@@ -22,71 +21,199 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
 
 
 
-  <mat-sidenav-container style="max-height: 550px !important; border-radius: 10px; z-index: 0;">
+  <mat-sidenav-container style="border-radius: 10px; z-index: 0;" style="height: 600px">
 
 
     <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over' ">
-
-
-
-
       <nav class="navbar navbar-horizontal navbar-expand-lg navbar-white bg-white">
         <div class="container">
-          <a class="navbar-brand" href="#">Tus tramites</a>
+          <a class="navbar-brand">Tus tramites</a>
 
 
 
+          <!-- BOTONES DEL NAVBAR -->
 
-
-          <a class="nav-link nav-link-icon" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" style="position: relative;
+          <a class="nav-link nav-link-icon filter-hover" id="navbar-default_dropdown_1 " role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative;
           left: 20% !important;">
             <i style="font-size: 20px;" class="ni ni-ui-04"></i>
             <span class="nav-link-inner--text d-lg-none"></span>
           </a>
 
-
-          <a class="navbar-toggler nav-link nav-link-icon" href="#" role="button" style=" margin-right: -70px">
-            <i style="font-size: 20px;" class="ni ni-fat-remove"></i>
-            <span class="nav-link-inner--text d-lg-none"></span>
-          </a>
-
-
-
-
-
+          <!-- INICIO DEL DROPDOWN -->
           <li class="nav-item dropdown">
 
 
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1"
               style="width: 260px; text-align: center">
-              <div class="row p-3">
-                <div class="col-lg-12 ">
-                  <div class="form-group">
-                      
-                    <input [(ngModel)]="searchText" type="text" id="input-nombreacto" class="form-control form-control-alternative"
-                      placeholder="Nombre acto">
-                  </div>
-                </div>
-                <div class="col-lg-12 ">
-                  <div class="form-group">
-                    <input type="text" id="input-nombreacto" class="form-control form-control-alternative"
-                      placeholder="Nombre acto">
-                  </div>
-                </div>
+              <div class="col-lg-12">
+                <h4>Filtrar tramites</h4>
               </div>
-              <!-- <div *ngIf="i">
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item">Actos encontrados {{i}}</a>
-              </div> -->
 
-              <!-- <div *ngIf="!i">
+
+              <div class="dropdown-divider"></div>
+              <div class="row p-3"
+                style="position: relative;position: relative;margin-top: 0px;padding-top: 0px !important;">
+
+
+
+                <div class="col-lg-2">
+                  <i style="font-size: 30px;position: absolute;top: 32%;left: 40%;" class="ni ni-single-copy-04"></i>
+                </div>
+                <div class="col-lg-10 ">
+                  <div class="form-group">
+                    <label for="input-nombreacto"
+                      style="font-size: 12px;margin: 0px;position: relative;left: -19%;">Datos del tramite </label>
+                    <input [(ngModel)]="searchText" type="text" id="input-nombreacto"
+                      class="form-control form-control-alternative" placeholder="Datos del tramite"
+                      style="font-size: 13px">
+                  </div>
+                </div>
+
+
+
+                <div class="col-lg-2">
+                  <i style="font-size: 30px;position: absolute;top: 32%;left: 40%;" class="ni ni-calendar-grid-58"></i>
+                </div>
+
+                <div class="col-lg-10">
+                  <mat-form-field style="width: 100%">
+                    <input matInput [matDatepicker]="picker" placeholder="Fecha de creación">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+
+
+                <div class="col-lg-12">
+
+
+
+                  <div style="width: 100%; height: 200px; background: rgb(240, 239, 239); border-radius: 4px">
+
+
+                    <perfect-scrollbar style="max-height: 200px;">
+                      <!-- FILTROS DE ESTADO -->
+                      <mat-list>
+                        <h3 mat-subheader style="padding-bottom: 0px;padding-top: 0px;">Estados</h3>
+
+
+
+                        <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
+                          <i class="ni ni-ruler-pencil" style="position: absolute;
+                              font-size: 30px;
+                              color: #646270;"></i>
+                          <div style="    position: absolute;
+                             left: 28%;
+                             font-size: 13px;
+                             text-align: left;">
+                            <h4 mat-line class="estado-list-name"
+                              style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
+                              Borrador</h4>
+                            <p mat-line style="margin-bottom: 0px; "><span class="badge badge-info">Borrador</span></p>
+                          </div>
+                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
+                          <i class="ni ni-paper-diploma" style="position: absolute;
+                              font-size: 30px;
+                              color: #646270;"></i>
+                          <div style="    position: absolute;
+                             left: 28%;
+                             font-size: 13px;
+                             text-align: left;">
+                            <h4 mat-line class="estado-list-name"
+                              style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
+                              Presentado</h4>
+                            <p mat-line style="margin-bottom: 0px; "><span class="badge badge-warning">Presentado</span>
+                            </p>
+                          </div>
+                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
+                          <i class="ni ni-basket" style="position: absolute;
+                              font-size: 30px;
+                              color: #646270;"></i>
+                          <div style="    position: absolute;
+                             left: 28%;
+                             font-size: 13px;
+                             text-align: left;">
+                            <h4 mat-line class="estado-list-name"
+                              style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
+                              Liquidado</h4>
+                            <p mat-line style="margin-bottom: 0px; "><span class="badge badge-danger">Liquidado</span>
+                            </p>
+                          </div>
+                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
+                          <i class="ni ni-money-coins" style="position: absolute;
+                              font-size: 30px;
+                              color: #646270;"></i>
+                          <div style="    position: absolute;
+                             left: 28%;
+                             font-size: 13px;
+                             text-align: left;">
+                            <h4 mat-line class="estado-list-name"
+                              style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
+                              Pagado</h4>
+                            <p mat-line style="margin-bottom: 0px; "><span class="badge badge-success">Pagado</span></p>
+                          </div>
+                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
+                          <i class="ni ni-archive-2" style="position: absolute;
+                              font-size: 30px;
+                              color: #646270;"></i>
+                          <div style="    position: absolute;
+                             left: 28%;
+                             font-size: 13px;
+                             text-align: left;">
+                            <h4 mat-line class="estado-list-name"
+                              style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
+                              Eliminado</h4>
+                            <p mat-line style="margin-bottom: 0px; "><span class="badge badge-secondary"
+                                style="color: gray">Eliminado</span></p>
+                          </div>
+                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+
+
+
+
+
+                      </mat-list>
+
+                    </perfect-scrollbar>
+                  </div>
+                </div>
+
+              </div>
+              <div *ngIf="actos?.length > 0">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item">Tramites encontrados {{actos.length}}</a>
+              </div>
+
+              <div *ngIf="!actos || actos?.length === 0">
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item">No se encontraron datos</a>
-              </div> -->
+              </div>
             </div>
           </li>
+          <!-- FIN DEL DROPDOWN -->
+
+
         </div>
       </nav>
 
@@ -99,20 +226,24 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
 
 
 
-       
-        <div *ngFor="let acto of actos | ActoSearch: searchText; let i = index " (click)="viewDetail(acto)">
+        <!-- LISTA DE LOS TRAMITES -->
+        <div *ngFor="let acto of actos | ActoSearch: searchText; let i = index " class="animated fadeIn fast" (click)="viewDetail(acto)">
           <perfect-scrollbar style="max-height: 500px;">
 
-            <div class="tributo card card-stats mb-lg-0" [ngClass]="{'selected': acto.selected}">
-              <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+            <div class="tributo card card-stats mb-lg-0" [ngClass]="{'selected': acto.selected}" style="border-radius: 0px">
+              <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;     height: 140px; ">
                 <div class="row">
                   <div class="col">
-                    <h6 class="card-title text-uppercase text-muted mb-0">{{acto.descripcion}}</h6>
-                    <span class="h3 font-weight-bold mb-0">{{acto.fkActoEntidad.fkBcActo.nombreActo}}</span>
+                    <h6 class="card-title text-uppercase text-muted mb-0">{{acto.fkActoEntidad.fkBcActo.nombreActo}}</h6>
+                    <span class="h3 font-weight-bold mb-0" style="position: relative; bottom: 9px;">{{acto.descripcion}}</span>
+                    <span class="h3 font-weight-bold mb-0" style="position: relative;display: -webkit-box;color: rgb(78, 185, 92);bottom: 15px;">{{acto.valorApagar | currency}} COP</span>
+
+
+
                   </div>
                   <div class="col-auto">
-                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                      <i class="ni"
+                    <div class="icon icon-shape text-blue animated fadeIn fast">
+                      <i class="ni animated fadeIn fast" style="font-size: 35px"
                         [ngClass]="{'ni-single-copy-04': acto.selected , 'ni-folder-17': !acto.selected}"></i>
                     </div>
                   </div>
@@ -120,12 +251,17 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
                 <p class="mb-0 text-muted text-sm">
 
 
-                  
 
-                  <span class="mr-2" [ngClass]="{'text-info' : acto.estado == 'BO', 'text-warning': acto.estado === 'PR','text-secondary': acto.estado == 'EL', 'text-danger' : acto.estado == 'LI', 'text-success': acto.estado == 'PA'}" >
-                    <i class="ni" [ngClass]="{'ni-ruler-pencil' : acto.estado == 'BO', 'ni-single-copy-04': acto.estado === 'PR','ni-archive-2': acto.estado == 'EL', 'ni-paper-diploma' : acto.estado == 'LI', 'ni-money-coins': acto.estado == 'PA'}">
-                    </i> 
-                    {{acto.valor_apagar | currency}} 
+
+                  <span class="mr-2" style="    position: relative; bottom: 15px;"
+                    [ngClass]="{'text-info' : acto.estado == 'BO', 'text-warning': acto.estado === 'PR','text-secondary': acto.estado == 'EL', 'text-danger' : acto.estado == 'LI', 'text-success': acto.estado == 'PA'}">
+                    <i class="ni"
+                      [ngClass]="{'ni-ruler-pencil' : acto.estado == 'BO', 'ni-single-copy-04': acto.estado === 'PR','ni-archive-2': acto.estado == 'EL', 'ni-paper-diploma' : acto.estado == 'LI', 'ni-money-coins': acto.estado == 'PA'}">
+                    </i>
+                    {{acto.valor_apagar | currency}}
+
+
+                    
                     <span class="badge badge-info" *ngIf="acto.estado == 'BO'">Borrador</span>
                     <span class="badge badge-warning" *ngIf="acto.estado == 'PR'">Presentado</span>
                     <span class="badge badge-danger" *ngIf="acto.estado == 'LI'">Liquidado</span>
@@ -140,9 +276,12 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
 
 
                   <span class="text-nowrap">
-                    <p matLine class="text-truncate subject">{{acto.fechaCrea | date: 'dd/MM/yyyy h:mm'  }}</p>
+                    <p matLine class="text-truncate subject" style="    font-size: smaller;">{{acto.fechaCrea | date: 'dd/MM/yyyy h:mm'  }}</p>
                   </span>
-                </p>
+                
+                  
+                      <p matLine class="text-truncate subject" style="margin: 0px;position: relative;bottom: 22px;">{{acto.consecutivoActo}}</p>
+                  
               </div>
             </div>
           </perfect-scrollbar>
@@ -153,15 +292,13 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
     </mat-sidenav>
 
 
+
+
+
+    <!-- NAVBAR DEL TRAMITE SELECCIONADO -->
     <nav class="navbar navbar-horizontal navbar-expand-lg navbar-dark bg-default" style="padding: 6px">
       <div class="container">
         <button class="navbar-toggler" (click)="sidenav.toggle()"><span class="ni ni-bullet-list-67"></span></button>
-        <div *ngIf="acto">
-
-          <h4 class="navbar-brand">{{acto.fkActoEntidad.fkBcActo.nombreActo}}</h4>
-
-
-        </div>
       </div>
     </nav>
 
@@ -171,7 +308,7 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
 
 
 
-      <div *ngIf="acto">
+      <div *ngIf="acto" class="animated fadeIn fast">
         <perfect-scrollbar style="max-height: 500px;">
 
 
@@ -186,12 +323,16 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
                   </div>
                   <div class="panel-body">
                     <div class="profile__avatar">
-                      <img src='{{acto.fkActoEntidad.fkBcEntidad.logo || "assets/resources/Entidades/entidad_default.png"}}' width="150px" alt="...">
+                      <img
+                        src='{{acto.fkActoEntidad.fkBcEntidad.logo}}'
+                        onError="this.src='/assets/resources/Entidades/entidad_default.png';"
+                        width="150px" alt="...">
                     </div>
                     <div class="profile__header">
-                      <h3 style="margin-top: 18px">{{acto.fkActoEntidad.fkBcEntidad.nombre}} <span class="text-success mr-2"><i
-                            class="ni ni-pin-3"></i> <span
-                            class="badge badge-success">{{acto.fkActoEntidad.fkBcEntidad.fkGedivipo.nombreDepartamentp}} {{acto.fkActoEntidad.fkBcEntidad.fkGedivipo.nombreMunicipio}}
+                      <h3 style="margin-top: 18px">{{acto.fkActoEntidad.fkBcEntidad.nombre}} <span
+                          class="text-success mr-2"><i class="ni ni-pin-3"></i> <span
+                            class="badge badge-success">{{acto.fkActoEntidad.fkBcEntidad.fkGedivipo.nombreDepartamentp}}
+                            {{acto.fkActoEntidad.fkBcEntidad.fkGedivipo.nombreMunicipio}}
                           </span></span></h3>
                       <perfect-scrollbar style="max-height: 100px;">
 
@@ -209,7 +350,7 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
                   <div class="panel-heading">
                     <h4 class="panel-title"></h4>
                   </div>
-                  <div class="panel-body" >
+                  <div class="panel-body">
                     <div class="card shadow" style="width: 100% !important">
                       <div class="card-header border-0">
                         <div class="row align-items-center">
@@ -270,7 +411,7 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
                 </div>
 
                 <!-- Community -->
-            <!--     <div class="panel panel-default mt-5">
+                <!--     <div class="panel panel-default mt-5">
                   <div class="panel-heading">
                     <h4 class="panel-title">Detalles del tributo</h4>
                   </div>
@@ -338,17 +479,18 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
                     </div>
                     <div class="profile__contact-info-body">
                       <h5 class="profile__contact-info-heading">Encargado</h5>
-                      {{acto.fkActoEntidad.fkBcEntidad.contactoTelefono}} | {{acto.fkActoEntidad.fkBcEntidad.contactoNombre}}
+                      {{acto.fkActoEntidad.fkBcEntidad.contactoTelefono}} |
+                      {{acto.fkActoEntidad.fkBcEntidad.contactoNombre}}
                     </div>
                   </div>
                   <div class="profile__contact-info-item">
                     <div class="profile__contact-info-icon">
                       <i class="fa fa-envelope-square"></i>
                     </div>
-                  <div class="profile__contact-info-body">
+                    <div class="profile__contact-info-body">
                       <h5 class="profile__contact-info-heading">E-mail entidad</h5>
                       {{acto.fkActoEntidad.fkBcEntidad.contactoEmail}}
-                    </div> 
+                    </div>
                   </div>
 
                 </div>
@@ -356,7 +498,7 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
               </div>
             </div>
 
-           
+
 
 
             <div *ngIf='viewpdf' class="container">
@@ -369,11 +511,19 @@ style="background: url('/assets/img/theme/dashboard_background.png'); background
           </div>
         </perfect-scrollbar>
       </div>
-      <div *ngIf="!acto" fxLayout="column" fxLayoutAlign="center center" class="container"
+      <div *ngIf="!acto && estadoActo != 'cargando'" fxLayout="column" fxLayoutAlign="center center" class="container"
         style="text-align: center;  padding-top: 150px; padding-bottom: 150px">
         <i class="ni ni-folder-17 text-default" style="font-size: 100px"></i>
         <p class="mt-2">Seleccione un acto a administrar</p>
       </div>
+
+      <div *ngIf="estadoActo == 'cargando'" fxLayout="column" fxLayoutAlign="center center" class="container"
+        style="text-align: center;  padding-top: 150px; padding-bottom: 150px">
+        <i class="ni ni-ungroup text-default" style="font-size: 100px"></i>
+        <p class="mt-2">Cargando...</p>
+      </div>
+
+
     </div>
   </mat-sidenav-container>
 

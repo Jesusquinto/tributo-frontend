@@ -26,6 +26,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -43,6 +46,7 @@ import { PipesModule } from '../../pipes/pipes.module'
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { DeclararModule } from '../../pages/declarar/declarar.module'
+import { AppImports } from 'src/app/app-imports';
 
 
 @NgModule({
@@ -68,7 +72,8 @@ import { DeclararModule } from '../../pages/declarar/declarar.module'
     MatFormFieldModule,
     NgxExtendedPdfViewerModule,
     MatTooltipModule,
-    DeclararModule
+    DeclararModule,
+    AppImports
 
   ],
   declarations: [
