@@ -22,7 +22,7 @@ export class EstadoCuentaComponent implements OnInit {
   public sidenavOpen:boolean = true;
   public actos: Array<UsuarioActo>;
   public acto: UsuarioActo;
-  public type:string = 'todos';
+  public type:string = 'TO';
   public searchText: string;
 
 
@@ -34,7 +34,7 @@ export class EstadoCuentaComponent implements OnInit {
     if(window.innerWidth <= 992){
       this.sidenavOpen = false;
     }
-    this.type = 'todos';
+    this.type = 'TO';
     this.viewpdf = false;
     this.settings.loadingSpinner = true;
 
@@ -57,19 +57,19 @@ export class EstadoCuentaComponent implements OnInit {
 
   public getTributos(){
     switch (this.type) {
-      case 'todos':
+      case 'TO':
         this.getAllActos();
         break;
-      case 'pagados':
+      case 'PA':
         this.getActos('PA');
         break;
-      case 'presentados':
+      case 'PR':
         this.getActos('PR');
       break;
-      case 'borrados':
+      case 'BO':
         this.getActos('BO');
       break;
-      case 'liquidados':
+      case 'LI':
       this.getActos('LI');
     break;
       default:
@@ -108,7 +108,7 @@ export class EstadoCuentaComponent implements OnInit {
 
   getActos(type: string){
     this.settings.loadingSpinner = true;
-    this.servicio.get('x'.concat(type)).subscribe(
+    this.servicio.get('usuariosacto/filter/0/0/0/'.concat(type)).subscribe(
       (result : any) =>{
         this.actos = result;
         this.settings.loadingSpinner = false;

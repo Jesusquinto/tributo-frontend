@@ -97,7 +97,25 @@
                     <perfect-scrollbar style="max-height: 200px;">
                       <!-- FILTROS DE ESTADO -->
                       <mat-list>
-                        <h3 mat-subheader style="padding-bottom: 0px;padding-top: 0px;">Estados</h3>
+                        <h3 mat-subheader style="padding-bottom: 0px;padding-top: 0px;">Solo mostrar estados </h3>
+
+                        <mat-radio-group [(ngModel)]="type">
+
+                          <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
+                            <i class="ni ni-bullet-list-67" style="position: absolute;
+                                font-size: 30px;
+                                color: #646270;"></i>
+                            <div style="    position: absolute;
+                               left: 28%;
+                               font-size: 13px;
+                               text-align: left;">
+                              <h4 mat-line class="estado-list-name"
+                                style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
+                                  Todos</h4>
+                            </div>
+                            <mat-radio-button value="TO" style="position: absolute;left: 85%;"></mat-radio-button>
+                          </mat-list-item>
+                          <mat-divider></mat-divider>
 
 
 
@@ -111,10 +129,10 @@
                              text-align: left;">
                             <h4 mat-line class="estado-list-name"
                               style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
-                              Borrador</h4>
+                              Borradores</h4>
                             <p mat-line style="margin-bottom: 0px; "><span class="badge badge-info">Borrador</span></p>
                           </div>
-                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                          <mat-radio-button value="BO" style="position: absolute;left: 85%;"></mat-radio-button>
                         </mat-list-item>
                         <mat-divider></mat-divider>
 
@@ -128,11 +146,11 @@
                              text-align: left;">
                             <h4 mat-line class="estado-list-name"
                               style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
-                              Presentado</h4>
+                              Presentados</h4>
                             <p mat-line style="margin-bottom: 0px; "><span class="badge badge-warning">Presentado</span>
                             </p>
                           </div>
-                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                          <mat-radio-button value="PR" style="position: absolute;left: 85%;"></mat-radio-button>
                         </mat-list-item>
                         <mat-divider></mat-divider>
 
@@ -146,11 +164,11 @@
                              text-align: left;">
                             <h4 mat-line class="estado-list-name"
                               style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
-                              Liquidado</h4>
+                              Liquidados</h4>
                             <p mat-line style="margin-bottom: 0px; "><span class="badge badge-danger">Liquidado</span>
                             </p>
                           </div>
-                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                          <mat-radio-button value="LI" style="position: absolute;left: 85%;"></mat-radio-button>
                         </mat-list-item>
                         <mat-divider></mat-divider>
 
@@ -164,10 +182,10 @@
                              text-align: left;">
                             <h4 mat-line class="estado-list-name"
                               style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
-                              Pagado</h4>
+                              Pagados</h4>
                             <p mat-line style="margin-bottom: 0px; "><span class="badge badge-success">Pagado</span></p>
                           </div>
-                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                          <mat-radio-button value="PA" style="position: absolute;left: 85%;"></mat-radio-button>
                         </mat-list-item>
                         <mat-divider></mat-divider>
 
@@ -181,15 +199,16 @@
                              text-align: left;">
                             <h4 mat-line class="estado-list-name"
                               style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
-                              Eliminado</h4>
+                              Eliminados</h4>
                             <p mat-line style="margin-bottom: 0px; "><span class="badge badge-secondary"
                                 style="color: gray">Eliminado</span></p>
                           </div>
-                          <mat-checkbox class="example-margin" style="position: absolute;left: 85%;"></mat-checkbox>
+                          <mat-radio-button value="EL" style="position: absolute;left: 85%;"></mat-radio-button>
                         </mat-list-item>
                         <mat-divider></mat-divider>
 
 
+                      </mat-radio-group>
 
 
 
@@ -449,7 +468,7 @@
                 <p class="mt-5">
                   <a class="profile__contact-btn btn btn-lg btn-block btn-primary text-white" data-toggle="modal"
                     data-target="#profile__contact-form">
-                    <i class="ni ni-money-coins"></i>Liquidar Tributo
+                    <i class="ni ni-money-coins"></i>Presentar
                   </a>
                 </p>
                 <p>
