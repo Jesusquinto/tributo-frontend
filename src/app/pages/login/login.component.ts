@@ -14,7 +14,7 @@ import { Endpoints } from 'src/app/endpoints';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  private url: any;
+  public url: any;
 
 
   private token: any;
