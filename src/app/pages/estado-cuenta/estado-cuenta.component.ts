@@ -6,6 +6,7 @@ import { ApiRestService } from '../../api-rest.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { itsPdf } from 'src/app/components/validators/app-validators';
+import { Endpoints } from 'src/app/endpoints';
 
 @Component({
   selector: 'app-icons',
@@ -18,7 +19,7 @@ export class EstadoCuentaComponent implements OnInit {
 
   public viewpdf: boolean;
 
-
+  private url: any;
 
   public estadoActo;
   public pdf;
@@ -35,7 +36,7 @@ export class EstadoCuentaComponent implements OnInit {
 
 
   public copy: string;
-  constructor(public appSettings:AppSettings, private servicio: ApiRestService) {    this.settings = this.appSettings.settings;   }
+  constructor(public appSettings:AppSettings, private servicio: ApiRestService) {  this.url = Endpoints;  this.settings = this.appSettings.settings;   }
 
   ngOnInit() {
     
@@ -64,7 +65,7 @@ export class EstadoCuentaComponent implements OnInit {
 showPdf(){
   console.log(this.acto);
   this.estado = 'verPDF';
-  this.pdf = "http://localhost:8090/rest/v1/generarpdf/".concat(this.acto.idUsuarioActo.toString());
+  this.pdf = this.url.complete.concat("generarpdf/").concat(this.acto.idUsuarioActo.toString());
   this.sidenavOpen = false;
   this.settings.loadingSpinner = true;
 

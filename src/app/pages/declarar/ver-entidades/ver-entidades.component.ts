@@ -9,6 +9,8 @@ import { selectDropdownModel } from '../../../components/select-dropdown/select-
 import Swal from 'sweetalert2';
 
 import { ApiRestService } from '../../../api-rest.service';
+import { Endpoints } from 'src/app/endpoints';
+
 
 @Component({
   selector: 'app-verEntidades',
@@ -16,7 +18,7 @@ import { ApiRestService } from '../../../api-rest.service';
   styleUrls: ['./ver-entidades.component.scss'],
 })
 export class VerEntidadesComponent implements OnInit {
-
+private url: any;
     @Output() verActos = new EventEmitter();
     viewActos(entidad: any) {
         this.entidad= entidad;
@@ -32,6 +34,7 @@ export class VerEntidadesComponent implements OnInit {
 
   public settings: Settings;
   constructor(public appSettings: AppSettings, private servicio: ApiRestService) { 
+    this.url = Endpoints;
     this.settings = this.appSettings.settings;
   }
 

@@ -12,6 +12,8 @@ import { ApiRestService } from '../../api-rest.service';
 import { trigger, style, transition, animate, keyframes, query, stagger, group, state, animateChild } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Endpoints } from 'src/app/endpoints';
+
 
 @Component({
   selector: 'app-tables',
@@ -33,6 +35,7 @@ import { Subject } from 'rxjs';
   ],
 })
 export class DeclararComponent implements OnInit {
+  private url : any;
 
   public departamento: selectDropdownModel = new selectDropdownModel(null, null, null);
   public departamentos: selectDropdownModel[] = [
@@ -71,6 +74,7 @@ export class DeclararComponent implements OnInit {
 
   public settings: Settings;
   constructor(public appSettings: AppSettings, private servicio: ApiRestService, private ngZone: NgZone, private ruta: Router) {
+    this.url = Endpoints;
     this.settings = this.appSettings.settings;
     this.settings.loadingSpinner = true;
     this.estado = 'verentidades';

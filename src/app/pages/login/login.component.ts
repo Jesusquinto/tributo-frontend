@@ -6,12 +6,17 @@ import { Settings } from '../../app.settings.model';
 import Swal from 'sweetalert2';
 import { DataService } from '../../data.service';
 import { ApiRestService } from 'src/app/api-rest.service';
+import { Endpoints } from 'src/app/endpoints';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  private url: any;
+
+
   private token: any;
   public settings: Settings;2
   private Toast = Swal.mixin({
@@ -22,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   });
   constructor(private ruta : Router, public appSettings: AppSettings, private data: DataService, private servicio: ApiRestService, private activatedRoute: ActivatedRoute ) {
     this.settings = this.appSettings.settings;
+    this.url = Endpoints;
     this.settings.loadingSpinner = false;
 
 
