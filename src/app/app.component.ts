@@ -15,12 +15,12 @@ export class AppComponent {
       this.settings = this.appSettings.settings;
       this.title = this.settings.name;
 
-     /*  if(window){
+      if(window){
         window.console.log=function(){};
         window.console.error=function(){};
         window.console.info= function(){};
         window.console.warn = function(){};
-      } */
+      }
   } 
 
   
