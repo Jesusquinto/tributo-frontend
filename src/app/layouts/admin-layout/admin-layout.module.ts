@@ -47,6 +47,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { DeclararModule } from '../../pages/declarar/declarar.module'
 import { AppImports } from 'src/app/app-imports';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { AppImports } from 'src/app/app-imports';
     NgxExtendedPdfViewerModule,
     MatTooltipModule,
     DeclararModule,
-    AppImports
+    AppImports,
+    NgxMatSelectSearchModule
 
   ],
   declarations: [

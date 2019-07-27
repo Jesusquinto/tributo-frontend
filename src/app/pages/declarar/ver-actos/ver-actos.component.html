@@ -1,27 +1,29 @@
-<div class="row">
-    <div *ngFor="let acto of actos; let i = index" class="col-xl-4  col-md-6 col-lg-6 mb-3">
-       <div class="acto card card-stats mb-4 mb-xl-0" (click)="declararActo(acto)">
-         <div class="card-body">
-           <div class="row">
-             <div class="col">
-               <h5 class="card-title text-uppercase text-muted mb-0"><img src={{acto.fkBcEntidad.logo}}  width="80"></h5>
-            <h4 class="card-title text-uppercase text-muted">{{acto.fkBcActo.nombreActo | truncate}} </h4>
-            <hr class="my-1" />
-            <h6 class="card-title text-uppercase text-muted">{{acto.fkBcEntidad.nombre}} </h6>
-   
-             </div>
-             <div class="col-auto">
-               <div class="bg-success text-white  shadow" style="    font-size: 30px;
-               width: 100px;
-               height: 50px;
-               border-radius: 7px;
-               font-weight: bolder;
-               text-align: center;">
-                 {{acto.codigo}}
-               </div>
-             </div>
+<div class="row" style="    margin-left: 3%;">
+    <div *ngFor="let acto of actos; let i = index" class="col-xl-4  col-md-6 col-lg-6 mb-3" >
+        <!-- <img src="http://ec2-13-58-146-85.us-east-2.compute.amazonaws.com:5000/rest/v1/uploads/img/{{acto.fkBcEntidad.logo}}" style="position: absolute; width: 100%; height: 100%"> -->
+     
+        
+
+           <div class="row acto" style="padding: 10px;border-radius: 4px; width: 95%; position: relative;" (click)="declararActo(acto)">
+
+
+                  <div class="bg-success text-white  shadow" style="    font-size: 30px;
+                  width: 100px;
+                  height: 50px;
+                  border-radius: 7px;
+                  font-weight: bolder;
+                  text-align: center;">
+                    {{acto.codigo}}
+                  </div>
+                  <hr class="my-1" style="    width: 80%;
+                  margin-top: 10px !important;" />
+
+             
+            <h4 class="card-title text-uppercase text-muted" style="margin-left: 7px;margin-top: 4px; width: -webkit-fill-available;">{{acto.fkBcActo.nombreActo | truncate}} </h4>
+                  
+           
            </div>
-         </div>
-       </div>
+     
+       
      </div>
     </div>

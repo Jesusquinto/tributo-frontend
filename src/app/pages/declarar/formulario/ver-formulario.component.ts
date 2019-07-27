@@ -79,7 +79,6 @@ export class VerFormularioComponent implements OnInit {
 
   public settings: Settings;
   constructor(public appSettings: AppSettings, private servicio: ApiRestService, private _formBuilder: FormBuilder, private cd: ChangeDetectorRef) {
-
     this.settings = this.appSettings.settings;
     this.settings.loadingSpinner = false;
   }
@@ -244,6 +243,7 @@ export class VerFormularioComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log("INICIANDO ONINIT");
 
     $("form").on("change", ".file-upload-field", function () {
       $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));

@@ -9,8 +9,8 @@ export class ActoSearchPipe implements PipeTransform {
     let searchText = new RegExp(args, 'ig');
     if (value) {
       return value.filter(acto => {
-        if(acto.descripcion || acto.fk_acto_entidad.codigo){
-          if(acto.descripcion.search(searchText) !== -1 || acto.fk_acto_entidad.codigo.search(searchText) !== -1){
+        if(acto.descripcion || acto.fkActoEntidad.codigo){
+          if(acto.descripcion.search(searchText) !== -1 || acto.fkActoEntidad.codigo.search(searchText) !== -1){
             return true;
           }
         }

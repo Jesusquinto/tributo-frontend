@@ -30,6 +30,11 @@ export class ApiRestService {
   this.httpOptions = {headers: new HttpHeaders('multipart/*').append('Authorization', 'Bearer '+ this.token)};
  }
 
+ getHeaders3(){
+  this.token = sessionStorage.getItem('user');
+  this.httpOptions = {headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.token})};
+ }
+
  
   get(ruta:string)
   {
@@ -58,6 +63,12 @@ export class ApiRestService {
     googleLogin(){
     return "http://localhost:8090/oauth2/authorize/google?redirect_uri=http://localhost:4200/";    
  } 
+
+ generarPDF(idTramite){
+   this.getHeaders3();
+   return this.http.get<any>('http://localhost:8090/rest/v1/generarpdf/'.concat(idTramite), this.httpOptions);
+ }
+
 
 
  getUserData(){

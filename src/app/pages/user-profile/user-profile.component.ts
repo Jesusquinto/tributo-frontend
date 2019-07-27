@@ -13,6 +13,7 @@ import Swal from 'sweetalert2'
 import { ApiRestService } from '../../api-rest.service';
 import { DataService } from 'src/app/data.service';
 import { Municipio } from 'src/app/modelos/municipio.model';
+import { divipos } from 'src/app/modelos/geDivipo.data';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,6 +23,16 @@ import { Municipio } from 'src/app/modelos/municipio.model';
 export class UserProfileComponent implements OnInit {
   public datos: FormGroup;
   public backdata: any;
+
+  public ubicaciones: any;
+
+  public departamentos: any = new Array();
+  public municipios: any = new Array();
+
+  public municipioSelected: any = null;
+  public departamentoSelected: any = null;
+  public departamentoSearch: string = '';
+  public municipioSearch: string = '';
 
 
   public datoschanged: boolean = true;
@@ -54,12 +65,6 @@ export class UserProfileComponent implements OnInit {
   ];
 
 
-  public userMunicipio: selectDropdownModel = new selectDropdownModel('', '', '');
-  public municipioSelected: selectDropdownModel;
-  public municipioTypes: selectDropdownModel[] = [
-    new selectDropdownModel('1', 'Barranquilla', 'ni ni-world'),
-    new selectDropdownModel('2', ' Manizales', 'ni ni-world'),
-  ];
 
   public userContribuyente: selectDropdownModel = new selectDropdownModel('', '', '');
   public contribuyenteSelected: selectDropdownModel;
@@ -73,6 +78,8 @@ export class UserProfileComponent implements OnInit {
   constructor(private appSettings: AppSettings, private _formBuilder: FormBuilder, private servicio: ApiRestService, private data: DataService) {
     this.settings = this.appSettings.settings;
     this.settings.loadingSpinner = false;
+    this.ubicaciones = divipos;
+    this.getDepartamentos();
 
   }
 
@@ -102,18 +109,32 @@ export class UserProfileComponent implements OnInit {
         }
       });
 
-      this.municipioTypes.forEach(Municipio => {
-        if (this.backdata.fkMunicipio == Municipio.value) {
-          this.userMunicipio = Municipio;
+      this.departamentos.forEach(e => {
+        if(e.codigoDepartemento == this.backdata.fkDivipo.codigoDepartemento){
+          this.departamentoSelected = e;
         }
       });
+
+      this.getMunicipiosByDepartamento(this.departamentoSelected)
+
+      this.municipios.forEach(e =>{
+        if(e.idGeDivipo == this.backdata.fkDivipo.idGeDivipo){
+          this.municipioSelected = e;
+        }
+      })
+
+
+
+     
+
+
 
       this.contribuyenteTypes.forEach(contribuyente => {
         if (this.backdata.tipocontribuyente == contribuyente.value) {
           this.userContribuyente = contribuyente;
         }
       });
-      console.log(this.backdata)
+      console.log(result)
       this.datos = this._formBuilder.group({
         'usuario': [this.backdata.usuario, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(15)])],
         'email': [this.backdata.email, Validators.compose([Validators.required, emailValidator])],
@@ -125,7 +146,6 @@ export class UserProfileComponent implements OnInit {
         'telefono': [this.backdata.telefono, Validators.compose([Validators.required, numberLimits({ max: 15, min: 6 })])],
         'celular': [this.backdata.celular, Validators.compose([Validators.required, numberLimits({ max: 10, min: 9 })])],
         'tipousuario': [this.backdata.tipousuario, Validators.compose([Validators.required])],
-        'fkMunicipio': [this.backdata.fkMunicipio, Validators.compose([Validators.required])],
         'razonsocial': [this.backdata.razonsocial, Validators.compose([Validators.required])],
         'tipocontribuyente': [this.backdata.tipocontribuyente, Validators.compose([Validators.required])],
         
@@ -192,11 +212,6 @@ export class UserProfileComponent implements OnInit {
     console.log(this.userType)
   }
 
-  setMunicipio(municipio: any) {
-    this.userMunicipio = municipio;
-    this.datos.controls['fkMunicipio'].setValue(municipio.value);
-    console.log(this.userMunicipio)
-  }
 
   setContribuyente(contribuyente: any) {
     this.userContribuyente = contribuyente;
@@ -216,7 +231,7 @@ export class UserProfileComponent implements OnInit {
       buttonsStyling: false,
     });
 
-    if (event.valid) {
+    if (event.valid && this.municipioSelected) {
 
       swalWithBootstrapButtons.fire({
         title: '¿Estás seguro de Actualizar estos datos?',
@@ -241,13 +256,13 @@ export class UserProfileComponent implements OnInit {
             "usuario": this.datos.controls['usuario'].value,
             "password": this.backdata.password,
             "tipousuario": this.userType.value,
-            "fkMunicipio": this.userMunicipio.value,
             "tipocontribuyente": this.userContribuyente.value,
             "imageUrl": this.backdata.imageUrl,
             "provider": this.backdata.provider,
             "providerId": this.backdata.providerId,
             "emailVerified": this.backdata.emailVerified,
             "verifiedAccount": this.backdata.verifiedAccount,
+            "fkDivipo": this.municipioSelected.idGeDivipo,
             "completeData": 1
           }
           this.settings.loadingSpinner = true;
@@ -321,6 +336,61 @@ export class UserProfileComponent implements OnInit {
 
       return true;
     }
+  }
+
+
+  seleccionarDepartamento(departamento: any) {
+  
+    this.departamentoSearch = departamento.nombreDepartamentp;
+    this.getMunicipiosByDepartamento(departamento);
+    console.log(this.departamentoSearch);
+  }
+
+  seleccionarMunicipio(municipio: any) {
+
+
+    this.municipioSearch = municipio.nombreMunicipio;
+    console.log(this.municipioSearch);
+    
+
+  }
+
+
+
+
+
+  getDepartamentos() {
+    let last_departament: any = null;
+    this.ubicaciones.forEach(e => {
+      if (last_departament != null) {
+        if (e.nombreDepartamentp != last_departament.nombreDepartamentp) {
+          last_departament = e;
+          this.departamentos.push(e);
+        }
+      } else {
+        last_departament = e;
+        this.departamentos.push(e);
+      }
+    });
+  }
+
+  getMunicipiosByDepartamento(departamento: any) {
+    this.municipios = new Array();
+    let last_municipio: any = null;
+    this.ubicaciones.forEach(e => {
+      if (e.nombreDepartamentp == departamento.nombreDepartamentp) {
+        if (last_municipio != null) {
+          if (e.nombreMunicipio != last_municipio.nombreMunicipio) {
+            last_municipio = e;
+            this.municipios.push(e);
+          }
+        } else {
+          last_municipio = e;
+          this.municipios.push(e);
+        }
+
+      }
+    });
   }
 
 

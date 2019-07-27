@@ -31,43 +31,7 @@ export class VerRangosComponent implements OnInit {
       this.verFormulario.emit(acto);
   } 
 
-    declararActo(acto:any){
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-primary',
-          cancelButton: 'btn btn-danger',
-          title: 'title2'
-        },
-        buttonsStyling: false,
-      });
-      swalWithBootstrapButtons.fire({
-        title:  '¿Está seguro?',
-        text: '¿De declarar un acto de '.concat(acto.fkBcActo.nombreActo).concat('?'),
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, declarar!',
-        cancelButtonText: 'No, cancelar!',
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.value) {
-      
-          //QUE VA A HACER
-          this.viewForm(acto);
-
-
-
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelado',
-            'La acción se cancelo!',
-            'error'
-          )
-        }
-      })
-    }
-
+  
 
 
   public settings: Settings;

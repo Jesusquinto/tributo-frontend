@@ -59,7 +59,7 @@ export class DeclararComponent implements OnInit {
   public tributo: any;
 
   public entidades: any;
-  public entidad: any[];
+  public entidadSeleccionada: any;
 
   public actos: any;
   public acto: any;
@@ -88,6 +88,7 @@ export class DeclararComponent implements OnInit {
 
   showTramites(tramites: any) {
     this.actos = tramites;
+
 
     this.filterResult = Object.keys(this.actos).length;
   }
@@ -129,6 +130,9 @@ export class DeclararComponent implements OnInit {
     });
     this.settings.loadingSpinner = true;
     this.servicio.get('actosentidad/'.concat(identidad)).subscribe(result => {
+      console.log(result);
+      this.entidadSeleccionada = result[0].fkBcEntidad;
+      console.log(this.entidadSeleccionada);
       this.idEntidad = identidad;
       this.settings.loadingSpinner = false;
       this.actos = result;
