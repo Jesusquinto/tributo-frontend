@@ -1,0 +1,46 @@
+<div class="container">
+
+    <div class="row" style="text-align: center">
+        <div class="col-12">
+            <h3>Firmar tramite de {{data.tramite.descripcion}}</h3>
+        </div>
+
+        <div class="col-12">
+
+                <div class="alert alert-primary" role="alert" *ngIf="data.estado == 0">
+                        <strong>Nota!</strong> Coloque aquí su llave enviada a {{data.usuario.email}}
+                    </div>
+
+                    <div class="alert alert-primary" role="alert" *ngIf="data.estado == 1">
+                            <strong>Nota!</strong> Ya se ha enviado una llave a {{data.usuario.email}}
+                        </div>
+        </div>
+
+        <div class="col-12">
+            
+            <div class="form-group">
+                <label class="form-control-label" for="input-llave">Llave generada</label>
+                <input type="llave" id="input-llave" [(ngModel)]="codigo"
+                  class="form-control form-control-alternative" placeholder="llave generada a {{data.usuario.email}}">
+              </div>
+
+        </div>
+
+        <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                        <strong>Nota!</strong>  Fecha expiración {{data.fechaExpiracion | date : 'medium'}}
+                </div>
+        </div>
+
+
+
+        <div class="col-12">
+                <button class="btn btn-primary" type="button" (click)="firmar()">Firmar y declarar</button>
+                <button class="btn btn-default ml-2" type="button" (click)="cerrar()">Cerrar</button>
+
+        </div>
+
+
+
+    </div>
+</div>

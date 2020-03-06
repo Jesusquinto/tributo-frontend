@@ -1,0 +1,405 @@
+<div class="row">  
+<div *ngIf="datos.controls" class="container col-md-11" [@enterAnimation]>
+ 
+
+    <div class="card w-100">
+
+
+      <div class="row">
+
+        <div class="col-md-12 p-3">
+        <!--     <h4  class="text-title text-black-50"><i class="fas fa-file-alt mr-3 text-black-50"></i> Información</h4>
+            <span>Información del declarante</span> -->
+
+            <div class="pl-2 ml-3">
+              <h1  style="margin-bottom: 0px"><i class="fas fa-file-alt mr-3"></i> Información</h1>
+               <span>Información del declarante</span>
+               <mat-divider></mat-divider>
+           </div>
+        </div>
+
+        <div class="w-100 ml-4 mr-4 p-4 mb-4 rounded" style="background: #f0f1f4f5;">     
+
+          <div class="row">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label class="form-control-label" for="input-nombres"> 1. Nombre y apellidos</label>
+                <input type="text" id="input-nombres" [(ngModel)]="nombre"
+                  class="form-control form-control-alternative" placeholder="Nombre y apellidos del contribuyente" disabled>          
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="form-control-label" for="input-identificacion"> 2. No. Identificación</label>
+                <input type="number" id="input-identificacion" [(ngModel)]="identificacion"
+                  class="form-control form-control-alternative" placeholder="No. Identificación tributaria- NIT No." disabled>          
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-control-label" for="input-dv"> 3. DV</label>
+                <input type="number" id="input-dv"
+                  class="form-control form-control-alternative" placeholder="DV" disabled>          
+              </div>
+            </div>
+          </div>
+
+      <div [formGroup]="datos">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="form-control-label" for="input-direccion"> 4. Dirección</label>
+                <input type="text" id="input-direccion" formControlName="direccion"
+                  class="form-control form-control-alternative" placeholder="Dirección del establecimiento principal">
+                  <show-errors [control]="datos.controls.direccion"></show-errors>                                         
+  
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-dir"> 6. Dirección principal</label>
+                <input type="text" id="input-dir" formControlName="direccionPrincipal"
+                  class="form-control form-control-alternative" placeholder="Dirección principal o de notificación">  
+                  <show-errors [control]="datos.controls.direccionPrincipal"></show-errors>                                         
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <section class="example-section">
+                  <label class="example-margin">9. Actividad economica</label>
+                  <mat-radio-group formControlName="actividadEconomica">
+                    <mat-radio-button class="example-margin" value="1">Industrial</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="2">Comercial</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="3">Servicios</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="4">Financiera</mat-radio-button>
+
+                  </mat-radio-group>
+                </section>
+                <show-errors [control]="datos.controls.actividadEconomica"></show-errors>         
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="form-control-label" for="input-direccion"> 7. No. Resolución</label>
+                <input type="number" id="input-direccion" formControlName="numeroResolucion"
+                  class="form-control form-control-alternative" placeholder="No. Resolución de exención"> 
+                  <show-errors [control]="datos.controls.numeroResolucion"></show-errors>         
+              </div>
+            </div>
+
+            <div class="col-md-4">
+
+              <div class="form-group">
+                <label class="form-control-label m-0" for="input-fechaexpedicion">8. Fecha de expedición</label>
+          
+                <mat-form-field style="width: 100%">
+                  <input formControlName="fechaExpedicion" matInput [matDatepicker]="picker"
+                    placeholder="Fecha de expedición de la resolución" #fechaexpedicion>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <show-errors [control]="datos.controls.fechaExpedicion"></show-errors>
+              </div>
+
+            </div>
+
+        </div>
+          </div>
+        </div>
+
+
+
+        
+        <div class="col-md-12">
+
+
+          
+          <div class="pl-2 ml-3">
+            <h1  style="margin-bottom: 0px"><i class="fas fa-money-bill-wave mr-2"></i> Descripción de la actividad</h1>
+             <span>Descripción de la actividad economica</span>
+             <button class="btn btn-default float-right" (click)="agregarActividad()"><i class="fas fa-plus"></i></button>
+             <mat-divider></mat-divider>
+         </div>
+        </div>
+
+
+        <div class="w-100 ml-4 mr-4 p-4  rounded">
+          <div class="row pl-4 pr-4 rounded columnaActividad" *ngFor="let a of actividadesContribuyente; let i = index">
+
+          
+
+            <div class="col-md-4">              
+              <mat-form-field style="background: #d4d4f4;" class="w-100 pl-3 pr-3 mt-1 mb-1 rounded">
+                <mat-select [(ngModel)]="a.codigoActividad" placeholder="Selecciona la actividad" (selectionChange)="setTarifa(a)">
+                  <mat-option>
+                    <ngx-mat-select-search [(ngModel)]="actividadFilter" [placeholderLabel]="'Buscar actividad...'"
+                    [noEntriesFoundLabel]="'no se encontró la actividad'"></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let actividad of actividades | ActividadSearch: actividadFilter" [value]="actividad" >
+                    {{actividad.actividad.codAct}} - {{actividad.actividad.descripcion}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>  
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="form-control-label" for="input-ingresos">Ingresos gravables</label>
+                <input type="text" id="input-ingresos" [(ngModel)]="a.ingresosGravables" (keyup)="calcularColumna(a)" currencyMask [options]="{precision : 0, thousands: '.' }"
+                  class="form-control form-control-alternative" placeholder="Ingresos netos gravables">          
+              </div>
+            </div>
+
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-control-label" for="input-tarifa">Tarifa</label>
+                <input type="number" id="input-tarifa" [(ngModel)]="a.tarifa"  
+                  class="form-control form-control-alternative" placeholder="Tarifa" disabled>          
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-control-label" for="input-total">Impuesto ICA</label>
+                <input type="text" id="input-total" [(ngModel)]="a.total"  currencyMask [options]="{precision : 0, thousands: '.', 'digits': '0' }"
+                  class="form-control form-control-alternative" placeholder="Impuesto ICA determinado" disabled>          
+              </div>
+            </div>
+
+            <div class="col-md-1">
+              <button *ngIf="actividadesContribuyente?.length > 1" class="btn btn-default mt-4" (click)="eliminarActividad(i)"><i class="fas fa-trash-alt"></i></button>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <div class="w-100 ml-4 mr-4 pl-4 pr-4">
+
+          <mat-divider class="mb-2 mt-2"></mat-divider>
+
+
+          <div class="row pl-4 pr-4 rounded" [ngClass]="{'normal' : totalActividades === totalIngresos, 'error' : totalActividades !== totalIngresos}">
+            <div class="col-md-8"> <label class="form-control-label mt-2" for="input-ingresos">TOTALES </label></div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <input type="text" id="input-ingresos-bruto" [(ngModel)]="totalActividades" (keyup)="calcularTotal()"  currencyMask [options]="{precision : 0, thousands: '.' }"
+                      class="form-control form-control-alternative mt-2" placeholder="Ingresos netos gravables" disabled>          
+                  </div>
+                </div>
+            </div>            
+
+        </div>
+
+
+
+
+  
+          <div class="col-md-12 p-3">
+              <div class="pl-2 ml-3">
+                <h1  style="margin-bottom: 0px"><i class="fas fa-file-invoice mr-2"></i> Liquidación</h1>
+                <span>Liquidación privada</span>
+                <mat-divider></mat-divider>
+            </div>
+          </div>
+
+          <div class="w-100 ml-4 mr-4  pl-4 pr-4">
+            <div class="row pl-4 pr-4 " *ngFor="let b of basesGravables; let i = index" 
+            [ngClass]="{'blanco' : isPrime(i), 'gris': !isPrime(i)}">
+              <div [ngClass]="{'col-md-7' : b.prefix === 'CI', 'col-md-8': b.prefix !== 'CI' }" > <label class="form-control-label mt-2" for="input-ingresos">{{b.name}}</label></div>
+
+              <div class="col-md-1" *ngIf="b.prefix !== 'CI'">
+                <div class="prefix-badge mt-2 rounded">
+                  {{b.prefix}}
+                </div>
+
+              </div>
+
+              <div class="col-md-2" *ngIf="b.prefix === 'CI'">
+
+                <div class="form-group">
+                  <input type="text" id="input-ingresos-bruto" [(ngModel)]="b.kv" (keyup)="calcularTotal()" 
+                    class="form-control form-control-alternative mt-2" placeholder="KV" >          
+                </div>
+              </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" id="input-ingresos-bruto" [(ngModel)]="b.valor" (keyup)="calcularTotal()"  currencyMask [options]="{precision : 0, thousands: '.' }"
+                        class="form-control form-control-alternative mt-2" placeholder="Ingresos netos gravables" >          
+                    </div>
+                  </div>
+              </div>            
+          </div>
+
+
+
+<!--           <div class="w-100 ml-4 mr-4  pl-4 pr-4">
+            <div class="row pl-4 pr-4" class="blanco">
+              <div class="col-md-8"> <label class="form-control-label mt-2" for="input-ingresos"> 
+                TOTAL INGRESOS NETOS GRAVABLES EN EL PERIODO A DECLARAR  
+              </label></div>
+
+              <div class="col-md-1">
+                <div class="prefix-badge mt-2 rounded">
+                  IN
+                </div>
+
+              </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" id="input-identificacion2" [(ngModel)]="total" currencyMask [options]="{precision : 0, thousands: '.' }"
+                      class="form-control form-control-alternative" placeholder="Impuesto ICA determinado" disabled>                
+                    </div>
+                  </div>
+              </div>            
+          </div> -->
+
+
+          <div class="w-100 ml-4 mr-4  mt-2  pl-4 pr-4">
+
+            <mat-divider class="mb-2"></mat-divider>
+
+
+            <div class="row pl-4 pr-4 rounded" [ngClass]="{'normal' : totalActividades === totalIngresos, 'error' : totalActividades !== totalIngresos}" >
+              <div class="col-md-8"> <label class="form-control-label mt-2" for="input-ingresos">TOTAL INGRESOS NETOS GRAVABLES EN EL PERIODO A DECLARAR</label></div>
+
+              <div class="col-md-1">
+                <div class="prefix-badge mt-2 rounded">
+                  IN
+                </div>
+
+              </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" id="input-ingresos-bruto" [(ngModel)]="totalIngresos"  currencyMask [options]="{precision : 0, thousands: '.' }"
+                        class="form-control form-control-alternative mt-2" placeholder="Ingresos netos gravables" disabled>          
+                    </div>
+                  </div>
+              </div>            
+
+          </div>
+
+<!-- 
+            <div class="row float-right">
+              <div class="form-group">
+                <label class="form-control-label" for="input-identificacion2">Total</label>
+                <input type="text" id="input-identificacion2" [(ngModel)]="total" currencyMask [options]="{precision : 0, thousands: '.' }"
+                  class="form-control form-control-alternative" placeholder="Impuesto ICA determinado" disabled>          
+              </div>
+            </div> -->
+
+
+
+
+        <div class="w-100 ml-4 mr-4 pr-5 pt-0 mb-4 mt-3">
+          <mat-divider class="mb-2"></mat-divider>
+
+
+          <div class="w-100 ml-4 mr-4 ">
+            <div class="row pl-4 pr-4 " *ngFor="let l of liquidacionPrivada; let i = index" 
+            [ngClass]="{'blanco' : isPrime(i), 'gris': !isPrime(i)}">
+              <div class="col-md-8"> <label class="form-control-label mt-2" for="input-ingresos">{{l.name}}</label></div>
+
+              <div class="col-md-1">
+                <div class="prefix-badge mt-2 rounded">
+                  {{l.prefix}}
+                </div>
+              </div>
+
+
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" id="input-ingresos-bruto" [(ngModel)]="l.valor" (keyup)="calcularTotal()"  currencyMask [options]="{precision : 0, thousands: '.' }"
+                        class="form-control form-control-alternative mt-2" placeholder="Ingresos netos gravables" >          
+                    </div>
+                  </div>
+              </div>            
+          </div>
+
+        </div>
+
+
+        <div class="w-100 ml-4 mr-4 pr-5 pt-0 mb-4 mt-3">
+          <mat-divider class="mb-2"></mat-divider>
+
+
+          <div class="w-100 ml-4 mr-4 ">
+            <div class="row pl-4 pr-4 " *ngFor="let p of pagos; let i = index" 
+            [ngClass]="{'blanco' : isPrime(i), 'gris': !isPrime(i)}">
+              <div class="col-md-8"> <label class="form-control-label mt-2" for="input-ingresos">{{p.name}}</label></div>
+
+              <div class="col-md-1">
+                <div class="prefix-badge mt-2 rounded">
+                  {{p.prefix}}
+                </div>
+              </div>
+
+
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" id="input-ingresos-bruto" [(ngModel)]="p.valor" (keyup)="calcularTotal()"  currencyMask [options]="{precision : 0, thousands: '.' }"
+                        class="form-control form-control-alternative mt-2" placeholder="Ingresos netos gravables" >          
+                    </div>
+                  </div>
+              </div>            
+          </div>
+
+        </div>
+
+        
+      </div>
+    </div>
+
+
+</div>
+
+
+
+
+  <div class="col-md-1" class="barra-lateral">
+
+
+    <div  class="boton-barralateral" placement="left" ngbTooltip="Pagar" *ngIf="tramite && tramite?.estado === 'PR'">
+      <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-money-coins"></i></span>
+    </div>
+
+    <div   class="boton-barralateral" placement="left" ngbTooltip="Generar firma electronica" *ngIf="tramite && tramite?.estado != 'PR'" (click)="generarLlave()">
+      <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-key-25"></i></span>
+    </div>
+
+
+    <div class="boton-barralateral" placement="left" ngbTooltip="Guardar Borrador" (click)="guardarBorrador()" *ngIf="tramite?.estado != 'PR'">
+      <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-archive-2"></i></span>
+    </div>
+
+
+    <div   class="boton-barralateral" placement="left"  ngbTooltip="Anular tramite"  *ngIf="tramite && tramite?.estado != 'PR'" (click)="anular()">
+      <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-basket"></i></span>
+    </div>
+
+
+  </div>
+</div>  
+

@@ -13,6 +13,10 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { SpinnerImgComponent } from './spinner-img/spinner-img.component';
+import { AppImports } from '../app-imports';
+import { RepresentanteService } from '@representados';
+import { RepresentadosModal } from './representadosModal/representadosModal.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -23,18 +27,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   imports: [
     CommonModule,
     RouterModule,
-    NgbModule,
-    PipesModule,
-    FormsModule,
-    PerfectScrollbarModule,
-    NgxExtendedPdfViewerModule
+    AppImports
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
     ShowErrorsDirective,
-    SelectDropdown
+    SelectDropdown,
+    SpinnerImgComponent,
+    RepresentadosModal
 
   ],
   exports: [
@@ -42,8 +44,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NavbarComponent,
     SidebarComponent,
     ShowErrorsDirective,
-    SelectDropdown
+    SelectDropdown,
+    SpinnerImgComponent
+
   ],
+  entryComponents: [RepresentadosModal],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

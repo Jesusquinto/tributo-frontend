@@ -1,18 +1,12 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { AppSettings } from '../../app.settings';
-
-//MODELS
-import { Settings } from '../../app.settings.model';
-import { selectDropdownModel } from '../../components/select-dropdown/select-dropdown.model';
-import { Entidad } from '../../modelos/entidad.model';
-
 import Swal from 'sweetalert2';
 
-import { ApiRestService } from '../../api-rest.service';
-import { trigger, style, transition, animate, keyframes, query, stagger, group, state, animateChild } from '@angular/animations';
+import { ApiRestService } from '@servicio';
+import { trigger, style, transition, animate } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { Endpoints } from 'src/app/endpoints';
+import { RepresentanteService } from '@representados';
+import { EndpointsService } from 'src/app/services/endpoints.service';
 
 
 @Component({
@@ -35,21 +29,7 @@ import { Endpoints } from 'src/app/endpoints';
   ],
 })
 export class DeclararComponent implements OnInit {
-  private url : any;
-
-  public departamento: selectDropdownModel = new selectDropdownModel(null, null, null);
-  public departamentos: selectDropdownModel[] = [
-    new selectDropdownModel('antioquia', 'Antioquia', 'ni ni-pin-3'),
-    new selectDropdownModel('nariño', ' Nariño', 'ni ni-pin-3'),
-    new selectDropdownModel('bolivar', 'Bolivar', 'ni ni-pin-3'),
-  ];
-
-  public municipio: selectDropdownModel = new selectDropdownModel(null, null, null);
-  public municipios: selectDropdownModel[] = [
-    new selectDropdownModel('barranquilla', 'Barranquilla', 'ni ni-pin-3'),
-    new selectDropdownModel('cartagena', 'Cartagena', 'ni ni-pin-3'),
-    new selectDropdownModel('magdalena', 'Magdalena', 'ni ni-pin-3'),
-  ];
+  private url: any;
 
   private Toast = Swal.mixin({
     toast: true,
@@ -58,34 +38,79 @@ export class DeclararComponent implements OnInit {
     timer: 3000
   });
 
+  private swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-primary',
+      cancelButton: 'btn btn-danger',
+      title: 'title2'
+    },
+    buttonsStyling: false,
+  });
+
+  private validadUsuarioAlert: any = {
+    title: '¿Está seguro?',
+    text: 'Para declarar un tramite debe actualizar sus datos primero ',
+    type: 'error',
+    showCancelButton: false,
+    confirmButtonText: 'Ir a mi perfíl!',
+    reverseButtons: true,
+  };
+
+  private validarPermisosAlert: any = {
+    title: 'No está autorizado!',
+    text: 'Actualmente no tiene permisos en este modulo con el representante actual',
+    type: 'error',
+    showCancelButton: false,
+    confirmButtonText: 'Salir',
+    reverseButtons: true,
+  };
+
+  private resetTramitesFilter: Subject<void>;
+  private resetEntidadesFilter: Subject<void>;
+
   public idEntidad: any;
   public tributo: any;
-
   public entidades: any;
   public entidadSeleccionada: any;
-
   public actos: any;
   public acto: any;
   public estado: string;
-
+  public tramite: any;
   public tributos: any;
-
   public filterResult: any = 0;
 
-  public settings: Settings;
-  constructor(public appSettings: AppSettings, private servicio: ApiRestService, private ngZone: NgZone, private ruta: Router) {
-    this.url = Endpoints;
-    this.settings = this.appSettings.settings;
-    this.settings.loadingSpinner = true;
+  private representado: any;
+
+  constructor(private servicio: ApiRestService, private ngZone: NgZone, private ruta: Router,
+              private _representados: RepresentanteService, private endpoints: EndpointsService) {
+    this.url = this.endpoints.endpoints.value;
+    this.resetEntidadesFilter = new Subject<void>();
+    this.resetTramitesFilter = new Subject<void>();
     this.estado = 'verentidades';
   }
 
+
+  anularTramiteAlert(tramite: any): any {
+    return {
+    title: '¿Está seguro?',
+    text: 'De Anular este tramite?',
+    type: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Aceptar',
+    cancelButtonText: 'Cancelar',
+    reverseButtons: true
+    };
+  }
+
+
+
+
   showEntidades(entidades: any) {
     this.entidades = entidades;
-    if(entidades != null){
+    if (entidades != null) {
       this.filterResult = Object.keys(this.entidades).length;
 
-    }else{
+    } else {
       this.filterResult = 0;
     }
   }
@@ -106,23 +131,22 @@ export class DeclararComponent implements OnInit {
       showConfirmButton: false,
       timer: 3000
     });
-    this.settings.loadingSpinner = true;
     this.servicio.get('entidad/list').subscribe(result => {
       this.entidades = result;
-      this.settings.loadingSpinner = false;
+      this.servicio.closeSpinner();
       Toast.fire({
         type: 'success',
         title: 'Entidades',
         text: 'Actualizadas con exito'
-      })
+      });
     }, error => {
       Toast.fire({
         type: 'error',
         title: error,
         text: error
-      })
-      this.settings.loadingSpinner = false;
-    })
+      });
+      this.servicio.closeSpinner();
+    });
   }
 
   verActos(identidad: any) {
@@ -132,169 +156,183 @@ export class DeclararComponent implements OnInit {
       showConfirmButton: false,
       timer: 3000
     });
-    this.settings.loadingSpinner = true;
+
+    this.servicio.openSpinner();
     this.servicio.get('actosentidad/'.concat(identidad)).subscribe(result => {
       console.log(result);
       this.entidadSeleccionada = result[0].fkBcEntidad;
       console.log(this.entidadSeleccionada);
       this.idEntidad = identidad;
-      this.settings.loadingSpinner = false;
+      this.servicio.closeSpinner();
       this.actos = result;
       this.filterResult = Object.keys(this.actos).length;
-      if (Object.keys(this.actos).length == 0) {
+      if (Object.keys(this.actos).length === 0) {
         Toast.fire({
           type: 'error',
           title: 'error',
           text: 'La entidad no tiene actos por el momento!'
-        })
+        });
       } else {
         this.estado = 'veractos';
       }
     }, error => {
-      this.settings.loadingSpinner = false;
+      this.servicio.closeSpinner();
     });
   }
 
   verFormulario(acto: any) {
-    
-    this.settings.loadingSpinner = true;
+    this.servicio.openSpinner();
     this.servicio.get('actosdetalle/actos/'.concat(acto.fkBcEntidad.idEntidad).concat('/').concat(acto.fkBcActo.idActo)).subscribe(
       result => {
         console.log(result);
-        this.settings.loadingSpinner = false;
+        this.servicio.closeSpinner();
         this.tributos = result;
         this.acto = acto;
         this.ResetEntidadesFilter();
         this.estado = 'verformulario';
         console.log(acto);
       }, error => {
+        this.servicio.closeSpinner();
         console.log(error);
+      });
+  }
+
+
+
+  verPredial(acto: any) {
+    this.estado = 'verpredial';
+    this.acto = acto;
+  }
+  verVehicular(acto: any) {
+    this.estado = 'vervehicular';
+    this.acto = acto;
+  }
+
+  verIca(acto: any) {
+    this.estado = 'verica';
+    this.acto = acto;
+  }
+
+  anularTramite(tramite: any) {
+    this.swalWithBootstrapButtons.fire(this.anularTramiteAlert(tramite)).then((result) => {
+      if (result.value) {
+        this.servicio.openSpinner();
+        this.servicio.put('acto/anular/'.concat(tramite.idUsuarioActo), {}).subscribe(
+          res => {
+            this.servicio.closeSpinner();
+            this.estado = 'veractos';
+            this.acto = null;
+            this.tramite = null;
+            this.Toast.fire({
+              type: 'success',
+              title: 'Exito!',
+              text: 'Tramite Anulado'
+            });
+          }, error => {
+            this.Toast.fire({
+              type: 'error',
+              title: 'Error',
+              text: 'Al anular tramite'
+            });
+          });
       }
-    )
+    });
+  }
 
 
+
+
+  verTramite(tramite: any) {
+    console.log(tramite);
+    this.servicio.openSpinner();
+    this.servicio.get('actosdetalle/actos/'.concat(tramite.fkActoEntidad.fkBcEntidad.idEntidad)
+                      .concat('/').concat(tramite.fkActoEntidad.fkBcActo.idActo)).subscribe(
+      result => {
+        console.log(result);
+        this.servicio.closeSpinner();
+        this.tributos = result;
+        this.acto = tramite.fkActoEntidad;
+        this.ResetEntidadesFilter();
+        this.tramite = tramite;
+        console.log('tramiteeee',this.tramite)
+        switch (this.acto.fkBcActo.tipo) {
+          case 'ICA':
+            this.estado = 'verica';
+            break;
+          case 'EST':
+            this.estado = 'verformulario';
+            break;
+        }
+      }, error => {
+        console.log(error);
+      });
+  }
+
+
+  validarPermisos() {
+    switch (this.representado) {
+      case null:
+        this.validarusuario();
+        break;
+      default:
+        const permisos: Array<any> = JSON.parse(this.representado.permisos);
+        if (!this._representados.permiso(0, 'declarar')) {
+          this.swalWithBootstrapButtons.fire(this.validarPermisosAlert).then((res: any) => {
+            if (res.value) {
+              this.ngZone.run(() => { this.ruta.navigateByUrl('/dashboard'); });
+            } else {
+              this.ngZone.run(() => { this.ruta.navigateByUrl('/dashboard'); });
+            }
+          });
+        }
+        break;
+    }
   }
 
 
 
   validarusuario() {
-    this.settings.loadingSpinner = true;
+    this.servicio.openSpinner();
     this.servicio.getUserData().subscribe(
-      (result: any) => {
-        this.settings.loadingSpinner = false;
-
-        if (result.completeData == 1) {
-
-
-
-
-
-        } else {
-
-          const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-primary',
-              title: 'title2'
-            },
-            buttonsStyling: false,
-          });
-          swalWithBootstrapButtons.fire({
-            title: '¿Está seguro?',
-            text: 'Para declarar un tramite debe actualizar sus datos primero ',
-            type: 'error',
-            showCancelButton: false,
-            confirmButtonText: 'Ir a mi perfíl!',
-            reverseButtons: true,
-          }).then((result) => {
-            if (result.value) {
-              this.ngZone.run(() => { this.ruta.navigateByUrl('/user-profile') });
-            } else {
-              this.ngZone.run(() => { this.ruta.navigateByUrl('/dashboard') });
-
-            }
-          });
+      (data: any) => {
+        this.servicio.closeSpinner();
+        switch (data.completeData) {
+          case 1:
+            break;
+          case 0:
+            this.swalWithBootstrapButtons.fire(this.validadUsuarioAlert).then((res: any) => {
+              if (res.value) {
+                this.ngZone.run(() => { this.ruta.navigateByUrl('/user-profile'); });
+              } else {
+                this.ngZone.run(() => { this.ruta.navigateByUrl('/dashboard'); });
+              }
+            });
+            break;
         }
-      }
-    )
+      },
+      error => {
+        this.servicio.closeSpinner();
+        console.log(error);
+        this.ngZone.run(() => { this.ruta.navigateByUrl('/dashboard'); });
+      });
   }
 
-  verRegistro(datos: any) {
-    this.tributo = datos;
-    this.estado = "verrangos"
-
-  }
 
 
-  declarar(datos: any) {
-    console.log("---------------------------------------------------")
-    console.log(datos);
-    this.settings.loadingSpinner = true;
-    let archivo = datos.pdfRuta;
-    console.log(archivo);
-    datos.pdfRuta = '';
-
-    this.servicio.post('usuariosacto/save/'.concat(this.acto.fkBcEntidad.idEntidad).concat('/').concat(this.acto.fkBcActo.idActo), datos).subscribe((result: any) => {
-
-      console.log(result.idUsuarioActo);
-      
-
-      let formData = new FormData();
-	    formData.append('archivo', archivo);
-	    formData.append('id', result.idUsuarioActo);
-      this.servicio.setUsuarioActo(formData).subscribe(result =>{
-        this.Toast.fire({
-          type: 'success',
-          title: 'Genial!',
-          text: 'Se ha creado el acto '.concat(datos.descripcion).concat(' con exito!')
-        })
-         
-    
-          this.estado = 'verentidades'
-     
-
-     
-    },error=>{
-      this.Toast.fire({
-        type: 'error',
-        title: 'Error',
-        text: error.error
-      })
-
-    })
-    
-    
-
-    
-  }, error => {
-      console.log(error);
-      this.settings.loadingSpinner = false;
-      this.Toast.fire({
-        type: 'error',
-        title: 'Error',
-        text: error.error
-      })
-
-    })
-
-
-  }
-
-  private resetTramitesFilter: Subject<void> = new Subject<void>();
 
   ResetTramitesFilter() {
-    this.resetTramitesFilter.next()
+    this.resetTramitesFilter.next();
   }
 
 
-
-  private resetEntidadesFilter: Subject<void> = new Subject<void>();
-
   ResetEntidadesFilter() {
-    this.resetEntidadesFilter.next()
+    this.resetEntidadesFilter.next();
   }
 
 
   volver() {
+    this.tramite = null;
+    this.acto = null;
     switch (this.estado) {
       case 'veractos':
         this.estado = 'verentidades';
@@ -303,22 +341,21 @@ export class DeclararComponent implements OnInit {
         this.filterResult = 0;
         break;
       case 'verformulario':
-        this.estado = 'veractos'
-        this.filterResult = Object.keys(this.actos).length
+        this.estado = 'veractos';
+        this.filterResult = Object.keys(this.actos).length;
         break;
       case 'verrangos':
         this.estado = 'verformulario';
         break;
       default:
         this.estado = 'verentidades';
-
     }
-
   }
 
   ngOnInit() {
-    this.validarusuario();
-
+    /* this.validarusuario(); */
+    this._representados.representado.subscribe(value => this.representado = value);
+    this.validarPermisos();
   }
 
 

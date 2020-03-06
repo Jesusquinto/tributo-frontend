@@ -1,0 +1,7 @@
+{
+   "normal": "http://localhost:8080/",
+   "complete" : "http://localhost:8080/rest/v1/",
+   "entidadesEndpointNormal": "http://portal.tributo.co:5000/",
+   "entidadesEndpointComplete": "http://portal.tributo.co:5000/rest/v1/",
+   "serverUrl": "http://localhost:4200/"   
+}

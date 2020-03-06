@@ -2,22 +2,12 @@
 
   <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
     style="min-height: 600px; background-size: cover; background-position: center top;"
-    style="background: url('/assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;">
+    style="background: url('assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;">
 
     <!-- Mask -->
     <span class="mask bg-gradient-danger opacity-6"></span>
     <!-- Header container -->
-    <div class="container-fluid d-flex align-items-center" *ngIf="showMessage">
-      <div class="row">
-        <div class="col-lg-7 col-md-10">
-          <h1 class="display-2 text-white">Hola! {{backdata.name}}</h1>
-          <p class="text-white mt-0 mb-5">Esta es tu pagina de perfil. Aquí podras, ver y editar los datos referentes a
-            tu
-            persona y llevar un conteo de tus tributos</p>
-          <button role="button" (click)="hideMessage()" class="btn btn-info">De acuerdo!</button>
-        </div>
-      </div>
-    </div>
+
   </div>
   <div class="container-fluid mt--7">
     <div class="row">
@@ -27,7 +17,7 @@
             <div class="col-lg-3 order-lg-2">
               <div class="card-profile-image">
                 <a href="javascript:void(0)">
-                  <img src="{{backdata.imageUrl}}" width="800" class="rounded-circle">
+                  <img src="{{backdata.imageUrl}}"  onError="this.src='assets/resources/users/profileimg.jpg';" width="800" class="rounded-circle">
                 </a>
               </div>
             </div>

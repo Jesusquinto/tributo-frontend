@@ -1,19 +1,10 @@
 <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
   style="min-height: 600px; background-size: cover; background-position: center top;"
-  style="background: url('/assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;">
+  style="background: url('assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;">
   <!-- Mask -->
   <span class="mask bg-gradient-danger opacity-6"></span>
   <!-- Header container -->
-  <div class="container-fluid d-flex align-items-center">
-    <div class="row">
-      <div class="col-lg-7 col-md-10">
-        <h1 class="display-2 text-white">Hola! {{userNombre}}</h1>
-        <p class="text-white mt-0 mb-5">Este es el apartado del estado de tu cuenta. Aquí podras, Llevar un conteo y
-          administrar con detalle todos los tramites de tu cuenta</p>
-        <a role="button" class="btn btn-info">De acuerdo!</a>
-      </div>
-    </div>
-  </div>
+
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
@@ -21,7 +12,7 @@
 
 
 
-  <mat-sidenav-container style="border-radius: 10px; z-index: 0;" style="height: 600px">
+  <mat-sidenav-container style="border-radius: 10px;" style="height: 600px; z-index: 0 !important;">
 
 
     <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over' ">
@@ -95,7 +86,7 @@
 
 
                     <perfect-scrollbar style="max-height: 200px;">
-                      <!-- FILTROS DE ESTADO -->
+ 
                       <mat-list>
                         <h3 mat-subheader style="padding-bottom: 0px;padding-top: 0px;">Solo mostrar estados </h3>
 
@@ -119,21 +110,6 @@
 
 
 
-                        <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
-                          <i class="ni ni-ruler-pencil" style="position: absolute;
-                              font-size: 30px;
-                              color: #646270;"></i>
-                          <div style="    position: absolute;
-                             left: 28%;
-                             font-size: 13px;
-                             text-align: left;">
-                            <h4 mat-line class="estado-list-name"
-                              style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
-                              Borradores</h4>
-                            <p mat-line style="margin-bottom: 0px; "><span class="badge badge-info">Borrador</span></p>
-                          </div>
-                          <mat-radio-button value="BO" style="position: absolute;left: 85%;"></mat-radio-button>
-                        </mat-list-item>
                         <mat-divider></mat-divider>
 
                         <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
@@ -154,23 +130,6 @@
                         </mat-list-item>
                         <mat-divider></mat-divider>
 
-                        <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
-                          <i class="ni ni-basket" style="position: absolute;
-                              font-size: 30px;
-                              color: #646270;"></i>
-                          <div style="    position: absolute;
-                             left: 28%;
-                             font-size: 13px;
-                             text-align: left;">
-                            <h4 mat-line class="estado-list-name"
-                              style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
-                              Liquidados</h4>
-                            <p mat-line style="margin-bottom: 0px; "><span class="badge badge-danger">Liquidado</span>
-                            </p>
-                          </div>
-                          <mat-radio-button value="LI" style="position: absolute;left: 85%;"></mat-radio-button>
-                        </mat-list-item>
-                        <mat-divider></mat-divider>
 
                         <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
                           <i class="ni ni-money-coins" style="position: absolute;
@@ -187,24 +146,8 @@
                           </div>
                           <mat-radio-button value="PA" style="position: absolute;left: 85%;"></mat-radio-button>
                         </mat-list-item>
-                        <mat-divider></mat-divider>
 
-                        <mat-list-item style="position: relative;      background: #e5e5e5; height: 50px;">
-                          <i class="ni ni-archive-2" style="position: absolute;
-                              font-size: 30px;
-                              color: #646270;"></i>
-                          <div style="    position: absolute;
-                             left: 28%;
-                             font-size: 13px;
-                             text-align: left;">
-                            <h4 mat-line class="estado-list-name"
-                              style="margin-bottom: 0px; font-weight: 400;     position: relative;top: 4px; left: 4px;">
-                              Eliminados</h4>
-                            <p mat-line style="margin-bottom: 0px; "><span class="badge badge-secondary"
-                                style="color: gray">Anulados</span></p>
-                          </div>
-                          <mat-radio-button value="AN" style="position: absolute;left: 85%;"></mat-radio-button>
-                        </mat-list-item>
+
                         <mat-divider></mat-divider>
 
 
@@ -255,8 +198,8 @@
                   <div class="col">
                     <h6 class="card-title text-uppercase text-muted mb-0">{{acto.fkActoEntidad.fkBcActo.nombreActo}}</h6>
                     <span class="h3 font-weight-bold mb-0" style="position: relative; bottom: 9px;">{{acto.descripcion}}</span>
-                    <span class="h3 font-weight-bold mb-0" style="position: relative;display: -webkit-box;color: rgb(78, 185, 92);bottom: 15px;">{{acto.valorApagar | currency}} COP</span>
-                    <span class="h4 font-weight-bold mb-0" style="position: relative;bottom: 22px;">{{acto.fkActoEntidad.fkBcEntidad.nombre}}</span>
+                    <span class="h3 font-weight-bold mb-0" style="position: relative;display: -webkit-box;color: rgb(78, 185, 92);bottom: 15px;">{{acto.valorApagar | currency : '$'}}</span>
+                    <span class="h4 font-weight-bold mb-0" style="position: relative;bottom: 22px;">{{acto.fkActoEntidad.fkBcEntidad.nombre | truncate : 21}}</span>
 
 
 
@@ -281,7 +224,7 @@
                     <i class="ni"
                       [ngClass]="{'ni-ruler-pencil' : acto.estado == 'BO', 'ni-single-copy-04': acto.estado === 'PR','ni-archive-2': acto.estado == 'AN', 'ni-paper-diploma' : acto.estado == 'LI', 'ni-money-coins': acto.estado == 'PA'}">
                     </i>
-                    {{acto.valor_apagar | currency}}
+                    {{acto.valor_apagar | currency : '$'}}
 
 
                     
@@ -329,14 +272,14 @@
 
     <!-- NAVBAR DEL TRAMITE SELECCIONADO -->
     <nav class="navbar navbar-horizontal navbar-expand-lg navbar-dark bg-default" style="padding: 6px">
-      <div class="container">
-        <button class="navbar-toggler" (click)="sidenav.toggle()"><span class="ni ni-bullet-list-67"></span></button>
-      </div>
+
+      <button class="navbar-toggler" (click)="sidenav.toggle()" style="display: flex;"><span class="fas fa-bars"></span></button>
+
+  
+
     </nav>
 
     <div>
-
-
 
 
 
@@ -360,7 +303,7 @@
 
                       <img
                         src='{{url.entidadesEndpointComplete}}uploads/img/{{acto.fkActoEntidad.fkBcEntidad.logo}}'
-                        onError="this.src='/assets/resources/Entidades/entidad_default.png';"
+                        onError="this.src='assets/resources/Entidades/entidad_default.png';"
                         width="125px" height="125px" alt="..." style="height: 110px;
                         width: 110px;">
                     </div>
@@ -383,11 +326,6 @@
                       <perfect-scrollbar style="max-height: 100px;">
 
 
-                          
-                        
-
-
-
                       </perfect-scrollbar>
 
                     </div>
@@ -400,53 +338,139 @@
                     <h4 class="panel-title"></h4>
                   </div>
                   <div class="panel-body">
-                    <div class="card shadow" style="width: 100% !important">
-                      <div class="card-header border-0">
-                        <div class="row align-items-center">
-                          <div class="col">
-                            <h3 class="mb-0">Información del tramite #{{acto.consecutivoActo}} </h3>
-                          </div>
-
-                        </div>
-
-                        <div>
-                          
-                          <p style="margin: 0px; margin-top: 5%"><b style="font-weight: 700;">No. contrato</b> {{acto.numeroActo}}</p>
-                          <p style="margin: 0px"><b style="font-weight: 700;">Entidad contratante</b> {{acto.fkEntidadContratantes.fkContratante.nombreContratante}}</p>
-                          <p style="margin: 0px"><b style="font-weight: 700;">Estado del tramite</b>  <span class="badge badge-info" *ngIf="acto.estado == 'BO'">Borrador</span>
-                            <span class="badge badge-warning" *ngIf="acto.estado == 'PR'">Presentado</span>
-                            <span class="badge badge-danger" *ngIf="acto.estado == 'LI'">Liquidado</span>
-                            <span class="badge badge-success" *ngIf="acto.estado == 'PA'">Pagado</span>
-                            <span class="badge badge-secondary" *ngIf="acto.estado == 'AN'">Anulado</span></p>
-                          <p style="margin: 0px"><b style="font-weight: 700;">Valor contrato</b> {{acto.valorActo | currency}}</p>
-                          <p style="margin: 0px"><b style="font-weight: 700;">Valor del tramite</b> {{acto.valorApagar | currency}}</p>
-                          <p style="margin: 0px"><b style="font-weight: 700;">Periodo</b> {{acto.tipoPeriodo}}</p>
-
-                            <p *ngIf="acto.fechaPresentacion" style="margin: 0px"><b style="font-weight: 700;">Fecha presentado</b> {{acto.fechaPresentacion | date}}</p>
-                            <p *ngIf="acto.fechaLiquidacion" style="margin: 0px"><b style="font-weight: 700;">Fecha Liquidado</b> {{acto.fechaLiquidacion | date}}</p>
-                            <p *ngIf="acto.fechaPago" style="margin: 0px"><b style="font-weight: 700;">Fecha Pago </b>{{acto.fechaPago | date}}</p>
-                            <p *ngIf="acto.fechaAnulado" style="margin: 0px"><b style="font-weight: 700;">Fecha Anulado</b> {{acto.fechaAnulado | date}}</p>
-
  
+
+
+                  <!-- here -->
+
+                  <div class="row" *ngIf="valores">
+                    <div class="col-md-12">
+                      <div class="pl-2">
+                        <h1  style="margin-bottom: 0px"><i class="fas fa-file-invoice-dollar mr-2"></i> Recibo tramite </h1>
+                         <span>No. {{acto.consecutivoActo}}</span>
+                     </div>
+      
+      
+                      <div style="margin: 10px">
+                  
+                        <div>
+                          <div class="col-md-12 py-2" style="background: #dadff7;">
+                            <div class="row">
+                              <div class="col-md-9">
+                                <div class="btn-group btn-group-sm" role="group" style="margin: 0px;">
+                                  <button [disabled]="codigo === ''" type="button" class="btn btn-sm btn-warning"
+                                    (click)="buscar()" matTooltip="Recargar" [matTooltipPosition]="'above'"><i
+                                      class="fa fa-sync"></i></button>
+                                  <button (click)="pagar()"  type="button" class="btn btn bg-default text-white"><i
+                                      class="fa fa-file-medical"></i>&nbsp;Generar recibo</button>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <input type="text" (keyup)="applyFilter($event.target.value)"
+                                  class="form-control form-control-sm bg-white" style="border-radius: 3px; padding-left: 3px;"
+                                  placeholder="Buscar por...">
+                              </div>
+                            </div>
+                          </div>
+      
+                          <div class="col-md-12 p-0">
+                            <table mat-table [dataSource]="dataSource" matSort class="w-100" multiTemplateDataRows >
+                  
+                    
+                              <ng-container matColumnDef="referencia">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                                  <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; REFERENCIA
+                                </th>
+                                <td mat-cell *matCellDef="let item"
+                                style="padding-left: 24px !important;"><i class="fas fa-file-alt text-warning mr-2" ></i> {{acto.consecutivoActo}} </td>
+                              </ng-container>
+                    
+                              <ng-container matColumnDef="valortramite">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                                  <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; VALOR TRAMITE
+                                </th>
+                                <td mat-cell *matCellDef="let item"> {{valores.valorTramite | currency : '$'}} </td>
+                              </ng-container>
+      
+                              <ng-container matColumnDef="intereses">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                                  <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; INTERESES
+                                </th>
+                                <td mat-cell *matCellDef="let item" class="text-right" style="padding-right: 24px !important;"
+                                  [ngClass]="item.sxCSdo === 0 ? 'text-success':'text-danger'"> <b>{{valores.intereses | currency : '$'}} </b>
+                                </td>
+                              </ng-container>
+                    
+      
+      
+                              <ng-container matColumnDef="total">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                                  <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; TOTAL
+                                </th>
+                                <td mat-cell *matCellDef="let item" class="text-right" style="padding-right: 24px !important;"
+                                  [ngClass]="item.sxCSdo === 0 ? 'text-success':'text-danger'"> <b>{{valores.total | currency : '$' }}</b>
+                                </td>
+                              </ng-container>
+                              
+      
+                          
+                              <tr style="height: auto !important; padding: 2px !important;" mat-header-row
+                              *matHeaderRowDef="displayedColumns"></tr>
+                              <tr class="trow" mat-row *matRowDef="let row;let i = index; columns: displayedColumns"></tr>                            
+                            </table>
+      
+                          </div>
+                  
+      
+                  
                         </div>
-
-
                       </div>
-                     
                     </div>
+      
+                </div>
+
+
+                <div class="card shadow" style="width: 100% !important">
+                  <div class="card-header border-0">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h3 class="mb-0">Información del tramite #{{acto.consecutivoActo}} </h3>
+                      </div>
+
+                    </div>
+
+                    <div>
+                      
+                      <p style="margin: 0px; margin-top: 5%"><b style="font-weight: 700;">No. contrato</b> {{acto.numeroActo}}</p>
+                      <p style="margin: 0px"><b style="font-weight: 700;">Entidad contratante</b> {{acto.fkEntidadContratantes.fkContratante.nombreContratante}}</p>
+                      <p style="margin: 0px"><b style="font-weight: 700;">Estado del tramite</b>  <span class="badge badge-info" *ngIf="acto.estado == 'BO'">Borrador</span>
+                        <span class="badge badge-warning" *ngIf="acto.estado == 'PR'">Presentado</span>
+                        <span class="badge badge-danger" *ngIf="acto.estado == 'LI'">Liquidado</span>
+                        <span class="badge badge-success" *ngIf="acto.estado == 'PA'">Pagado</span>
+                        <span class="badge badge-secondary" *ngIf="acto.estado == 'AN'">Anulado</span></p>
+                      <p style="margin: 0px"><b style="font-weight: 700;">Valor contrato</b> {{acto.valorActo | currency : '$'}}</p>
+                      <p style="margin: 0px"><b style="font-weight: 700;">Valor del tramite</b> {{acto.valorApagar | currency: '$'}}</p>
+                      <p style="margin: 0px"><b style="font-weight: 700;">Periodo</b> {{acto.tipoPeriodo}}</p>
+
+                        <p *ngIf="acto.fechaPresentacion" style="margin: 0px"><b style="font-weight: 700;">Fecha presentado</b> {{acto.fechaPresentacion | date}}</p>
+                        <p *ngIf="acto.fechaLiquidacion" style="margin: 0px"><b style="font-weight: 700;">Fecha Liquidado</b> {{acto.fechaLiquidacion | date}}</p>
+                        <p *ngIf="acto.fechaPago" style="margin: 0px"><b style="font-weight: 700;">Fecha Pago </b>{{acto.fechaPago | date}}</p>
+                        <p *ngIf="acto.fechaAnulado" style="margin: 0px"><b style="font-weight: 700;">Fecha Anulado</b> {{acto.fechaAnulado | date}}</p>
+
+                    </div>
+
+                  </div>                     
+                </div>
+
+
 
                   </div>
                 </div>
 
              
 
-
               </div>
               <div class="col-xs-12 col-sm-3" style="margin-top: 5%;">
-
-                <!-- Contact user -->
-
-
 
                 <p  *ngIf="acto.estado == 'BO'" role="button" disabled>
                   <a class="profile__contact-btn btn btn-lg btn-block btn-primary text-white" data-toggle="modal"
@@ -485,16 +509,8 @@
                 </p>
 
 
-
-               
-
               </div>
             </div>
-
-
-
-
-          
 
 
           </div>
@@ -503,29 +519,23 @@
 
       <div *ngIf="estado == 'verPDF'" class="animated fadeIn fast">
           <perfect-scrollbar style="max-height: 580px" >
-          
-          <p (click)="volver()" style="    display: inline-block;
-          width: 10%;
-          margin-left: 3%;
-          margin-top: 10px;
-          margin-bottom: 2px;" >
-              <a class="profile__contact-btn btn btn-lg btn-block btn-primary text-white" data-toggle="modal"
-                data-target="#profile__contact-form" style="margin: 0px">
-                <i class="ni ni-bold-left"></i>Volver
-              </a>
-            </p>
 
-            <h2 style="    display: -webkit-inline-box;
-            margin-left: 2%;
-            position: relative;
-            bottom: 10px;">Tramite #{{acto.consecutivoActo}}</h2>
-            <h3 style="    position: relative;
-            left: 15%;
-            bottom: 28px;
-            color: gray;">{{acto.descripcion}}</h3>
+
+            
+          <div class="row mb-2 ml-1 mt-2">
+            <div class="pl-2 ml-2 mb-1">
+              <h1  style="margin-bottom: 0px"><i class="fas fa-stamp mr-2"></i>{{acto.descripcion}}</h1>
+               <span>Ref. {{acto.consecutivoActo}}</span>
+           </div>
+            <div class="col-md-12">
+              <button (click)="volver()" class="btn btn bg-default text-white"><i class="fa fa-times"></i>&nbsp; cerrar</button>
+              <button (click)="savePDF()" class="btn btn bg-default text-white"><i class="fa fa-save"></i>&nbsp; Guardar</button>
+            </div>
+          </div>
+          
 
          
-              <div class="container" style="position: relative; bottom: 20px">
+              <div class="container" style=" bottom: 20px">
                   <ngx-extended-pdf-viewer height="480px" delayFirstView="250" [src]="pdf"
                 useBrowserLocale="true"  [showScrollingButton]="false"	 [backgroundColor]="'#fafafa'" (pagesLoaded)="pdfCargado($event)"	> </ngx-extended-pdf-viewer>
 
@@ -560,18 +570,6 @@
 
 </div>
   </mat-sidenav-container>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,443 @@
+$font-family: 'Roboto', sans-serif;
+
+$toolbar-height: 56px; 
+$horizontal-menu-height: $toolbar-height;
+
+$sidenav-width: 250px;
+$sidenav-user-block-height: 156px;
+$mini-sidenav-user-block-height: 70px;
+
+$flex-distance: 8px;
+$inner-sidenav-content-padding: $flex-distance;
+
+//Login, Register, Errors box
+$box-height: 186px;
+$box-position: 34px;
+$register-box-height: 300px;
+
+
+.acto:hover{
+    cursor: pointer;
+    background: #efecec;
+}
+
+.acto{
+    transition: all .3s;
+}
+
+
+input[type="file"] {
+  display: none;
+}
+
+.exp-header{
+  background: rgb(244, 244, 244) !important;
+}
+
+.exp-header:hover{
+  background: rgb(217, 216, 216) !important;
+  cursor: pointer;
+}
+
+
+.page{
+  width: 200px !important;
+  height: 200px !important;
+}
+
+.js .inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  max-width: 80%;
+  font-size: 1.25rem;
+  /* 20px */
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.625rem 1.25rem;
+  /* 10px 20px */
+}
+
+.no-js .inputfile + label {
+  display: none;
+}
+
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+  /* pointer-events: none; */
+  /* in case of FastClick lib use */
+}
+
+.inputfile + label svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  margin-top: -0.25em;
+  /* 4px */
+  margin-right: 0.25em;
+  /* 4px */
+}
+
+
+/* style 1 */
+
+.inputfile-1 + label {
+  color: #f1e5e6;
+  background-color: #d3394c;
+}
+
+.inputfile-1:focus + label,
+.inputfile-1.has-focus + label,
+.inputfile-1 + label:hover {
+  background-color: #722040;
+}
+
+
+/* style 2 */
+
+.inputfile-2 + label {
+  color: #d3394c;
+  border: 2px solid currentColor;
+}
+
+.inputfile-2:focus + label,
+.inputfile-2.has-focus + label,
+.inputfile-2 + label:hover {
+  color: #722040;
+}
+
+
+/* style 3 */
+
+.inputfile-3 + label {
+  color: #d3394c;
+}
+
+.inputfile-3:focus + label,
+.inputfile-3.has-focus + label,
+.inputfile-3 + label:hover {
+  color: #722040;
+}
+
+
+/* style 4 */
+
+.inputfile-4 + label {
+  color: #d3394c;
+}
+
+.inputfile-4:focus + label,
+.inputfile-4.has-focus + label,
+.inputfile-4 + label:hover {
+  color: #722040;
+}
+
+.inputfile-4 + label figure {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #d3394c;
+  display: block;
+  padding: 20px;
+  margin: 0 auto 10px;
+}
+
+.inputfile-4:focus + label figure,
+.inputfile-4.has-focus + label figure,
+.inputfile-4 + label:hover figure {
+  background-color: #722040;
+}
+
+.inputfile-4 + label svg {
+  width: 100%;
+  height: 100%;
+  fill: #f1e5e6;
+}
+
+
+/* style 5 */
+
+.inputfile-5 + label {
+  color: #d3394c;
+}
+
+.inputfile-5:focus + label,
+.inputfile-5.has-focus + label,
+.inputfile-5 + label:hover {
+  color: #722040;
+}
+
+.inputfile-5 + label figure {
+  width: 100px;
+  height: 135px;
+  background-color: #d3394c;
+  display: block;
+  position: relative;
+  padding: 30px;
+  margin: 0 auto 10px;
+}
+
+.inputfile-5:focus + label figure,
+.inputfile-5.has-focus + label figure,
+.inputfile-5 + label:hover figure {
+  background-color: #722040;
+}
+
+.inputfile-5 + label figure::before,
+.inputfile-5 + label figure::after {
+  width: 0;
+  height: 0;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.inputfile-5 + label figure::before {
+  border-top: 20px solid #dfc8ca;
+  border-left: 20px solid transparent;
+}
+
+.inputfile-5 + label figure::after {
+  border-bottom: 20px solid #722040;
+  border-right: 20px solid transparent;
+}
+
+.inputfile-5:focus + label figure::after,
+.inputfile-5.has-focus + label figure::after,
+.inputfile-5 + label:hover figure::after {
+  border-bottom-color: #d3394c;
+}
+
+.inputfile-5 + label svg {
+  width: 100%;
+  height: 100%;
+  fill: #f1e5e6;
+}
+
+
+/* style 6 */
+
+.inputfile-6 + label {
+  color: #d3394c;
+}
+
+.inputfile-6 + label {
+  border: 1px solid #d3394c;
+  background-color: #f1e5e6;
+  padding: 0;
+}
+
+.inputfile-6:focus + label,
+.inputfile-6.has-focus + label,
+.inputfile-6 + label:hover {
+  border-color: #722040;
+}
+
+.inputfile-6 + label span,
+.inputfile-6 + label strong {
+  padding: 0.625rem 1.25rem;
+  /* 10px 20px */
+}
+
+.inputfile-6 + label span {
+  width: 200px;
+  min-height: 2em;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.inputfile-6 + label strong {
+  height: 100%;
+  color: #f1e5e6;
+  background-color: #d3394c;
+  display: inline-block;
+}
+
+.inputfile-6:focus + label strong,
+.inputfile-6.has-focus + label strong,
+.inputfile-6 + label:hover strong {
+  background-color: #722040;
+}
+
+@media screen and (max-width: 50em) {
+.inputfile-6 + label strong {
+  display: block;
+}
+}
+
+.boton-circle{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 30px;
+  color: white;
+  padding: .60rem;
+  padding-bottom: 0px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+
+.boton-circle:hover{
+  cursor : pointer;
+
+}
+
+.text-right{
+    text-align: right !important;
+    padding-right: 24px !important;
+}
+
+text-wine{
+  color: rgb(87, 4, 4);
+}
+
+.list{ 
+  .search{
+      margin: 0 14px;
+      width: 100%;
+      border: none;
+      border-radius: 2px;
+      padding: 6px;
+      outline: none;
+  }
+  .mail-body{
+      padding: 16px;
+  }   
+  .empty{
+      mat-icon{
+          font-size: 220px;
+          height: 220px;
+          width: 220px;
+          opacity: 0.4;
+      }
+      p{
+          font-size: 18px;
+          opacity: 0.8;
+      }
+  }    
+}
+.list-sidenav{
+  width: 350px;
+  border-right: 1px solid transparent;
+  overflow: hidden;
+}
+.list-content{
+  height: calc(100vh - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2 + 132px));
+  .mat-line{
+      white-space: unset;
+  }
+  .subject{
+      font-weight: 500;
+  }
+}
+.list-sidenav-list{
+  height: calc(100vh - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2 + 132px));
+  .sender{
+      font-weight: 400;
+  }
+  .subject{
+      font-size: 13px;
+  }
+  .unread .mat-line, .unread .sender {
+      font-weight: bold;
+  }
+  .selected{
+      background: rgba(0,0,0,.15);
+  }
+}
+
+@media (max-width: 575px) { 
+  .list-sidenav{
+      width: 280px;
+  }
+}
+
+.desc-selected{
+  cursor: text;
+  background: #e4e4e4;
+  border-radius: 7px;
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  cursor: pointer;
+  background: rgb(218, 218, 218);
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.row-selected{
+    background: #f0f0f0;
+}
+
+.mat-row {
+  height: auto !important;
+}
+
+.mat-cell {
+  font-size: .7rem !important;
+  padding: 4px 4px 4px 0 !important;
+}

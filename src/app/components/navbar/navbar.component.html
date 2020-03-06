@@ -1,7 +1,12 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
   <div class="container-fluid">
     <!-- Brand -->
-    <a class="h4 mb-0  text-uppercase d-none d-lg-inline-block" style="color: white" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
+    <a class="h4 mb-0  text-uppercase d-none d-lg-inline-block" style="color: white" routerLinkActive="active" [routerLink]="['/dashboard']">
+      
+      <i class="ni {{getTitle()?.icon}} mr-2" style="color: white !important; font-size: x-large;"></i>
+      
+      
+      {{getTitle()?.title}}</a>
     <!-- Form -->
    <!--  <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
       <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
@@ -17,16 +22,35 @@
     <!-- User -->
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item" ngbDropdown placement="bottom-right">
-        <a *ngIf="profileimg" class="nav-link pr-0" role="button" ngbDropdownToggle  [@enterAnimation]>
+        
+
+        <a  class="nav-link pr-0" role="button" ngbDropdownToggle  [@enterAnimation]>
           <div class="media align-items-center">
             <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" src="{{profileimg}}">
+              <img alt="Image placeholder" src="{{profileimg}}" 
+              onError="this.src='assets/resources/users/profileimg.jpg';" style="box-shadow: 0px 0px 7px 0px #ccc9c9;">
             </span>
-            <div class="media-body ml-2 d-none d-lg-block menu">
-              <span  class="mb-0 text-sm  font-weight-bold" [ngClass]="{'ESCRITORIO': isEscritorio()}">{{nombre}}</span>
+            <div class="media-body ml-2 d-none d-lg-block menu" style="border-left: 1px solid gray;
+            padding-left: 1rem;">
+              <span  class="mb-0 text-sm  font-weight-bold" [ngClass]="{'ESCRITORIO': isEscritorio()}">
+                {{nombre}}
+                <div *ngIf="representado != null">
+                    <h6 class="mt-0 mb-0"  [ngClass]="{'ESCRITORIO': isEscritorio(), 'normal': !isEscritorio()}">REPRESENTANDO A</h6>
+                   
+                  <h4 style="font-variant-caps: all-small-caps;" [ngClass]="{'ESCRITORIO': isEscritorio(),'normal': !isEscritorio()}">
+                    <img alt="Image placeholder" src="{{representado?.cuentaContribuyente?.imageUrl}}"
+                    onError="this.src='assets/resources/users/profileimg.jpg';" style="width: 1rem;" class="mr-2">
+
+                    {{representado?.cuentaContribuyente?.name}}</h4></div>
+              </span>
             </div>
           </div>
         </a>
+
+
+      
+
+
         <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
     
           <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
@@ -38,6 +62,11 @@
           <a routerLinkActive="active" [routerLink]="['/dashboard']" class="dropdown-item">
             <i class="ni ni-support-16"></i>
             <span>Politicas</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a role="button" class="dropdown-item" (click)="representar()" >
+            <i class="ni ni-paper-diploma"></i>
+            <span>Representar</span>
           </a>
           <div class="dropdown-divider"></div>
           <a role="button" class="dropdown-item" (click)="cerrarsesion()" >

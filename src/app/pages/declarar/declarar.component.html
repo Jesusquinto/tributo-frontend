@@ -1,17 +1,27 @@
-<div class="header  pb-8 pt-5 pt-md-8" style="background: url('/assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;">
+<div class="header  pb-8 pt-md-6" style="background: url('assets/img/theme/dashboard_background.png'); background-repeat: no-repeat;">
   <span class="mask bg-gradient-blue opacity-6"></span>
 
   <div class="container-fluid d-flex align-items-center" >
       <div class="row">
         <div class="col-lg-12 col-md-12">
 
-
-
           <h1 *ngIf="estado == 'verentidades'" class="display-2 text-white">Seleccione la entidad </h1>
           <p *ngIf="estado == 'verentidades'" class="text-white mt-0 mb-5">Seleccione la entidad en la que vaya a declarar</p>
           
           <div *ngIf="estado == 'veractos'" style="position: relative;">
-          <div style="display: -webkit-inline-box;" ><img  src='{{url.entidadesEndpointNormal}}rest/v1/uploads/img/{{entidadSeleccionada.logo}}' onError="this.src='/assets/resources/Entidades/entidad_default.png';"  style="border-radius: 10px;    width: 80px;border-radius: 10px;height: 80px;" >          </div>
+          <div style="display: -webkit-inline-box;" >
+              <loader-img 
+              [imgSrc]="url.entidadesEndpointComplete+'uploads/img/'+entidadSeleccionada.logo" 
+              [spinnerColor]="'#de2b6e'" 
+              
+              [imgWidth]="'80px'"
+              [imgHeight]="'80px'"
+              [imgBackground]="'white'"
+              [imgBorderRadius]="'10px'"
+              [imgPadding]="'1rem'"
+              [imgPosition]="'relative'"></loader-img>       
+
+             </div>
           <h1  class="display-2 text-white acto-nombre">{{entidadSeleccionada.nombre}} </h1>
           <p  class="text-white mt-0 mb-5 acto-desc">Seleccione el tramite a declarar</p>
         </div>
@@ -20,6 +30,66 @@
           <h1 *ngIf="estado == 'verformulario'" class="display-2 text-white">Formulario para {{acto.fkBcActo.nombreActo}} </h1>
           <h4 *ngIf="estado == 'verformulario'" class="display-2 text-white">{{entidadSeleccionada.nombre}}</h4>
           <p *ngIf="estado == 'verformulario'" class="text-white mt-0 mb-5">{{acto.fkBcActo.descripcion}}</p>
+
+
+          <div *ngIf="estado == 'verpredial'" style="position: relative;">
+            <div style="display: -webkit-inline-box;" >
+  
+                <loader-img 
+                [imgSrc]="url.entidadesEndpointComplete+'uploads/img/'+acto.fkBcEntidad.logo" 
+                [spinnerColor]="'#de2b6e'" 
+                
+                [imgWidth]="'80px'"
+                [imgHeight]="'80px'"
+                [imgBackground]="'white'"
+                [imgBorderRadius]="'10px'"
+                [imgPadding]="'1rem'"
+                [imgPosition]="'relative'"></loader-img>       
+  
+          </div>
+            <h1  class="display-2 text-white acto-nombre">{{acto.fkBcEntidad.nombre}} </h1>
+            <h4  class="text-white mt-0 mb-5 acto-desc">Consultar Predial</h4>
+          </div>  
+
+
+          <div *ngIf="estado == 'verica'" style="position: relative;">
+            <div style="display: -webkit-inline-box;" >
+  
+                <loader-img 
+                [imgSrc]="url.entidadesEndpointComplete+'uploads/img/'+acto.fkBcEntidad.logo" 
+                [spinnerColor]="'#de2b6e'" 
+                
+                [imgWidth]="'80px'"
+                [imgHeight]="'80px'"
+                [imgBackground]="'white'"
+                [imgBorderRadius]="'10px'"
+                [imgPadding]="'1rem'"
+                [imgPosition]="'relative'"></loader-img>       
+  
+          </div>
+            <h1  class="display-2 text-white acto-nombre">{{acto.fkBcEntidad.nombre}} </h1>
+            <h4  class="text-white mt-0 mb-5 acto-desc">Declarar I.C.A</h4>
+          </div>
+          
+          
+          <div *ngIf="estado == 'vervehicular'" style="position: relative;">
+            <div style="display: -webkit-inline-box;" >
+  
+                <loader-img 
+                [imgSrc]="url.entidadesEndpointComplete+'uploads/img/'+acto.fkBcEntidad.logo" 
+                [spinnerColor]="'#de2b6e'" 
+                
+                [imgWidth]="'80px'"
+                [imgHeight]="'80px'"
+                [imgBackground]="'white'"
+                [imgBorderRadius]="'10px'"
+                [imgPadding]="'1rem'"
+                [imgPosition]="'relative'"></loader-img>       
+  
+             </div>
+            <h1  class="display-2 text-white acto-nombre">{{acto.fkBcEntidad.nombre}} </h1>
+            <h4  class="text-white mt-0 mb-5 acto-desc">Consultar vehicular</h4>
+          </div> 
        
 
         </div>
@@ -32,17 +102,41 @@
 <div class="container-fluid mt--7">
   <!-- Table -->
   <div class="row">
-    <div class="col-3" *ngIf="estado != 'verformulario' && estado != 'verrangos'">
-      <app-filtros  (showEntidades)="showEntidades($event)" (showTramites)="showTramites($event)" [resultados]= 'filterResult' [estado]="estado" [actos]="actos" [resetTramitesFilter]="resetTramitesFilter.asObservable()" [resetEntidadesFilter]="resetEntidadesFilter.asObservable()" [idEntidad]="idEntidad"></app-filtros>
+    <div class="col-md-3 mb-3" *ngIf="estado != 'verformulario' && estado !='verpredial' && estado != 'verrangos' && estado!='vervehicular' && estado!='verica'">
+      <app-filtros  
+      (showEntidades)="showEntidades($event)" 
+      (showTramites)="showTramites($event)" 
+      [resultados]= 'filterResult' 
+      [estado]="estado" 
+      [actos]="actos" 
+      [resetTramitesFilter]="resetTramitesFilter.asObservable()" 
+      [resetEntidadesFilter]="resetEntidadesFilter.asObservable()" 
+      [idEntidad]="idEntidad"></app-filtros>
 
     </div>
-    <div  [ngClass]="{ 'col-9': estado != 'verformulario', 'col-12': estado == 'verformulario'|| estado == 'verrangos' }">
-      <div class="card shadow" style="padding: 20px; background: #eaebec">
+    <div  [ngClass]="{ 'col-md-9': estado != 'verformulario', 'col-md-12': estado == 'verformulario'|| estado == 'verpredial' || estado == 'vervehicular' || estado === 'verica' }">
+      <div class="card shadow" style="padding: 20px; background: #eaebec" [ngClass]="{'bg-transparent' : estado === 'verpredial' || estado == 'vervehicular',
+      'bg-without-shadows': estado === 'verpredial' || estado =='vervehicular'}" >
 
-        <app-verEntidades *ngIf="estado == 'verentidades'"  (verActos)="verActos($event)"  [entidades]="entidades" [@enterAnimation]></app-verEntidades>
-        <app-verActos *ngIf="estado == 'veractos'" [actos]="actos" (verFormulario)="verFormulario($event)" [@enterAnimation]></app-verActos>
-        <app-verFormulario *ngIf="estado == 'verformulario'" [acto]="acto" (verRegistro)="verRegistro($event)" [tributos]="tributos"(enviarFormulario)="declarar($event)" [@enterAnimation]></app-verFormulario>
+        <app-verEntidades *ngIf="estado == 'verentidades'"  
+        (verActos)="verActos($event)" 
+         [entidades]="entidades" 
+         [@enterAnimation]></app-verEntidades>
+
+        <app-verActos *ngIf="estado == 'veractos'" [actos]="actos" 
+        (verPredial)="verPredial($event)" 
+        (verVehicular)="verVehicular($event)" 
+        (verFormulario)="verFormulario($event)" 
+        (verIca)="verIca($event)"
+        (anularTramite)="anularTramite($event)" 
+        (verTramite)="verTramite($event)" 
+        [@enterAnimation]></app-verActos>
+
+        <app-ver-estampillas *ngIf="estado == 'verformulario'" [tramite]="tramite" (Anular)="anularTramite($event)"  [acto]="acto" [tributos]="tributos" [@enterAnimation]></app-ver-estampillas>
         <app-verRangos *ngIf="estado == 'verrangos'"  [tributo]="tributo" [@enterAnimation]></app-verRangos>
+        <app-ver-predial [acto]="acto" *ngIf="estado === 'verpredial'"></app-ver-predial>
+        <app-ver-vehicular [acto]="acto" *ngIf="estado === 'vervehicular'" [@enterAnimation]></app-ver-vehicular>
+        <app-ver-ica [acto]="acto" [tramite]="tramite" *ngIf="estado === 'verica'" (Anular)="anularTramite($event)"  [@enterAnimation]></app-ver-ica>
 
         <div class="card-footer py-4 mt-4" *ngIf="estado != 'verentidades'">
           <nav aria-label="...">

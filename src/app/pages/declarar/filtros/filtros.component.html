@@ -43,7 +43,7 @@
 
 
   <div style="margin-top: 10px" *ngIf="estado == 'verentidades'">
-    <h5>Buscar por nombre</h5>
+    <h5>Buscar por nombre de la entidad</h5>
 
    
       <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
@@ -53,7 +53,7 @@
           </div>
           <input style="background: rgba(0,0,0,0);
           border: 2px solid grey; padding-left: 10px" class="form-control" placeholder="Nombre de la entidad" type="text" (focus)="focus = true"
-          (blur)="focus = false">
+          (blur)="focus = false"  [(ngModel)]="nombreEntidad" (keyup.enter)="seleccionarNombreEntidad()" (keyup)="seleccionarNombreEntidad()">
         </div>
       </div>
 
@@ -71,7 +71,8 @@
               <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
             <input style="background: rgba(0,0,0,0); 
-            border: 2px solid grey; padding-left: 10px"   [(ngModel)]="code"class="form-control" placeholder="Codigo del tramite" type="number" (focus)="focus = true" (keyup.enter)="seleccionarCode()"
+            border: 2px solid grey; padding-left: 10px"   [(ngModel)]="code" class="form-control" placeholder="Codigo del tramite" type="number" (focus)="focus = true" (keyup.enter)="seleccionarCode()"
+            (keyup)="seleccionarCode()"
             (blur)="focus = false">
           </div>
         </div>
@@ -90,6 +91,7 @@
             </div>
             <input style="background: rgba(0,0,0,0);
             border: 2px solid grey; padding-left: 10px"  [(ngModel)]="nameTramite" class="form-control" placeholder="Nombre del tramite" type="text" (focus)="focus = true" (keyup.enter)="seleccionarName()"
+            (keyup)="seleccionarName()"
             (blur)="focus = false">
           </div>
         </div>

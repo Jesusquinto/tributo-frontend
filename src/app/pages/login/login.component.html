@@ -1,6 +1,11 @@
-<div class="header bg-gradient-danger py-5 py-lg-8" style="background-image : url(../assets/img/theme/tributo_background.jpg) !important; padding-top: 0 !important ">
  
-  <div class="container">
+
+ <div class="header bg-gradient-danger py-5 py-lg-8" style="    background-image: url(assets/img/theme/dashboard_background2.png) !important;
+ padding-top: 0 !important;
+ background-size: cover !important;
+ background-repeat: no-repeat !important;
+ background-position: bottom!important; ">
+ 
     <div class="header-body text-center mb-7" style="margin: 0px !important;">
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-6  mt-4">
@@ -8,72 +13,156 @@
           <p  style="position: relative;
           color: #024a59 !important;
           bottom: 25%;
-          margin: 0px;" class="text-lead text-light">Plataforma única nacional!</p>
+          margin: 0px;" class="text-lead text-light" >Plataforma única nacional!</p>
         </div>
       </div>
     </div>
-  </div>
 
 </div>
-<!-- Page content -->
-<div class="container mt--8 pb-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-5 col-md-7" style="max-width: 38%">
-      <div class="card bg-secondary shadow border-0">
-       
-        <div class="card-body px-lg-5" style="padding-top: 10%">
-          <div class="text-center text-muted mb-4">
-            <small>Iniciar sesion en tributo.co</small>
-          </div>
-          <form role="form">
-            <div class="form-group mb-3">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                </div>
-                <input class="form-control" placeholder="Correo" type="email">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="input-group input-group-alternative">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                </div>
-                <input class="form-control" placeholder="Contraseña" type="password">
-              </div>
-            </div>
-            <div class="custom-control custom-control-alternative custom-checkbox">
-              <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-              <label class="custom-control-label" for=" customCheckLogin">
-                <span class="text-muted">Recordar contraseña</span>
-              </label>
-            </div>
-            <div class="text-center">
-              <button type="button"[routerLink]="['/dashboard']" class="btn btn-primary my-4">Ingresar</button>
-            </div>
 
-          </form>
+
+
+
+<div class="container contenedor web" id="container" style="margin-top: 5rem" [ngClass]="{'right-panel-active': estado == 'registrar'}" >
+  	<div class="form-container sign-up-container">
+		<form [formGroup]="DataRegister">
+			<h1>Crear una cuenta</h1>
+			<!-- <div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+      </div> -->
+      <div class="btn-wrapper text-center">     
+          <a id="boton" href="{{url.normal}}oauth2/authorize/google?redirect_uri={{url.serverUrl}}" class="btn btn-neutral btn-icon" style="width: 90%; padding-right: 2.3rem;">
+            <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg"></span>
+            <span class="btn-inner--text">Google</span>
+          </a>
         </div>
-        
-        <div class="card-header bg-transparent pb-5">
-          <div class="text-muted text-center mt-2 mb-3"><small>Iniciar sesion con Google</small></div>
-          <div class="btn-wrapper text-center">
-           
-            <a id="boton" href="{{url.normal}}oauth2/authorize/google?redirect_uri={{url.serverUrl}}" class="btn btn-neutral btn-icon" style="width: 90%">
-              <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg"></span>
-              <span class="btn-inner--text">Google</span>
-            </a>
-          </div>
+
+			<span>o usa tu correo electronico</span>
+      <input type="text" placeholder="Nombre y apellido" formControlName="name" />
+      <show-errors style="width: 100%" [control]="DataRegister.controls.name"></show-errors>
+      <input type="email" placeholder="Correo electronico" formControlName="email" />
+      <show-errors style="width: 100%" [control]="DataRegister.controls.email"></show-errors>
+      <input type="password" placeholder="Contraseña" formControlName="password" />
+      <show-errors style="width: 100%" [control]="DataRegister.controls.password"></show-errors>
+			<button style="background: #34345e; border: none" (click)="registrar()" >Registrar</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form [formGroup]="Data">
+			<h1 style="color: #34345e;font-size: larger;">Iniciar sesion con</h1>
+		<!-- 	<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+      </div> -->
+      <div class="btn-wrapper text-center">     
+          <a id="boton" href="{{url.normal}}oauth2/authorize/google?redirect_uri={{url.serverUrl}}" class="btn btn-neutral btn-icon" style="width: 90%; padding-right: 2.3rem;">
+            <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg"></span>
+            <span class="btn-inner--text">Google</span>
+          </a>
         </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6">
-          <a  href="javascript:void(0)" class="text-light"><small>Olvidó su contraseña?</small></a>
-        </div>
-        <div class="col-6 text-right">
-          <a routerLinkActive="active" [routerLink]="['/register']"  class="text-light"><small>Crear cuenta tributo.co</small></a>
-        </div>
-      </div>
-    </div>
-  </div>
+
+      <span>o usa tu cuenta</span>
+          <input type="email" placeholder="Email" formControlName="email"/>
+          <show-errors style="width: 100%" [control]="Data.controls.email"></show-errors>
+          <input type="password" placeholder="Password" formControlName="password" />
+          <show-errors style="width: 100%" [control]="Data.controls.password"></show-errors>
+		
+      <a href="#">Olvidaste tu contraseña?</a>
+      
+  
+			<button style="background: #34345e; border: none" (click)="loginLocal()">Iniciar</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1 style="color: white">Ya tienes una cuenta?</h1>
+				<p>Ingresa tu cuenta tributo.co para seguir tributando con nosotros</p>
+				<button class="ghost" id="signIn" (click)="estado = 'iniciar'">Iniciar</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1 style="color: white">Hola, Bienvenido!</h1>
+				<p>Ingresa tus datos personales y empieza a tributar con nosotros</p>
+				<button class="ghost" id="signUp" (click)="estado = 'registrar'">Registrate</button>
+			</div>
+		</div>
+	</div>
 </div>
+
+
+
+
+
+
+
+
+<div class="container  movil">
+
+
+  <div  *ngIf="estado == 'iniciar'">
+		<form [formGroup]="Data" style="border-radius: 7px;">
+			<h1 style="color: #34345e;font-size: larger;" class="mt-4">Iniciar sesion con</h1>
+		<!-- 	<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+      </div> -->
+      <div class="btn-wrapper text-center">     
+          <a id="boton" href="{{url.normal}}oauth2/authorize/google?redirect_uri={{url.serverUrl}}" class="btn btn-neutral btn-icon" style="width: 90%; padding-right: 2.3rem;">
+            <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg"></span>
+            <span class="btn-inner--text">Google</span>
+          </a>
+        </div>
+
+      <span>o usa tu cuenta</span>
+          <input type="email" placeholder="Email" formControlName="email"/>
+          <show-errors style="width: 100%" [control]="Data.controls.email"></show-errors>
+          <input type="password" placeholder="Password" formControlName="password" />
+          <show-errors style="width: 100%" [control]="Data.controls.password"></show-errors>
+		
+      <a href="#">Olvidaste tu contraseña?</a>
+      
+  
+      <button style="background: #34345e; border: none" (click)="loginLocal()">Iniciar</button>
+      <a (click)="estado = 'registrar'">Aún no tienes una cuenta?</a>
+
+		</form>
+  </div>
+  
+  <div *ngIf="estado == 'registrar'">
+		<form [formGroup]="DataRegister" style="border-radius: 7px;">
+			<h1 class="mt-4" style="color: #34345e;font-size: larger;">Crear una cuenta</h1>
+			<!-- <div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+      </div> -->
+      <div class="btn-wrapper text-center">     
+          <a id="boton" href="{{url.normal}}oauth2/authorize/google?redirect_uri={{url.serverUrl}}" class="btn btn-neutral btn-icon" style="width: 90%; padding-right: 2.3rem;">
+            <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg"></span>
+            <span class="btn-inner--text">Google</span>
+          </a>
+        </div>
+
+			<span>o usa tu correo electronico</span>
+      <input type="text" placeholder="Nombre y apellido" formControlName="name" />
+      <show-errors style="width: 100%" [control]="DataRegister.controls.name"></show-errors>
+      <input type="email" placeholder="Correo electronico" formControlName="email" />
+      <show-errors style="width: 100%" [control]="DataRegister.controls.email"></show-errors>
+      <input type="password" placeholder="Contraseña" formControlName="password" />
+      <show-errors style="width: 100%" [control]="DataRegister.controls.password"></show-errors>
+      <button style="background: #34345e; border: none" (click)="registrar()" >Registrar</button>
+      <a (click)="estado = 'iniciar'">Ya tienes una cuenta?</a>
+
+		</form>
+	</div>
+
+
+</div>
+
+
+
+

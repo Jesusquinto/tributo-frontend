@@ -1,0 +1,51 @@
+<div class="container">
+
+    <div class="row" >
+        <div class="col-12 mb-2">
+            <h3 >Agregar permisos a {{data?.representante.cuentaRepresentante.name}} </h3>
+
+            <mat-divider></mat-divider>
+
+            <mat-list >
+              <div *ngFor="let p of data.permisos" class="mb-2">
+               <mat-list-item class="permiso" >
+                 <i class="ni ni-badge mr-2" style="color: #32325d;" mat-list-icon (click)="p.detalles = !p.detalles"></i>
+                 <h4 mat-line (click)="p.detalles = !p.detalles">{{p.titulo}}</h4>
+                 <mat-checkbox class="example-margin " color="primary" [(ngModel)]="p.activo"></mat-checkbox>
+         
+               </mat-list-item>
+                <div style="background: rgb(213, 213, 213); width: 100%; margin-bottom: .25rem; padding: 1rem;" *ngIf="p.detalles">
+                    <div class="row" style=" padding-left: 1rem;padding-right: 1rem;">
+                      <mat-list-item class="permiso" *ngFor="let b of p.permisos">
+                       <i class="ni ni-settings-gear-65 mr-1" style="color: #32325d;" mat-list-icon></i>
+                       <h4 mat-line>{{b.nombre}}</h4>
+                       <mat-checkbox class="example-margin" color="primary"  [(ngModel)]="b.valor"></mat-checkbox>               
+                     </mat-list-item>                        
+                    </div>  
+                  </div>
+              </div>
+             </mat-list> 
+
+        </div>
+
+ 
+  
+
+        <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                        <strong>Nota!</strong>  Abra y active los modulos para brindar los diferentes servicios de los mismos
+                </div>
+        </div>
+
+
+
+        <div class="col-12" style="text-align: center;">
+                <button class="btn btn-primary" type="button" (click)="guardar()">Guardar</button>
+                <button class="btn btn-default ml-2" type="button" (click)="cerrar(0)">Cerrar</button>
+
+        </div>
+
+
+
+    </div>
+</div>

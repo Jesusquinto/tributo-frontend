@@ -5,28 +5,34 @@
         <div *ngFor="let entidad of entidades; let i = index" class="col-xl-3 order-xl-2 mb-5 mb-xl-0" style="margin-top: 7%">
            <div style="    background: #dedede;border-radius: 7px;">
               <div class="row justify-content-center">
-                <div class="col-lg-3 order-lg-2">
                   <div class="card-profile-image" (click)="viewActos(entidad)" >
                     <a >
-                      
-                      <img  src='{{url.entidadesEndpointComplete}}uploads/img/{{entidad.logo}}' onError="this.src='/assets/resources/Entidades/entidad_default.png';"  style="border-radius: 10px;    width: 180px;border-radius: 10px;height: 180px;" >
-                      
-                    </a>
+
+                        <loader-img 
+                        [imgSrc]="url.entidadesEndpointComplete+'uploads/img/'+entidad.logo" 
+                        [spinnerColor]="'#de2b6e'" 
+                        [spinnerMargin]="'5rem'"
+                        [imgWidth]="'180px'"
+                        [imgHeight]="'180px'"
+                        [imgBackground]="'white'"
+                        [imgBorderRadius]="'10px'"
+                        [imgPadding]="'2rem'"
+                        [imgPosition]="'relative'"></loader-img>        
+                    </a>                  
 
                   </div>
-
-                </div>
-              
               </div>
 
             
-              <div class="text-center" style="margin-top: 140px">
-                  <h3>
+              <div class="text-center">
+                  <h3 style="    padding: 2rem;
+                  padding-top: 0rem;">
                    {{entidad.nombre}}
                   </h3>
                  
                 </div>
               </div>
+
           </div>
     </div>
 

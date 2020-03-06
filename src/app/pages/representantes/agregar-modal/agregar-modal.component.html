@@ -1,0 +1,64 @@
+<div class="container">
+
+    <div class="row" >
+        <div class="col-12 mb-2">
+            <h3 >Agregar representante legal a </h3>
+
+            <mat-divider></mat-divider>
+
+            <mat-list >
+               <mat-list-item style="background: rgb(224, 224, 224); border-radius: 4px;">
+                 <i class="ni ni-badge mr-2" style="color: #32325d;" mat-list-icon></i>
+                 <!-- <mat-icon >assignment_ind</mat-icon> -->
+                 <h4 mat-line>{{data?.usuario?.name}}</h4>
+                 <span mat-line> {{data?.usuario?.identificacion}} </span>
+               </mat-list-item>
+             </mat-list> 
+
+        </div>
+
+        <div class="col-12">
+
+                <div class="alert alert-primary" role="alert" *ngIf="data.estado == 0">
+                        <strong>Nota!</strong> Coloque aquí su llave enviada a 
+                    </div>
+
+                    <div class="alert alert-primary" role="alert" *ngIf="data.estado == 1">
+                            <strong>Nota!</strong> Ya se ha enviado una llave a 
+                        </div>
+        </div>
+
+        <div class="col-12" [formGroup]="formulario">            
+            <div class="form-group">
+                <label class="form-control-label" for="tipo-atividad">Tipo de actividad</label>
+                <input type="llave" id="tipo-actividad" formControlName="tipoActividad"
+                  class="form-control form-control-alternative" placeholder="Actividad del representante">
+                  <show-errors [control]="formulario.controls.tipoActividad"></show-errors>
+              </div>
+              <div class="form-group">
+                <label class="form-control-label" for="nombre-establecimiento">Nombre establecimiento</label>
+                <input type="llave" id="nombre-establecimiento" formControlName="nombreEstablecimiento"
+                  class="form-control form-control-alternative" placeholder="Nombre del establecimiento">
+                  <show-errors [control]="formulario.controls.nombreEstablecimiento"></show-errors>
+              </div>
+
+        </div>
+
+        <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                        <strong>Nota!</strong>  Se le enviará un mensaje de confirmación al correo del contribuyente para su confirmación
+                </div>
+        </div>
+
+
+
+        <div class="col-12" style="text-align: center;">
+                <button class="btn btn-primary" type="button" (click)="agregar()">Agregar</button>
+                <button class="btn btn-default ml-2" type="button" (click)="cerrar(0)">Cerrar</button>
+
+        </div>
+
+
+
+    </div>
+</div>

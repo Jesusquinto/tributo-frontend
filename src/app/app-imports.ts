@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxSpinnerModule } from "ngx-spinner";
+import {ChartModule} from 'primeng/chart';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MatAutocompleteModule,
          MatButtonModule,
          MatButtonToggleModule,
@@ -30,12 +34,47 @@ import { MatAutocompleteModule,
          MatTabsModule,
          MatToolbarModule,
          MatTooltipModule,
-         MatStepperModule } from '@angular/material';
+         MatStepperModule,
+         MatDividerModule,
+         MatFormFieldModule} from '@angular/material';
+import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClipboardModule } from 'ngx-clipboard';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import {  SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { PipesModule } from './pipes/pipes.module';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { NgxCurrencyModule } from 'ngx-currency';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   imports: [
+    FormsModule,
+    HttpClientModule,
+    DragDropModule,
+    NgbModule,
+    ClipboardModule,
+    ReactiveFormsModule,
+    PerfectScrollbarModule,
+    SweetAlert2Module,
+    MatSidenavModule,
+    NgxMatSelectSearchModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatCardModule,
+    MatListModule,
+    MatToolbarModule,
+    MatIconModule,
+    PipesModule,
+    MatFormFieldModule,
+    NgxExtendedPdfViewerModule,
+    MatTooltipModule,
     CommonModule,
+    ChartModule,
     MatAutocompleteModule,
+    NgxSpinnerModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
@@ -65,7 +104,11 @@ import { MatAutocompleteModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatStepperModule
+    MatStepperModule,
+    NgxSkeletonLoaderModule,
+    MatRadioModule,
+    NgxCurrencyModule,
+    PdfViewerModule
   ],
   exports: [
     MatAutocompleteModule,
@@ -73,13 +116,17 @@ import { MatAutocompleteModule,
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
+    NgxSpinnerModule,
+    ChartModule,
     MatChipsModule,
     MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
     MatIconModule,
+    DragDropModule,
     MatInputModule,
+    NgxMatSelectSearchModule,
     MatListModule,
     MatMenuModule,
     MatNativeDateModule,
@@ -98,7 +145,27 @@ import { MatAutocompleteModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatStepperModule
+    MatStepperModule,
+    NgxSkeletonLoaderModule,
+    FormsModule,
+    HttpClientModule,
+    NgbModule,
+    ClipboardModule,
+    ReactiveFormsModule,
+    PerfectScrollbarModule,
+    SweetAlert2Module,
+    MatSidenavModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatCardModule,
+    MatListModule,
+    MatToolbarModule,
+    MatIconModule,
+    PipesModule,
+    MatFormFieldModule,
+    NgxExtendedPdfViewerModule,
+    MatTooltipModule,
+    NgxCurrencyModule
   ],
   declarations: []
 })

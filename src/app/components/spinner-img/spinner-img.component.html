@@ -1,0 +1,9 @@
+<div >
+    <div *ngIf="loading" [ngStyle]="{'color': spinnerColor, 'margin-bottom': spinnerMargin}" class="la-square-jelly-box la-2x">
+        <div></div>
+        <div></div>
+      </div>
+ <img [hidden]="loading" (load)="onLoad()" src="{{imgSrc}}" alt="imagen" onError="this.src='assets/resources/Entidades/entidad_default.png';" 
+ [ngStyle]="{'border-radius': imgBorderRadius,
+  'width': imgWidth, 'height': imgHeight, 'background': imgBackground, 'padding': imgPadding, 'position': imgPosition}"/>
+</div>

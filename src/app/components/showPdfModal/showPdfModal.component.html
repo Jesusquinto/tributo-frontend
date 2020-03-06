@@ -1,0 +1,32 @@
+<div class="container p-0">
+
+    <div  class="animated fadeIn fast">
+        <perfect-scrollbar style="max-height: 580px" >
+
+
+          
+        <div class="row mb-2 ml-1 mt-2">
+          <div class="pl-2 ml-2 mb-1">
+            <h1  style="margin-bottom: 0px"><i class="fas fa-stamp mr-2"></i>{{data?.tramite.descripcion}}</h1>
+             <span>Ref. {{data?.tramite.consecutivoActo}}</span>
+         </div>
+          <div class="col-md-12">
+            <button (click)="cerrar()" class="btn btn bg-default text-white"><i class="fa fa-times"></i>&nbsp; cerrar</button>
+            <button (click)="savePDF()" class="btn btn bg-default text-white"><i class="fa fa-save"></i>&nbsp; Guardar</button>
+          </div>
+        </div>
+        
+
+       
+            <div class="container" style=" bottom: 20px">
+                <ngx-extended-pdf-viewer height="480px" delayFirstView="250" [src]="data?.ruta"
+              useBrowserLocale="true"  [showScrollingButton]="false"	 [backgroundColor]="'#fafafa'" (pagesLoaded)="pdfCargado($event)"	> </ngx-extended-pdf-viewer>
+
+
+
+              </div>
+       
+   </perfect-scrollbar>
+    </div>
+   
+</div>

@@ -18,15 +18,34 @@ import { ComponentsModule } from './components/components.module';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatCardModule} from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatTooltipModule} from '@angular/material/tooltip';
+
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AppImports } from './app-imports';
+import {  LOCALE_ID } from '@angular/core';
+
+
+import { registerLocaleData } from '@angular/common';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+import { RepresentanteService } from '@representados';
+import es from '@angular/common/locales/es';
+import { APP_INITIALIZER } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { EndpointsService } from './services/endpoints.service';
+import { environment } from '../environments/environment';
+
+export function EndpointsLoader(endpointsService: EndpointsService) {
+  return () => endpointsService.load(environment.endpoints);
+}
+
+
+registerLocaleData(es);
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
 
 
 @NgModule({
@@ -38,7 +57,6 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    MatTooltipModule,
     MDBBootstrapModule,
     SweetAlert2Module.forRoot({
       buttonsStyling: true,
@@ -46,21 +64,27 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
       confirmButtonClass: 'btn btn-primary',
       cancelButtonClass: 'btn btn-primary'
   }),
-  MatSidenavModule,
-  MatMenuModule,
-  MatDividerModule,
-  MatCardModule,
-  MatListModule,
-  MatToolbarModule,
-  PdfViewerModule
-    
+
+  PdfViewerModule,
+  AppImports
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent
   ],
-  providers: [AppSettings],
+  providers: [AppSettings, { provide: LOCALE_ID, useValue: 'es-ES' },
+  {
+    provide: PERFECT_SCROLLBAR_CONFIG,
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+  },
+  EndpointsService,
+    {
+      provide   : APP_INITIALIZER,
+      useFactory: EndpointsLoader,
+      deps      : [EndpointsService],
+      multi     : true
+    }],
   bootstrap: [AppComponent],
 
 })

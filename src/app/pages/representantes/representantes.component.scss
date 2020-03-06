@@ -1,0 +1,93 @@
+.example-list {
+    width: 500px;
+    max-width: 100%;
+    border: solid 1px #ccc;
+    min-height: 60px;
+    display: block;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .example-box {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: move;
+    background: white;
+    font-size: 14px;
+  }
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .example-box:last-child {
+    border: none;
+  }
+  
+  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .example-custom-placeholder {
+    background: #ccc;
+    border: dotted 3px #999;
+    min-height: 60px;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .add-header{
+    height: 2.5rem;
+    background: #c7c7c7;
+    border: 2px solid #b6b3b3;
+    border-radius: 4px;
+    padding-top: .25rem;
+  }
+
+  .add-body{
+    background: #dddddd;
+    border: 2px solid #c9c6c6;
+    border-radius: 4px;
+  }
+
+  .add-text{
+    margin: 0px;
+    color: #646464;
+    font-size: larger;
+    font-weight: 600;
+  }
+
+.example-list2{
+  width: 100%;
+  max-width: 100%;
+  border: solid 1px #ccc;
+  min-height: 60px;
+  height: 100%;
+  display: inherit;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+
+.contribuyente{
+  background: rgb(224, 224, 224); border-radius: 4px;
+}
+
+.contribuyente:hover{
+  background: rgb(231, 231, 231);
+  cursor: pointer;
+}

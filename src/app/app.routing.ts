@@ -6,15 +6,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
-import { AuthGuardService } from './auth.guard'
-import { LoginGuardService } from './login.guard';
+import { LoginGuard } from '@guard/login';
+import { UserGuard } from '@guard/user';
 
 const routes: Routes =[
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
-  }, {
+  },
+
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [
@@ -23,8 +25,10 @@ const routes: Routes =[
         loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
       }
     ],
-    canActivate: [AuthGuardService]
-  }, {
+    canActivate: [UserGuard]
+  },
+
+  {
     path: '',
     component: AuthLayoutComponent,
     children: [
@@ -33,8 +37,10 @@ const routes: Routes =[
         loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule'
       }
     ],
-    canActivate: [LoginGuardService]
-  }, {
+    canActivate: [LoginGuard]
+  },
+
+  {
     path: '**',
     redirectTo: 'login'
   }
@@ -47,6 +53,8 @@ const routes: Routes =[
     RouterModule.forRoot(routes)
   ],
   exports: [
+    RouterModule
   ],
 })
 export class AppRoutingModule { }
+

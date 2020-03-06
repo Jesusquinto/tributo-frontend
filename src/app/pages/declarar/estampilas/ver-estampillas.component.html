@@ -1,0 +1,333 @@
+<div class="row">  
+<div *ngIf="datos.controls && estado != 'verPDF'" class="container col-md-11" [@enterAnimation]>
+  <form [formGroup]="datos" #f="ngForm" enctype="multipart/form-data">
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="true"  hideToggle>
+      <mat-expansion-panel-header class="exp-header">
+        <mat-panel-title>
+          <h3>  <i class="ni ni-paper-diploma mr-2" ></i> Informacion de relevancia tributaria </h3>
+        </mat-panel-title>
+        <mat-panel-description>
+          DATOS DEL CONTRATO QUE GENERA LA OBLIGACIÓN
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      
+      <div class="mb-2 mt-3">
+            
+        <h1 style="margin-bottom: 0px"><i class="ni ni-single-copy-04" style="color: #32325d;" mat-list-icon></i> Relevancia tributaria
+          <h4 *ngIf="representado" class="float-right"><i class="ni ni-single-02" style="color: #32325d;" mat-list-icon></i>  Tramite de {{representado.cuentaContribuyente.name}}</h4>
+          </h1>      
+        <span>Complete datos del contrato</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+
+      <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="form-control-label" for="input-valorcontrato">Tipo de contrato</label>
+              <mat-form-field>
+                <mat-label>Tipo de contrato</mat-label>
+                <mat-select #contrato formControlName="descripcion">
+                  <mat-option *ngFor="let t of tipoContratos" [value]="t.nombre" >
+                    {{t.nombre}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <show-errors [control]="datos.controls.descripcion"></show-errors>
+            </div>
+          </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="form-control-label" for="input-nombrecontrato">Numero del contrato</label>
+            <input formControlName="numeroActo" type="text" id="input-numerocontrato"
+              class="form-control form-control-alternative" placeholder="numero del contrato">
+            <show-errors [control]="datos.controls.numeroActo"></show-errors>
+          </div>
+        </div>
+
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="form-control-label" for="input-contratante">Entidad contratante</label>
+            <mat-form-field>
+              <mat-select formControlName="fkEntidadContratantes" placeholder="Seleccionar Contratante">
+                <mat-option>
+                  <ngx-mat-select-search formControlName="ContratanteFilterCtrl" [placeholderLabel]="'Buscar contratante...'"
+                  [noEntriesFoundLabel]="'no se encontró el contratante'"></ngx-mat-select-search>
+                  <div ngxMatSelectSearchClear><div class="ni ni-fat-remove"></div></div>
+                </mat-option>
+                <mat-option *ngFor="let contratante of contratantes | ContratanteSearch :  datos.controls.ContratanteFilterCtrl.value " 
+                  [value]="contratante.idEntidadContratantes">
+                  {{contratante.fkContratante.nombreContratante}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>    
+      
+            <show-errors [control]="datos.controls.fkEntidadContratantes"></show-errors>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="form-control-label" for="input-fechainiciocontrato">Fecha del contrato</label>
+      
+            <mat-form-field style="width: 100%">
+              <input formControlName="fechaInicioActo" matInput [matDatepicker]="picker"
+                placeholder="Seleciona la fecha" #fechainiciocontrato>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <show-errors [control]="datos.controls.fechaInicioActo"></show-errors>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="form-control-label" for="input-fechavencimientocontrato">Fecha de vencimiento del contrato</label>
+            <mat-form-field style="width: 100%">
+              <input formControlName="fechaVencimientoActo" matInput [matDatepicker]="picker2"
+                placeholder="Seleciona la fecha de vencimiento">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            <show-errors [control]="datos.controls.fechaVencimientoActo"></show-errors>
+          </div> 
+        </div>
+
+
+         <div class="col-md-3">
+           <div class="form-group">
+            <label class="form-control-label" for="input-retencion">Está sujeto a retención</label>
+
+            <div class="mt-3"></div>
+            <mat-radio-group id="input-retencion" formControlName="retencion">
+              <mat-radio-button class="ml-4" value="1">SI</mat-radio-button>
+              <mat-radio-button class="ml-4" value="0">NO</mat-radio-button>
+            </mat-radio-group>
+            <show-errors [control]="datos.controls.retencion"></show-errors>
+           </div>
+         </div>
+
+
+         <div class="col-md-3">
+          <div class="form-group">
+              <label class="form-control-label" for="input-valorcontrato">Periodo</label>
+            <mat-form-field>
+              <mat-label>Periodo</mat-label>
+              <mat-select #periodo formControlName="tipoPeriodo">
+                <mat-option *ngFor="let p of periodos" [value]="p.nombre">
+                  {{p.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <show-errors [control]="datos.controls.tipoPeriodo"></show-errors>
+          </div>
+        </div>
+
+
+        <div class="col-md-3">
+          <div class="form-group">
+              <label class="form-control-label" for="input-valorcontrato">Vigencia</label>
+            <mat-form-field>
+              <mat-label>Vigencia</mat-label>
+              <mat-select #Vigencia formControlName="tipoVigencia">
+                <mat-option *ngFor="let v of vigencias" [value]="v.nombre" >
+                  {{v.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <show-errors [control]="datos.controls.tipoVigencia"></show-errors>
+          </div>
+        </div>
+
+
+         <div class="col-md-3">
+            <div class="form-group">
+              <label class="form-control-label" for="input-valorcontrato">Valor contrato</label>
+              <input formControlName="valorActo" currencyMask  id="input-valorcontrato" [options]="{precision : 0, thousands: '.' }"
+                class="form-control form-control-alternative">
+              <show-errors [control]="datos.controls.valorActo"></show-errors>
+           </div>
+         </div>
+
+
+      </div>
+
+      <div style="padding: 30px" *ngIf="!tramite">
+          <label class="form-control-label" for="input-valorcontrato">Subir documento PDF del contrato</label>
+          <div class="row"
+            style="background: #eeeeee; border-radius: 8px;   box-shadow:inset 0px 0px 8px 1px lightgrey;">
+            <div class="col-4" style="position: relative; text-align: center">
+              <input type="file" name="file" id="file" class="inputfile inputfile-5" (change)="onFileChange($event)"
+                accept="application/pdf" />
+              <label for="file">
+                <figure><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                    <path
+                      d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                    </svg></figure> <span></span>
+              </label>
+              <label *ngIf="this.datos.controls['file'].value" style="    position: absolute;
+                top: 82%;
+                right: 15%;
+                text-align: center;
+                left: 15%;">{{this.datos.controls['file'].value.name | truncateFile}}</label>
+            </div>
+            <div class="col-8" style="padding-right: 0px">
+              <ngx-extended-pdf-viewer *ngIf="pdfSrc && pdfSrc!=1" showSidebarButton="false"
+                [showOpenFileButton]="false" [showPrintButton]="false" [showDownloadButton]="false"
+                [showBookmarkButton]="false" [showSecondaryToolbarButton]="false" [showRotateButton]="false"
+                [showPropertiesButton]="false" [showSelectToolButton]="false" [showSpreadButton]="false"
+                [showPagingButtons]="false" [showPresentationModeButton]="false" [showSidebarButton]="false"
+                useBrowserLocale="true" [src]="pdfSrc" backgroundColor="#eeeeee"> </ngx-extended-pdf-viewer>
+              <div *ngIf="!pdfSrc " fxLayout="column" fxLayoutAlign="center center" class="container"
+                style="text-align: center;  padding-top: 30px;">
+                <i class="ni ni-paper-diploma text-default" style="font-size: 100px"></i>
+                <p class="mt-2">Seleccione el archivo pdf de su contrato</p>
+              </div>
+              <div *ngIf="pdfSrc === 1" fxLayout="column" fxLayoutAlign="center center" class="container"
+                style="text-align: center;  padding-top: 30px;">
+                <i class="ni ni-single-copy-04 text-default" style="font-size: 100px"></i>
+                <p class="mt-2">El archivo seleccionado no es soportado</p>
+              </div>
+            </div>
+          </div>
+          <show-errors [control]="datos.controls.file"></show-errors>
+        </div>
+     
+
+
+        
+      <mat-action-row>
+      </mat-action-row>
+    </mat-expansion-panel>
+  
+    <mat-expansion-panel [expanded]="step === 1"  hideToggle>
+      <mat-expansion-panel-header class="exp-header">
+        <mat-panel-title>
+          <h3> <i class="ni ni-money-coins ml-2"></i> Determinación de la estampilla</h3>          
+        </mat-panel-title>
+        <mat-panel-description>
+          VALOR A PAGAR - FACTURACIÓN         
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      
+      <div class="mb-2 mt-3">
+            
+        <h1 style="margin-bottom: 0px"><i class="ni ni-badge" style="color: #32325d;" mat-list-icon></i> Valor estampillas</h1>      
+        <span>Calculo de valor por estampillas </span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+
+      <div class="col-lg-5 mt-2">
+        <div class="form-group mb-0">
+          <label class="form-control-label" for="input-valorapagar">Valor a pagar</label>
+          <div class="alert alert-warning" role="alert" style="padding: 5px;margin: 0px">
+            <span class="alert-inner--icon ml-2 mr-2"><i class="ni ni-money-coins"></i></span>
+            <span class="alert-inner--text">{{valorapagar | currency: '$'}} </span>
+          </div>
+          <button style="font-size: 12px;
+          width: 100%;
+          padding: 2px;
+          margin-top: 2px;" type="button" class="btn btn-primary" (click)="calcular()">
+            <span>Calcular</span>
+          </button>
+        </div>
+      </div>
+
+
+
+      <mat-action-row>
+      </mat-action-row>
+    </mat-expansion-panel>
+  
+   
+  
+  </mat-accordion>
+
+</form>
+</div>
+
+<div *ngIf="estado == 'verPDF'" class="animated fadeIn fast col-md-11"  [@enterAnimation]>
+  
+
+
+          <div class="row mb-2 ml-1">
+            <div class="pl-2 ml-2 mb-2">
+              <h1  style="margin-bottom: 0px"><i class="fas fa-stamp mr-2"></i>{{tramite.descripcion}}</h1>
+               <span>Ref. contrato {{tramite.numeroActo}}</span>
+           </div>
+            <div class="col-md-12">
+              <button (click)="cerrar()" class="btn btn bg-default text-white"><i class="fa fa-times"></i>&nbsp; cerrar</button>
+              <button (click)="savePDF()" class="btn btn bg-default text-white"><i class="fa fa-save"></i>&nbsp; Guardar</button>
+            </div>
+          </div>
+        
+   <!--      <p (click)="cerrar()" style="width: 10%;" class="mb-4">
+            <a class="profile__contact-btn btn btn-lg btn-block btn-default text-white" data-toggle="modal"
+              data-target="#profile__contact-form" style="margin: 0px">
+             Cerrar
+            </a>
+          </p> -->
+
+      
+            <div class="container" style=" bottom: 20px">
+                <ngx-extended-pdf-viewer height="480px" delayFirstView="250" [src]="pdf"
+              useBrowserLocale="true"  [showScrollingButton]="false"	 [backgroundColor]="'#fafafa'" (pagesLoaded)="pdfCargado($event)"	> </ngx-extended-pdf-viewer>
+
+
+
+              </div>
+      
+</div>
+
+
+
+<div class="col-md-1" class="barra-lateral">
+
+
+
+  <div  class="boton-barralateral" placement="left" ngbTooltip="Pagar" *ngIf="tramite && tramite?.estado === 'PR'">
+    <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-money-coins"></i></span>
+  </div>
+
+  <div   class="boton-barralateral" placement="left" ngbTooltip="Generar firma electronica" *ngIf="tramite && tramite?.estado != 'PR'" (click)="generarLlave()">
+    <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-key-25"></i></span>
+  </div>
+
+
+  <div class="boton-barralateral" placement="left" ngbTooltip="Guardar Borrador" (click)="guardar()" *ngIf="tramite?.estado != 'PR'">
+    <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-archive-2"></i></span>
+  </div>
+
+  <div class="boton-barralateral" placement="left" ngbTooltip="Generar PDF" *ngIf="tramite" (click)="generarPDF()">   
+    <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-single-copy-04"></i></span>
+  </div>
+
+
+
+  <div   class="boton-barralateral" placement="left"  ngbTooltip="Anular tramite"  *ngIf="tramite && tramite?.estado != 'PR'" (click)="anular()">
+    <span class="btn-inner--icon" style="position: absolute; bottom: 0rem"><i class="ni ni-basket"></i></span>
+  </div>
+
+
+
+ 
+
+
+</div>
+
+
+
+</div>  
+

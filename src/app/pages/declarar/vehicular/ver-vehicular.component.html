@@ -1,0 +1,99 @@
+<div class="container" style="    padding: 0px;
+margin: 0px;">
+
+    
+
+    <div class="row">
+        <div class="col-md-3 mb-3" >
+                <div class="card shadow" style="padding: 10%; background: #eaebec; height: 100%;">
+                    <div>
+                      <h1  style="margin-bottom: 0px"><i class="ni ni-bus-front-12 mr-2"></i>  Vehicular</h1>
+
+                       <span>0 Resultados</span>
+                   </div>
+                  
+
+                    <div style="margin-top: 10px" >
+                      <h5>Buscar por placa</h5>
+                  
+                     
+                        <div class="form-group mb-0" >
+                          <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input style="background: rgba(0,0,0,0);
+                            border: 2px solid grey; padding-left: 10px" class="form-control" placeholder="Placa del vehículo" type="text" 
+                             [(ngModel)]="placa" (keyup.enter)="buscar()" >
+                          </div>
+                        </div>  
+                  
+
+                        <button class="btn btn-default mt-4" style="width: 100%;" (click)="buscar()">Buscar</button>
+                  
+                    </div>
+                  
+
+                </div>      
+           
+    
+        </div>
+
+
+
+        <div class="col-md-9" >
+          <div class="card shadow" style="padding: 20px; background: #eaebec">
+            
+            <div *ngIf="estado != 'verpdf'" fxLayout="column" fxLayoutAlign="center center" class="container"
+            style="text-align: center;  padding-top: 150px; padding-bottom: 150px" [@enterAnimation]>
+            <i class="ni ni-ui-04 text-default" style="font-size: 100px"></i>
+            <p class="mt-2">Utilice los filtros para buscar vehiculos</p>
+          </div>
+
+
+        
+
+
+          <div class="row p-3 pt-0" *ngIf="estado === 'verpdf'" [@enterAnimation]>
+
+           <div class="row mb-2">
+              <div class="pl-2 ml-2 mb-2">
+                <h1  style="margin-bottom: 0px"><i class="far fa-id-badge mr-2"></i> DECLARACION DE IMPUESTO</h1>
+                 <span>Ref. {{placa}}</span>
+             </div>
+            </div> 
+
+      <!--         <ngx-extended-pdf-viewer 
+              style="width: 100%;"
+              height="480px" 
+              delayFirstView="250" 
+              [src]="url"
+              useBrowserLocale="true"  
+              [showScrollingButton]="false"	 
+              [backgroundColor]="'#fafafa'" 
+              (pagesLoaded)="pdfCargado($event)"
+              (pdfLoadingFailed)="pdfError($event)"		>
+          
+            </ngx-extended-pdf-viewer> -->
+
+
+            <iframe (load)="pdfCargado()" width="100%" height="500" [src]="url"></iframe>
+
+
+
+          </div> 
+
+
+
+
+ 
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+</div>

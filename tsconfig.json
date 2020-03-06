@@ -2,10 +2,41 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@pages/dashboard": ["src/app/pages/dashboard/dashboard.module.ts"],
+      "@pages/profile": ["src/app/pages/user-profile/user-profile.module.ts"],
+      "@pages/vencimientos": ["src/app/pages/vencimientos/vencimientos.module.ts"],
+      "@pages/estado-cuenta": ["src/app/pages/estado-cuenta/estado-cuenta.module.ts"],
+      "@pages/login": ["src/app/pages/login/login.module.ts"],
+      "@pages/mis-contratos": ["src/app/pages/mis-contratos/mis-contratos.module.ts"],
+      "@pages/declarar" : ["src/app/pages/declarar/declarar.module.ts"],
+      "@pages/verificar": ["src/app/pages/verificar/verificar.module.ts"],
+      "@pages/representantes": ["src/app/pages/representantes/representantes.module.ts"],
+      "@pages/confirmar-invitacion": ["src/app/pages/confirmar-invitacion/confirmar-invitacion.module.ts"],
+      "@pages/acuerdos-pagos" : ["src/app/pages/acuerdos-pagos/acuerdos-pagos.module.ts"],
+
+
+      "@servicio": ["src/app/api-rest.service.ts"],
+      "@representados": ["src/app/services/representante.service.ts"],
+      "@imports": ["src/app/app-imports.ts"],
+      "@endpoints": ["src/app/endpoints.ts"],
+      "@variables/chart": ["src/app/variables/charts.ts"],
+      "@pipes": ["src/app/pipes/pipes.module.ts"],
+      "@componentes": ["src/app/components/components.module.ts"],
+      "@authService": ["src/app/auth.service.ts"],
+      "@guard/login": ["src/app/guards/login.guard.ts"],
+      "@guard/user": ["src/app/guards/user.guard.ts"],
+      "@layout/admin" : ["src/app/layouts/admin-layout/admin-layout.module.ts"],
+      "@layout/auth" : ["src/app/layouts/auth-layout/auth-layout.module.ts"]
+
+
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -17,5 +48,9 @@
       "es2017",
       "dom"
     ]
-  }
+ },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+   ]
 }

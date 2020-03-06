@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@a
 import { numberLimits, emailValidator, matchingPasswords, passwordStrength } from '../../components/validators/app-validators';
 import Swal from 'sweetalert2'
 import { ApiRestService } from '../../api-rest.service';
-import { DataService } from 'src/app/data.service';
+import { AuthService } from '@authService';
 import { Municipio } from 'src/app/modelos/municipio.model';
 import { divipos } from 'src/app/modelos/geDivipo.data';
 
@@ -75,7 +75,8 @@ export class UserProfileComponent implements OnInit {
 
   public settings: Settings;
 
-  constructor(private appSettings: AppSettings, private _formBuilder: FormBuilder, private servicio: ApiRestService, private data: DataService) {
+  constructor(private appSettings: AppSettings, private _formBuilder: FormBuilder,
+              private servicio: ApiRestService, private auth: AuthService) {
     this.settings = this.appSettings.settings;
     this.settings.loadingSpinner = false;
     this.ubicaciones = divipos;
@@ -90,47 +91,60 @@ export class UserProfileComponent implements OnInit {
     this.settings.loadingSpinner = true;
     this.servicio.getUserData().subscribe(result => {
       this.backdata = result;
+      if (this.backdata.tipoIdentificacion) {
+        this.idTypes.forEach(tipos => {
+          if (this.backdata.tipoIdentificacion === tipos.value) {
+            this.userId = tipos;
+          }
+        });
+      }
 
-      this.idTypes.forEach(tipos => {
-        if (this.backdata.tipoIdentificacion == tipos.value) {
-          this.userId = tipos;
-        }
-      });
-
-      this.sexoTypes.forEach(sexo => {
-        if (this.backdata.sexo == sexo.value) {
-          this.userSexo = sexo;
-        }
-      });
-
-      this.typeTypes.forEach(tipopersona => {
-        if (this.backdata.tipousuario == tipopersona.value) {
-          this.userType = tipopersona;
-        }
-      });
-
-      this.departamentos.forEach(e => {
-        if(e.codigoDepartemento == this.backdata.fkDivipo.codigoDepartemento){
-          this.departamentoSelected = e;
-        }
-      });
-
-      this.getMunicipiosByDepartamento(this.departamentoSelected)
-
-      this.municipios.forEach(e =>{
-        if(e.idGeDivipo == this.backdata.fkDivipo.idGeDivipo){
-          this.municipioSelected = e;
-        }
-      })
+      if (this.backdata.sexo) {
+        this.sexoTypes.forEach(sexo => {
+          if (this.backdata.sexo === sexo.value) {
+            this.userSexo = sexo;
+          }
+        });
+      }
 
 
+      if (this.backdata.tipousuario) {
+        this.typeTypes.forEach(tipopersona => {
+          if (this.backdata.tipousuario === tipopersona.value) {
+            this.userType = tipopersona;
+          }
+        });
+      }
 
-     
+      if (this.backdata.fkDivipo) {
+        this.departamentos.forEach(e => {
+          if (e.codigoDepartemento === this.backdata.fkDivipo.codigoDepartemento) {
+            this.departamentoSelected = e;
+          }
+        });
+
+        this.getMunicipiosByDepartamento(this.departamentoSelected)
+
+        this.municipios.forEach(e => {
+          if (e.idGeDivipo === this.backdata.fkDivipo.idGeDivipo) {
+            this.municipioSelected = e;
+          }
+        })
+      }
+
+
+
+
+
+
+
+
+
 
 
 
       this.contribuyenteTypes.forEach(contribuyente => {
-        if (this.backdata.tipocontribuyente == contribuyente.value) {
+        if (this.backdata.tipocontribuyente === contribuyente.value) {
           this.userContribuyente = contribuyente;
         }
       });
@@ -140,7 +154,7 @@ export class UserProfileComponent implements OnInit {
         'email': [this.backdata.email, Validators.compose([Validators.required, emailValidator])],
         'name': [this.backdata.name, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(65)])],
         'tipoid': [this.backdata.tipoIdentificacion, Validators.compose([Validators.required])],
-        'identificacion': [this.backdata.identificacion, Validators.compose([Validators.required, numberLimits({ max: 11, min: 8 })])],
+        'identificacion': [this.backdata.identificacion, Validators.compose([Validators.required, numberLimits({ min: 6 })])],
         'sexo': [this.backdata.sexo, Validators.compose([Validators.required])],
         'direccion': [this.backdata.direccion, Validators.compose([Validators.required])],
         'telefono': [this.backdata.telefono, Validators.compose([Validators.required, numberLimits({ max: 15, min: 6 })])],
@@ -148,7 +162,7 @@ export class UserProfileComponent implements OnInit {
         'tipousuario': [this.backdata.tipousuario, Validators.compose([Validators.required])],
         'razonsocial': [this.backdata.razonsocial, Validators.compose([Validators.required])],
         'tipocontribuyente': [this.backdata.tipocontribuyente, Validators.compose([Validators.required])],
-        
+
       });
       this.showit = true;
       this.settings.loadingSpinner = false;
@@ -170,7 +184,6 @@ export class UserProfileComponent implements OnInit {
         });
       });
     })
-    this.ShowMessage();
 
   }
 
@@ -178,26 +191,12 @@ export class UserProfileComponent implements OnInit {
 
 
 
-
-  hideMessage() {
-    this.data.setUserProfileAlert();
-    this.ShowMessage();
-  }
-
-  ShowMessage() {
-    let flag: boolean = this.data.geUserProfileAlert();
-    if (flag) {
-      this.showMessage = false;
-    } else {
-      this.showMessage = true;
-    }
-  }
 
 
   setTipoid(idtype: any) {
     this.userId = idtype;
     this.datos.controls['tipoid'].setValue(idtype.value);
-    console.log(this.userId)
+    console.log(this.userId);
 
   }
   setSexo(sexoType: any) {
@@ -216,7 +215,7 @@ export class UserProfileComponent implements OnInit {
   setContribuyente(contribuyente: any) {
     this.userContribuyente = contribuyente;
     this.datos.controls['tipocontribuyente'].setValue(contribuyente.value);
-    console.log(this.userContribuyente)
+    console.log(this.userContribuyente);
   }
 
 
@@ -340,7 +339,7 @@ export class UserProfileComponent implements OnInit {
 
 
   seleccionarDepartamento(departamento: any) {
-  
+
     this.departamentoSearch = departamento.nombreDepartamentp;
     this.getMunicipiosByDepartamento(departamento);
     console.log(this.departamentoSearch);
@@ -351,7 +350,7 @@ export class UserProfileComponent implements OnInit {
 
     this.municipioSearch = municipio.nombreMunicipio;
     console.log(this.municipioSearch);
-    
+
 
   }
 

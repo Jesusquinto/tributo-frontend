@@ -1,7 +1,21 @@
-<router-outlet></router-outlet>
-<div id="app-spinner" [class.hide]="!settings.loadingSpinner"> 
-  <div class="lds-circle"><div><img src="assets/img/theme/loading.gif" width="300" alt=""> </div></div>
-
-    <h4>Cargando...</h4>
+<router-outlet *ngIf="!showLoading"></router-outlet>
+<div *ngIf="showLoading" class="loading-container">
+    <img src="assets/img/logo_mobile.png" class="centrado-porcentual img-loading">
 </div>
 
+
+
+
+
+
+
+<ngx-spinner
+bdOpacity = 0.7
+bdColor = "rgba(51,51,51,0.91)"
+size = "medium"
+color = "#fff"
+type = "ball-circus"
+[fullScreen] = "true"
+>
+<p style="color: white" > Cargando... </p>
+</ngx-spinner>

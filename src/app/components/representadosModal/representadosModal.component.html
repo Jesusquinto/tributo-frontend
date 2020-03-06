@@ -1,0 +1,54 @@
+<div class="container">
+
+    <div class="row" >
+        <div class="col-12 mb-2">
+            <h3 >Seleccionar cuenta a representar </h3>
+
+            <mat-divider></mat-divider>
+
+            <mat-list >
+                <mat-radio-group aria-label="Seleccionar un representado" [(ngModel)]="data.representado">
+
+                    <div *ngFor="let r of data.representados" class="mb-2">
+                        <mat-list-item class="permiso" >
+                          <i class="ni ni-fat-remove mr-2" style="color: #32325d;" mat-list-icon ></i>
+                          <h4 mat-line >Ninguna - (mi cuenta)</h4>
+                          <mat-radio-button color="primary" [value]="null"></mat-radio-button>      
+                        </mat-list-item>
+                       </div>
+
+              <div *ngFor="let r of data.representados" class="mb-2">
+               <mat-list-item class="permiso" >
+                 <i class="ni ni-badge mr-2" style="color: #32325d;" mat-list-icon ></i>
+                 <h4 mat-line >{{r.cuentaContribuyente.name}} - {{r.cuentaContribuyente.identificacion}}</h4>
+                 <mat-radio-button color="primary" [value]="r"></mat-radio-button>
+    
+               </mat-list-item>
+              </div>
+            </mat-radio-group>
+
+             </mat-list> 
+
+        </div>
+
+ 
+  
+
+        <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                        <strong>Nota!</strong>  Seleccione la opción ninguna para volver a administrar su cuenta personal
+                </div>
+        </div>
+
+
+
+        <div class="col-12" style="text-align: center;">
+                <button class="btn btn-primary" type="button" (click)="aplicar()">Aplicar</button>
+                <button class="btn btn-default ml-2" type="button" (click)="cerrar()">Cerrar</button>
+
+        </div>
+
+
+
+    </div>
+</div>

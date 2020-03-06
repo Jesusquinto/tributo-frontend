@@ -11,7 +11,7 @@
     width: 100%;
     position: fixed;
     top: 0;
-    background: rgb(255, 255, 255);
+    background: rgba(101, 101, 101, 0.557);
     z-index: 999999;
     visibility: visible;
     opacity: 1;
@@ -27,7 +27,7 @@
       font-weight: 600;
         margin-top: 10px;
         letter-spacing: 0.02em;
-        color: #dc0330;
+        color: #202020;
         opacity: 0;
         text-transform: uppercase;
         -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
@@ -75,3 +75,23 @@
     50% {opacity: 1}
     100%{opacity: 0}
 }
+
+
+.centrado-porcentual {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+  }
+
+
+
+  .loading-container{
+    height: 100vh; 
+    width: 100%; 
+    background-color: #fff;
+  }
+  .img-loading{
+    width: 25vh; height: 25%;
+  }

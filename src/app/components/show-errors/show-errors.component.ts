@@ -11,12 +11,12 @@ import { trigger,style,transition,animate,keyframes,query,stagger,group, state, 
         trigger(
           'enterAnimation', [
             transition(':enter', [
-              style({transform: 'translateX(100%)', opacity: 0}),
+              style({transform: 'translateX(0)', opacity: 0}),
               animate('300ms', style({transform: 'translateX(0)', opacity: 1}))
             ]),
             transition(':leave', [
               style({transform: 'translateX(0)', opacity: 1}),
-              animate('300ms', style({transform: 'translateX(100%)', opacity: 0}))
+              animate('300ms', style({transform: 'translateX(0)', opacity: 0}))
             ])
           ]
         )
@@ -28,7 +28,7 @@ import { trigger,style,transition,animate,keyframes,query,stagger,group, state, 
      margin-bottom: 1rem;
      border: 1px solid transparent;
      transition: all .3s;
-     border-radius: 0.375rem;" class="alert alert-danger" role="alert" *ngFor="let error of listOfErrors()">{{error}}</div>
+     border-radius: 0.375rem; margin: 0px" class="alert alert-danger" role="alert" *ngFor="let error of listOfErrors()">{{error}}</div>
    </div>
  `,
 })

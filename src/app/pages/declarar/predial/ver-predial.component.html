@@ -1,0 +1,214 @@
+<div class="container" style="    padding: 0px;
+margin: 0px;">
+
+    
+
+    <div class="row">
+        <div class="col-md-3 mb-3" >
+                <div class="card shadow" style="padding: 10%; background: #eaebec; height: 100%;">
+                    <div>
+                      <h1  style="margin-bottom: 0px"><i class="ni ni-paper-diploma mr-2"></i>  Predial</h1>
+
+                       <span>{{dataSource.data.length}} Resultados</span>
+                   </div>
+                  
+                    <div style="margin-top: 10px" >
+                      <h5>Buscar por referencia catastral</h5>                                       
+                        <div class="form-group mb-0" >
+                          <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input style="background: rgba(0,0,0,0);
+                            border: 2px solid grey; padding-left: 10px" class="form-control" placeholder="referencia catastral" type="text" 
+                             [(ngModel)]="referencia" (keyup.enter)="buscar()" >
+                          </div>
+                        </div>                    
+                    </div>
+
+                    <div style="margin-top: 10px" >
+                      <h5>Buscar por direccion</h5>                                       
+                        <div class="form-group mb-0" >
+                          <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input style="background: rgba(0,0,0,0);
+                            border: 2px solid grey; padding-left: 10px" class="form-control" placeholder="direccion de predio" type="text" 
+                             [(ngModel)]="direccion" (keyup.enter)="buscar()" >
+                          </div>
+                        </div>                    
+                        <button class="btn btn-default mt-4" style="width: 100%;" (click)="buscar()">Buscar</button>                  
+                    </div>
+                  
+
+                </div>      
+           
+    
+        </div>
+
+
+
+        <div class="col-md-9" >
+          <div class="card shadow" style="padding: 20px; background: #eaebec">
+            
+            <div *ngIf="predios === null" fxLayout="column" fxLayoutAlign="center center" class="container"
+            style="text-align: center;  padding-top: 150px; padding-bottom: 150px" [@enterAnimation]>
+            <i class="ni ni-ui-04 text-default" style="font-size: 100px"></i>
+            <p class="mt-2">Utilice los filtros para buscar predios</p>
+          </div>
+
+
+            <div *ngIf="predios?.length === 0" fxLayout="column" fxLayoutAlign="center center" class="container"
+            style="text-align: center;  padding-top: 150px; padding-bottom: 150px" [@enterAnimation]>
+            <i class="ni ni-support-16 text-default" style="font-size: 100px"></i>
+            <p class="mt-2">No se encontraron predios con esos parametros</p>
+          </div>
+
+
+          <div class="row p-3 pt-0" *ngIf="estado === 'verorden'" [@enterAnimation]>
+
+            <div class="row mb-2">
+              <div class="pl-2 ml-2 mb-2">
+                <h1  style="margin-bottom: 0px"><i class="fas fa-home mr-2"></i> {{predios[0].direccion}}</h1>
+                 <span>Ref. {{predios[0].referencia}}</span>
+             </div>
+              <div class="col-md-12">
+                <button (click)="estado = 'predios'" class="btn btn bg-default text-white"><i class="fa fa-times"></i>&nbsp; volver</button>
+                <button (click)="savePDF()" class="btn btn bg-default text-white"><i class="fa fa-save"></i>&nbsp; Guardar</button>
+              </div>
+            </div>
+
+              <ngx-extended-pdf-viewer 
+              style="width: 100%;"
+              height="480px" 
+              delayFirstView="250" 
+              [src]="pdfRuta"
+              useBrowserLocale="true"  
+              [showScrollingButton]="false"	 
+              [backgroundColor]="'#fafafa'" 
+              (pagesLoaded)="pdfCargado($event)"
+              (pdfLoadingFailed)="pdfError($event)"		>
+          
+            </ngx-extended-pdf-viewer>
+
+
+
+          </div>
+
+
+
+
+          <div class="row" *ngIf="predios?.length > 0 && estado === 'predios'" [@enterAnimation]>
+              <div class="col-md-12">
+                <div class="pl-2">
+                  <h1  style="margin-bottom: 0px"><i class="fas fa-home mr-2"></i> Pagos pendientes</h1>
+                   <span>Ref. {{referencia}}</span>
+               </div>
+
+
+                <div style="margin: 10px">
+            
+                  <div>
+                    <div class="col-md-12 py-2" style="background: #dadff7;">
+                      <div class="row">
+                        <div class="col-md-9">
+                          <div class="btn-group btn-group-sm" role="group" style="margin: 0px;">
+                            <button [disabled]="codigo === ''" type="button" class="btn btn-sm btn-warning"
+                              (click)="buscar()" matTooltip="Recargar" [matTooltipPosition]="'above'"><i
+                                class="fa fa-sync"></i></button>
+                            <button (click)="pagar()" [disabled]="dataSource.data.length === 0" type="button" class="btn btn bg-default text-white"><i
+                                class="fa fa-file-medical"></i>&nbsp;Generar recibo</button>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <input type="text" (keyup)="applyFilter($event.target.value)"
+                            class="form-control form-control-sm bg-white" style="border-radius: 3px; padding-left: 3px;"
+                            placeholder="Buscar por...">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 p-0">
+                      <table mat-table [dataSource]="dataSource" matSort class="w-100" multiTemplateDataRows >
+            
+              
+                        <ng-container matColumnDef="referencia">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                            <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; REFERENCIA
+                          </th>
+                          <td mat-cell *matCellDef="let item"
+                          style="padding-left: 24px !important;"><i class="fa fa-file-invoice-dollar text-warning mr-2" ></i> {{item.referencia}} </td>
+                        </ng-container>
+              
+                        <ng-container matColumnDef="nombre">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                            <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; NOMBRE
+                          </th>
+                          <td mat-cell *matCellDef="let item"> {{item.nombre}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="direccion">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                            <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; DIRECCION
+                          </th>
+                          <td mat-cell *matCellDef="let item" class="text-right" style="padding-right: 24px !important;"
+                            [ngClass]="item.sxCSdo === 0 ? 'text-success':'text-danger'"> <b>{{item.direccion}}</b>
+                          </td>
+                        </ng-container>
+              
+
+                        <ng-container matColumnDef="capital">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                            <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; CAPITAL
+                          </th>
+                          <td mat-cell *matCellDef="let item" class="text-right" style="padding-right: 24px !important;"
+                            [ngClass]="item.sxCSdo === 0 ? 'text-success':'text-danger'"> <b>{{item.total | currency: '$'}}</b>
+                          </td>
+                        </ng-container>
+              
+                        <ng-container matColumnDef="intereses">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                            <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; INTERESES
+                          </th>
+                          <td mat-cell *matCellDef="let item" class="text-right" style="padding-right: 24px !important;"
+                            [ngClass]="item.sxCSdo === 0 ? 'text-success':'text-danger'"> <b>{{item.Interes | currency : '$'}}</b>
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="total">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-default text-white">
+                            <i class=" fa fa-arrow-circle-down text-warning"></i>&nbsp; TOTAL
+                          </th>
+                          <td mat-cell *matCellDef="let item" class="text-right" style="padding-right: 24px !important;"
+                            [ngClass]="item.sxCSdo === 0 ? 'text-success':'text-danger'"> <b>{{(item.total + item.Interes) | currency : '$' }}</b>
+                          </td>
+                        </ng-container>
+                        
+
+                    
+                        <tr style="height: auto !important; padding: 2px !important;" mat-header-row
+                        *matHeaderRowDef="displayedColumns"></tr>
+                        <tr class="trow" mat-row *matRowDef="let row;let i = index; columns: displayedColumns"></tr>                            
+                      </table>
+                      <mat-paginator itemsPerPageLabel="Elementos por pagina"  [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+
+                    </div>
+            
+
+            
+                  </div>
+                </div>
+              </div>
+
+          </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+</div>
